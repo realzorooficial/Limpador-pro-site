@@ -6,7 +6,9 @@
     <title>Limpador Pro — Limpeza Inteligente para Windows</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
     <style>
         :root {
             --bg: #080808;
@@ -61,6 +63,8 @@
         #particles {
             position: fixed; inset: 0; z-index: 0;
             pointer-events: none; opacity: 0.35;
+            will-change: transform;
+            contain: strict;
         }
 
         /* Nav */
@@ -71,6 +75,8 @@
             backdrop-filter: blur(20px) saturate(1.3);
             border-bottom: 1px solid var(--border);
             transition: all 0.5s var(--ease);
+            will-change: transform;
+            contain: layout style;
         }
         .nav.scrolled {
             background: rgba(8,8,8,0.92);
@@ -296,6 +302,7 @@
             transition: all 0.6s var(--ease);
             position: relative; overflow: hidden;
             backdrop-filter: blur(12px);
+            contain: layout style paint;
         }
         .f-card::before {
             content: ''; position: absolute; top: 0; left: 0;
@@ -402,6 +409,7 @@
             position: absolute; inset: 0;
             border: 1.5px solid var(--border); border-radius: 50%;
             animation: spin 30s linear infinite;
+            will-change: transform;
         }
         .shield .ring::before {
             content: ''; position: absolute; inset: -12px;
@@ -718,8 +726,9 @@
         .reveal {
             opacity: 0; transform: translateY(30px);
             transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+            will-change: opacity, transform;
         }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal.visible { opacity: 1; transform: translateY(0); will-change: auto; }
         .d1 { transition-delay: 0.08s; }
         .d2 { transition-delay: 0.16s; }
         .d3 { transition-delay: 0.24s; }
@@ -755,6 +764,17 @@
             .hero h1 .main { font-size: clamp(2.2rem, 11vw, 3.5rem); }
             .btn-main, .btn-ghost { width: 100%; justify-content: center; }
             .price-card { padding: 1.75rem 1.25rem; }
+        }
+
+        /* Reduced motion for accessibility and performance */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+            #particles { display: none; }
         }
     </style>
 </head>
@@ -1049,94 +1069,185 @@
     </footer>
 
     <script>
+        // === PARTICLES (optimized) ===
         const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        let particles = [], mx = 0, my = 0;
+        const ctx = canvas.getContext('2d', { alpha: true });
+        let particles = [], mx = -9999, my = -9999, animId = null, isVisible = true;
 
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        resize(); window.addEventListener('resize', resize);
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+
+        // Debounced resize
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(resize, 150);
+        }, { passive: true });
 
         class P {
             constructor() { this.reset(); }
             reset() {
-                this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height;
-                this.s = Math.random()*1.2+0.3; this.vx = (Math.random()-0.5)*0.25;
-                this.vy = (Math.random()-0.5)*0.25; this.o = Math.random()*0.25+0.04;
-                this.life = Math.random()*120+120; this.max = this.life;
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.s = Math.random() * 1.2 + 0.3;
+                this.vx = (Math.random() - 0.5) * 0.25;
+                this.vy = (Math.random() - 0.5) * 0.25;
+                this.o = Math.random() * 0.25 + 0.04;
+                this.life = Math.random() * 120 + 120;
+                this.max = this.life;
             }
             update() {
-                this.x += this.vx; this.y += this.vy; this.life--;
-                const dx = mx-this.x, dy = my-this.y, d = Math.sqrt(dx*dx+dy*dy);
-                if (d < 160) { const f = (160-d)/160; this.x -= dx*f*0.012; this.y -= dy*f*0.012; }
-                if (this.life <= 0 || this.x<<0 || this.x>canvas.width || this.y<<0 || this.y>canvas.height) this.reset();
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life--;
+                if (mx > -9999) {
+                    const dx = mx - this.x, dy = my - this.y;
+                    const dSq = dx * dx + dy * dy;
+                    if (dSq < 25600) { // 160*160
+                        const d = Math.sqrt(dSq);
+                        const f = (160 - d) / 160;
+                        this.x -= dx * f * 0.012;
+                        this.y -= dy * f * 0.012;
+                    }
+                }
+                if (this.life <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
             }
             draw() {
-                const r = this.life/this.max;
-                ctx.beginPath(); ctx.arc(this.x,this.y,this.s,0,Math.PI*2);
-                ctx.fillStyle = `rgba(255,255,255,${this.o*r})`; ctx.fill();
+                const r = this.life / this.max;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.s, 0, 6.2832);
+                ctx.fillStyle = `rgba(255,255,255,${this.o * r})`;
+                ctx.fill();
             }
         }
 
-        const count = Math.min(50, Math.floor(window.innerWidth/25));
-        for (let i=0;i<count;i++) particles.push(new P());
+        // Reduce particle count: fewer on mobile, cap at 35
+        const isMobile = window.innerWidth < 768;
+        const count = isMobile ? Math.min(18, Math.floor(window.innerWidth / 45)) : Math.min(35, Math.floor(window.innerWidth / 35));
+        for (let i = 0; i < count; i++) particles.push(new P());
 
+        // Optimized lines: use spatial proximity check, limit line draws
         function lines() {
-            for (let i=0;i<<particles.length;i++) {
-                for (let j=i+1;j<<particles.length;j++) {
-                    const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y, d=Math.sqrt(dx*dx+dy*dy);
-                    if (d<<120) {
-                        ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y);
-                        ctx.strokeStyle = `rgba(255,255,255,${0.035*(1-d/120)})`; ctx.lineWidth=0.35; ctx.stroke();
+            const len = particles.length;
+            for (let i = 0; i < len; i++) {
+                const pi = particles[i];
+                for (let j = i + 1; j < len; j++) {
+                    const pj = particles[j];
+                    const dx = pi.x - pj.x;
+                    if (dx > 120 || dx < -120) continue;
+                    const dy = pi.y - pj.y;
+                    if (dy > 120 || dy < -120) continue;
+                    const dSq = dx * dx + dy * dy;
+                    if (dSq < 14400) { // 120*120
+                        const d = Math.sqrt(dSq);
+                        ctx.beginPath();
+                        ctx.moveTo(pi.x, pi.y);
+                        ctx.lineTo(pj.x, pj.y);
+                        ctx.strokeStyle = `rgba(255,255,255,${0.035 * (1 - d / 120)})`;
+                        ctx.lineWidth = 0.35;
+                        ctx.stroke();
                     }
                 }
             }
         }
 
-        function loop() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); lines(); requestAnimationFrame(loop); }
+        // Skip lines on mobile entirely for performance
+        function loop() {
+            if (!isVisible) { animId = requestAnimationFrame(loop); return; }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            if (!isMobile) lines();
+            animId = requestAnimationFrame(loop);
+        }
+
+        // Page visibility: pause animation when tab is hidden
+        document.addEventListener('visibilitychange', function() {
+            isVisible = !document.hidden;
+        });
+
         loop();
-        document.addEventListener('mousemove', e=>{mx=e.clientX;my=e.clientY;});
 
-        // Intersection Observer
-        const obs = new IntersectionObserver((entries)=>{
-            entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-        }, {threshold:0.1});
-        document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+        // Throttled mousemove (every 50ms)
+        let lastMouse = 0;
+        document.addEventListener('mousemove', function(e) {
+            const now = Date.now();
+            if (now - lastMouse < 50) return;
+            lastMouse = now;
+            mx = e.clientX;
+            my = e.clientY;
+        }, { passive: true });
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(a=>{
-            a.addEventListener('click', function(e){
+        // === INTERSECTION OBSERVER (reveal animations) ===
+        const obs = new IntersectionObserver(function(entries) {
+            for (let i = 0; i < entries.length; i++) {
+                if (entries[i].isIntersecting) {
+                    entries[i].target.classList.add('visible');
+                    obs.unobserve(entries[i].target); // Stop observing once visible
+                }
+            }
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+        // === SMOOTH SCROLL ===
+        document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+            a.addEventListener('click', function(e) {
                 e.preventDefault();
                 const t = document.querySelector(this.getAttribute('href'));
-                if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
 
-        // Nav scroll
+        // === NAV SCROLL (throttled with rAF) ===
         const nav = document.querySelector('.nav');
-        window.addEventListener('scroll', ()=>{
-            nav.classList.toggle('scrolled', window.pageYOffset > 60);
-        });
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(function() {
+                    nav.classList.toggle('scrolled', window.pageYOffset > 60);
+                    ticking = false;
+                });
+            }
+        }, { passive: true });
 
-        // Mobile menu
+        // === MOBILE MENU ===
         function toggleMenu() {
             const links = document.querySelector('.nav-links');
             if (links.style.display === 'flex') {
                 links.style.display = 'none';
             } else {
-                links.style.display = 'flex'; links.style.flexDirection = 'column';
-                links.style.position = 'absolute'; links.style.top = '100%';
-                links.style.left = '0'; links.style.right = '0';
-                links.style.background = 'rgba(8,8,8,0.98)'; links.style.padding = '2rem';
-                links.style.borderBottom = '1px solid var(--border)'; links.style.gap = '1.25rem';
+                links.style.display = 'flex';
+                links.style.flexDirection = 'column';
+                links.style.position = 'absolute';
+                links.style.top = '100%';
+                links.style.left = '0';
+                links.style.right = '0';
+                links.style.background = 'rgba(8,8,8,0.98)';
+                links.style.padding = '2rem';
+                links.style.borderBottom = '1px solid var(--border)';
+                links.style.gap = '1.25rem';
                 links.style.backdropFilter = 'blur(20px)';
             }
         }
 
-        // Typewriter
+        // === TYPEWRITER (optimized with rAF) ===
         const sub = document.querySelector('.hero-inner p');
-        const txt = sub.textContent; sub.textContent = '';
-        let i = 0;
-        function type() { if (i < txt.length) { sub.textContent += txt.charAt(i); i++; setTimeout(type, 22); } }
+        const txt = sub.textContent;
+        sub.textContent = '';
+        let charIdx = 0;
+        function type() {
+            if (charIdx < txt.length) {
+                sub.textContent += txt.charAt(charIdx);
+                charIdx++;
+                setTimeout(type, 22);
+            }
+        }
         setTimeout(type, 1600);
     </script>
 </body>
