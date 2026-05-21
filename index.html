@@ -796,7 +796,7 @@
             </div>
             <div class="hero-trust">
                 <span class="badge">✓</span>
-                <span>Testado e aprovado por milhares de usuários</span>
+                <span>Testado e aprovado.</span>
             </div>
         </div>
     </section>
@@ -985,14 +985,15 @@
                 <h2 class="sec-title">Desbloqueie o potencial máximo</h2>
             </div>
             <div class="price-card reveal">
-                <span class="price-tag">🔓 PROMOÇÃO DE LANÇAMENTO</span>
+                <span class="price-tag">🔥 PREÇO DE LANÇAMENTO</span>
                 <h3>Licença Pro Permanente</h3>
                 <p class="sub">Vinculada ao seu PC — funciona para sempre na mesma máquina</p>
                 <div class="price-row">
-                    <span class="price-old">R$ 27,90</span>
+                    <span class="price-old">R$ 34,90</span>
                     <span class="price-new">R$ 12,90</span>
                 </div>
-                <p class="price-note">Primeiras 10 licenças com desconto especial de lançamento</p>
+                <p class="price-note">Apenas 25 licenças com desconto de lançamento</p>
+                <p class="price-note">⚠️ Vinculada ao hardware atual. Formatação ou troca de peças principais invalida a licença.</p>
                 <ul class="price-list">
                     <li><span class="ic">✓</span> Atualizações automáticas silenciosas</li>
                     <li><span class="ic">✓</span> Multi-idioma (Português, English, Español)</li>
@@ -1067,7 +1068,7 @@
                 this.x += this.vx; this.y += this.vy; this.life--;
                 const dx = mx-this.x, dy = my-this.y, d = Math.sqrt(dx*dx+dy*dy);
                 if (d < 160) { const f = (160-d)/160; this.x -= dx*f*0.012; this.y -= dy*f*0.012; }
-                if (this.life <= 0 || this.x<0 || this.x>canvas.width || this.y<0 || this.y>canvas.height) this.reset();
+                if (this.life <= 0 || this.x<<0 || this.x>canvas.width || this.y<<0 || this.y>canvas.height) this.reset();
             }
             draw() {
                 const r = this.life/this.max;
@@ -1080,10 +1081,10 @@
         for (let i=0;i<count;i++) particles.push(new P());
 
         function lines() {
-            for (let i=0;i<particles.length;i++) {
-                for (let j=i+1;j<particles.length;j++) {
+            for (let i=0;i<<particles.length;i++) {
+                for (let j=i+1;j<<particles.length;j++) {
                     const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y, d=Math.sqrt(dx*dx+dy*dy);
-                    if (d<120) {
+                    if (d<<120) {
                         ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y);
                         ctx.strokeStyle = `rgba(255,255,255,${0.035*(1-d/120)})`; ctx.lineWidth=0.35; ctx.stroke();
                     }
