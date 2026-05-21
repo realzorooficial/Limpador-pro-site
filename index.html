@@ -166,7 +166,7 @@
             padding: 0.5rem 1.2rem; border-radius: 50px;
             font-size: 0.78rem; color: var(--text-muted);
             margin-bottom: 2.5rem; backdrop-filter: blur(10px);
-            animation: fadeUp 1s var(--ease) both;
+            animation: fadeUp 0.6s var(--ease) both;
         }
         .hero-pill .dot {
             width: 5px; height: 5px; background: var(--emerald); border-radius: 50%;
@@ -187,25 +187,25 @@
             display: block;
             background: linear-gradient(180deg, #fff 0%, #a1a1aa 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: fadeUp 1s var(--ease) 0.15s both;
+            animation: fadeUp 0.6s var(--ease) 0.05s both;
         }
         .hero h1 .sub {
             display: block; font-size: 0.4em; font-weight: 500;
             color: var(--text-muted); letter-spacing: 0.3em;
             text-transform: uppercase; margin-top: 0.6rem;
-            animation: fadeUp 1s var(--ease) 0.3s both;
+            animation: fadeUp 0.6s var(--ease) 0.1s both;
         }
 
         .hero p {
             font-size: clamp(1rem, 2vw, 1.2rem);
             color: var(--text-secondary); max-width: 520px;
             margin: 0 auto 2.5rem; font-weight: 400; line-height: 1.7;
-            animation: fadeUp 1s var(--ease) 0.45s both;
+            animation: fadeUp 0.6s var(--ease) 0.15s both;
         }
 
         .hero-actions {
             display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
-            animation: fadeUp 1s var(--ease) 0.6s both;
+            animation: fadeUp 0.6s var(--ease) 0.2s both;
         }
         .btn-main {
             background: var(--white); color: var(--black);
@@ -245,7 +245,7 @@
         .hero-trust {
             margin-top: 3rem; display: flex; align-items: center;
             justify-content: center; gap: 0.6rem;
-            animation: fadeUp 1s var(--ease) 0.8s both;
+            animation: fadeUp 0.6s var(--ease) 0.25s both;
         }
         .hero-trust .badge {
             width: 22px; height: 22px;
@@ -724,19 +724,19 @@
 
         /* Animations */
         .reveal {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
-            will-change: opacity, transform;
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
         }
-        .reveal.visible { opacity: 1; transform: translateY(0); will-change: auto; }
-        .d1 { transition-delay: 0.08s; }
-        .d2 { transition-delay: 0.16s; }
-        .d3 { transition-delay: 0.24s; }
-        .d4 { transition-delay: 0.32s; }
-        .d5 { transition-delay: 0.40s; }
-        .d6 { transition-delay: 0.48s; }
-        .d7 { transition-delay: 0.56s; }
-        .d8 { transition-delay: 0.64s; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal.instant { opacity: 1; transform: translateY(0); transition: none; }
+        .d1 { transition-delay: 0.04s; }
+        .d2 { transition-delay: 0.08s; }
+        .d3 { transition-delay: 0.12s; }
+        .d4 { transition-delay: 0.16s; }
+        .d5 { transition-delay: 0.20s; }
+        .d6 { transition-delay: 0.24s; }
+        .d7 { transition-delay: 0.28s; }
+        .d8 { transition-delay: 0.32s; }
 
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -1184,22 +1184,49 @@
         }, { passive: true });
 
         // === INTERSECTION OBSERVER (reveal animations) ===
+        // Use generous rootMargin so elements start appearing before entering viewport
+        let scrollSpeed = 0, lastScrollY = window.pageYOffset, lastScrollTime = Date.now();
         const obs = new IntersectionObserver(function(entries) {
             for (let i = 0; i < entries.length; i++) {
                 if (entries[i].isIntersecting) {
-                    entries[i].target.classList.add('visible');
-                    obs.unobserve(entries[i].target); // Stop observing once visible
+                    const el = entries[i].target;
+                    // If user is scrolling fast, show instantly without animation delay
+                    if (scrollSpeed > 1500) {
+                        el.classList.add('instant');
+                    } else {
+                        el.classList.add('visible');
+                    }
+                    obs.unobserve(el);
                 }
             }
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, { threshold: 0.01, rootMargin: '0px 0px 100px 0px' });
         document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 
-        // === SMOOTH SCROLL ===
+        // Track scroll speed for instant reveal on fast navigation
+        window.addEventListener('scroll', function() {
+            const now = Date.now();
+            const dt = now - lastScrollTime;
+            if (dt > 0) {
+                scrollSpeed = Math.abs(window.pageYOffset - lastScrollY) / dt * 1000;
+            }
+            lastScrollY = window.pageYOffset;
+            lastScrollTime = now;
+        }, { passive: true });
+
+        // === SMOOTH SCROLL (instant reveal of target section) ===
         document.querySelectorAll('a[href^="#"]').forEach(function(a) {
             a.addEventListener('click', function(e) {
                 e.preventDefault();
-                const t = document.querySelector(this.getAttribute('href'));
-                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                const t = document.querySelector(href);
+                if (!t) return;
+                // Immediately reveal all .reveal elements in the target section
+                t.querySelectorAll('.reveal:not(.visible):not(.instant)').forEach(function(el) {
+                    el.classList.add('instant');
+                    obs.unobserve(el);
+                });
+                t.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
 
@@ -1236,19 +1263,24 @@
             }
         }
 
-        // === TYPEWRITER (optimized with rAF) ===
+        // === TYPEWRITER (non-blocking: text is visible immediately via CSS, effect is cosmetic) ===
         const sub = document.querySelector('.hero-inner p');
         const txt = sub.textContent;
-        sub.textContent = '';
-        let charIdx = 0;
-        function type() {
-            if (charIdx < txt.length) {
-                sub.textContent += txt.charAt(charIdx);
-                charIdx++;
-                setTimeout(type, 22);
+        // Show full text immediately for accessibility and fast interaction
+        sub.style.visibility = 'visible';
+        // Optional cosmetic typewriter only if page loads fresh (not scrolled)
+        if (window.pageYOffset < 100) {
+            sub.textContent = '';
+            let charIdx = 0;
+            function type() {
+                if (charIdx < txt.length) {
+                    sub.textContent += txt.charAt(charIdx);
+                    charIdx++;
+                    requestAnimationFrame(function() { setTimeout(type, 18); });
+                }
             }
+            setTimeout(type, 800);
         }
-        setTimeout(type, 1600);
     </script>
 </body>
 </html>
