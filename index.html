@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080808">
     <title>Limpador Pro — Limpeza Inteligente para Windows</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,6 +62,7 @@
         #particles {
             position: fixed; inset: 0; z-index: 0;
             pointer-events: none; opacity: 0.35;
+            contain: strict;
         }
 
         /* Nav */
@@ -137,6 +139,7 @@
         .hero {
             min-height: 100vh; display: flex; align-items: center; justify-content: center;
             position: relative; padding: 140px 2rem 100px; overflow: hidden;
+            content-visibility: visible;
         }
         .hero::before {
             content: ''; position: absolute; top: 35%; left: 50%;
@@ -195,6 +198,7 @@
             color: var(--text-secondary); max-width: 520px;
             margin: 0 auto 2.5rem; font-weight: 400; line-height: 1.7;
             animation: fadeUp 1s var(--ease) 0.45s both;
+            min-height: 3.4em; /* reserva espaço para evitar CLS no typewriter */
         }
 
         .hero-actions {
@@ -253,7 +257,11 @@
         .hero-trust span { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
 
         /* Sections */
-        section { position: relative; z-index: 2; padding: 100px 2rem; }
+        section {
+            position: relative; z-index: 2; padding: 100px 2rem;
+            content-visibility: auto;
+            contain-intrinsic-size: auto 600px;
+        }
         .wrap { max-width: 1080px; margin: 0 auto; }
 
         .sec-head {
@@ -284,6 +292,7 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1rem;
+            contain: layout style paint;
         }
         @media (max-width: 1024px) { .grid-features { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 560px) { .grid-features { grid-template-columns: 1fr; } }
@@ -296,6 +305,7 @@
             transition: all 0.6s var(--ease);
             position: relative; overflow: hidden;
             backdrop-filter: blur(12px);
+            contain: layout style paint;
         }
         .f-card::before {
             content: ''; position: absolute; top: 0; left: 0;
@@ -456,6 +466,7 @@
         .sec-compare { background: linear-gradient(180deg, rgba(255,255,255,0.01) 0%, transparent 100%); }
         .compare-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+            contain: layout style paint;
         }
         @media (max-width: 768px) { .compare-grid { grid-template-columns: 1fr; } }
 
@@ -463,6 +474,7 @@
             background: var(--bg-card); border: 1px solid var(--border);
             border-radius: var(--radius-lg); padding: 2rem;
             backdrop-filter: blur(12px); transition: all 0.5s var(--ease);
+            contain: layout style paint;
         }
         .c-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.3); }
         .c-card.pro {
@@ -518,6 +530,7 @@
         /* Recommendations */
         .rec-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+            contain: layout style paint;
         }
         @media (max-width: 640px) { .rec-grid { grid-template-columns: 1fr; } }
 
@@ -526,6 +539,7 @@
             border-radius: var(--radius-md); padding: 1.5rem;
             display: flex; gap: 0.9rem; transition: all 0.5s var(--ease);
             backdrop-filter: blur(12px); position: relative; overflow: hidden;
+            contain: layout style paint;
         }
         .rec-card::before {
             content: ''; position: absolute; left: 0; top: 0;
@@ -553,6 +567,7 @@
         /* Steps */
         .steps {
             display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+            contain: layout style paint;
         }
         .step {
             flex: 1; min-width: 240px; max-width: 300px;
@@ -561,6 +576,7 @@
             text-align: center; position: relative;
             transition: all 0.6s var(--ease); backdrop-filter: blur(12px);
             overflow: hidden;
+            contain: layout style paint;
         }
         .step::before {
             content: ''; position: absolute; top: 0; left: 50%;
@@ -598,6 +614,7 @@
             backdrop-filter: blur(20px);
             box-shadow: 0 0 60px rgba(255,255,255,0.02), 0 20px 40px rgba(0,0,0,0.3);
             transition: all 0.5s var(--ease);
+            contain: layout style paint;
         }
         .price-card:hover {
             transform: translateY(-5px);
@@ -667,6 +684,8 @@
             background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 100%);
             padding: 70px 2rem 40px; border-top: 1px solid var(--border);
             position: relative; z-index: 2;
+            content-visibility: auto;
+            contain-intrinsic-size: auto 400px;
         }
         .foot-inner {
             max-width: 1080px; margin: 0 auto;
@@ -740,12 +759,27 @@
         ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
+        /* Mobile: remove backdrop-filter pesado dos cards, mantém no nav/hero */
+        @media (pointer: coarse) {
+            .f-card, .step, .rec-card, .c-card {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+        }
+
         /* Mobile */
         @media (max-width: 768px) {
             .nav-links { display: none; }
+            .nav-links.active {
+                display: flex; flex-direction: column;
+                position: absolute; top: 100%; left: 0; right: 0;
+                background: rgba(8,8,8,0.98); padding: 2rem;
+                border-bottom: 1px solid var(--border); gap: 1.25rem;
+                backdrop-filter: blur(20px); align-items: flex-start;
+            }
             .mobile-toggle { display: block; }
             .hero { padding: 110px 1.5rem 60px; }
-            section { padding: 60px 1.5rem; }
+            section { padding: 60px 1.5rem; contain-intrinsic-size: auto 400px; }
             .sec-head { margin-bottom: 2.5rem; }
             .price-card { padding: 2rem 1.5rem; }
             .price-new { font-size: 2.6rem; }
@@ -775,7 +809,7 @@
                 <li><a href="#preco">Versão Pro</a></li>
             </ul>
             <a href="#preco" class="nav-cta">Obter Pro</a>
-            <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
         </div>
     </nav>
 
@@ -1049,95 +1083,167 @@
     </footer>
 
     <script>
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        let particles = [], mx = 0, my = 0;
+        // ===== Partículas otimizadas =====
+        (function(){
+            const canvas = document.getElementById('particles');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d', { alpha: true });
+            let particles = [], mx = -1000, my = -1000, rafId = null;
 
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        resize(); window.addEventListener('resize', resize);
+            const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768;
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        class P {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height;
-                this.s = Math.random()*1.2+0.3; this.vx = (Math.random()-0.5)*0.25;
-                this.vy = (Math.random()-0.5)*0.25; this.o = Math.random()*0.25+0.04;
-                this.life = Math.random()*120+120; this.max = this.life;
+            if (prefersReduced) {
+                canvas.style.display = 'none';
+                return;
             }
-            update() {
-                this.x += this.vx; this.y += this.vy; this.life--;
-                const dx = mx-this.x, dy = my-this.y, d = Math.sqrt(dx*dx+dy*dy);
-                if (d < 160) { const f = (160-d)/160; this.x -= dx*f*0.012; this.y -= dy*f*0.012; }
-                if (this.life <= 0 || this.x<<0 || this.x>canvas.width || this.y<<0 || this.y>canvas.height) this.reset();
-            }
-            draw() {
-                const r = this.life/this.max;
-                ctx.beginPath(); ctx.arc(this.x,this.y,this.s,0,Math.PI*2);
-                ctx.fillStyle = `rgba(255,255,255,${this.o*r})`; ctx.fill();
-            }
-        }
 
-        const count = Math.min(50, Math.floor(window.innerWidth/25));
-        for (let i=0;i<count;i++) particles.push(new P());
+            const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.5);
+            const maxParticles = isMobile ? 10 : Math.min(35, Math.floor(window.innerWidth / 28));
+            const connectDist = isMobile ? 60 : 100;
+            const maxConnections = isMobile ? 2 : 3;
 
-        function lines() {
-            for (let i=0;i<<particles.length;i++) {
-                for (let j=i+1;j<<particles.length;j++) {
-                    const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y, d=Math.sqrt(dx*dx+dy*dy);
-                    if (d<<120) {
-                        ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y);
-                        ctx.strokeStyle = `rgba(255,255,255,${0.035*(1-d/120)})`; ctx.lineWidth=0.35; ctx.stroke();
+            function resize() {
+                canvas.width = window.innerWidth * dpr;
+                canvas.height = window.innerHeight * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+            resize();
+            window.addEventListener('resize', resize, { passive: true });
+
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * (canvas.width / dpr);
+                    this.y = Math.random() * (canvas.height / dpr);
+                    this.s = Math.random() * 1.2 + 0.3;
+                    this.vx = (Math.random() - 0.5) * 0.25;
+                    this.vy = (Math.random() - 0.5) * 0.25;
+                    this.o = Math.random() * 0.25 + 0.04;
+                    this.life = Math.random() * 120 + 120;
+                    this.max = this.life;
+                    this.connections = 0;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.life--;
+                    const dx = mx - this.x, dy = my - this.y, dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 160) {
+                        const f = (160 - dist) / 160;
+                        this.x -= dx * f * 0.012;
+                        this.y -= dy * f * 0.012;
+                    }
+                    const w = canvas.width / dpr, h = canvas.height / dpr;
+                    if (this.life <= 0 || this.x < -10 || this.x > w + 10 || this.y < -10 || this.y > h + 10) {
+                        this.reset();
+                    }
+                }
+                draw() {
+                    const r = this.life / this.max;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.s, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255,255,255,' + (this.o * r) + ')';
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
+
+            function drawLines() {
+                if (isMobile) return;
+                for (let i = 0; i < particles.length; i++) particles[i].connections = 0;
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const d = Math.sqrt(dx*dx + dy*dy);
+                        if (d < connectDist && particles[i].connections < maxConnections && particles[j].connections < maxConnections) {
+                            particles[i].connections++;
+                            particles[j].connections++;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = 'rgba(255,255,255,' + (0.035 * (1 - d / connectDist)) + ')';
+                            ctx.lineWidth = 0.35;
+                            ctx.stroke();
+                        }
                     }
                 }
             }
-        }
 
-        function loop() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); lines(); requestAnimationFrame(loop); }
-        loop();
-        document.addEventListener('mousemove', e=>{mx=e.clientX;my=e.clientY;});
+            function loop() {
+                if (document.hidden) { rafId = null; return; }
+                const w = canvas.width / dpr, h = canvas.height / dpr;
+                ctx.clearRect(0, 0, w, h);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                drawLines();
+                rafId = requestAnimationFrame(loop);
+            }
 
-        // Intersection Observer
-        const obs = new IntersectionObserver((entries)=>{
-            entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-        }, {threshold:0.1});
-        document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden && !rafId) loop();
+                else if (document.hidden && rafId) { cancelAnimationFrame(rafId); rafId = null; }
+            });
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(a=>{
-            a.addEventListener('click', function(e){
+            loop();
+
+            document.addEventListener('mousemove', e => {
+                mx = e.clientX;
+                my = e.clientY;
+            }, { passive: true });
+        })();
+
+        // ===== Intersection Observer (com unobserve) =====
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        // ===== Smooth scroll =====
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
                 e.preventDefault();
                 const t = document.querySelector(this.getAttribute('href'));
-                if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
 
-        // Nav scroll
+        // ===== Nav scroll =====
         const nav = document.querySelector('.nav');
-        window.addEventListener('scroll', ()=>{
-            nav.classList.toggle('scrolled', window.pageYOffset > 60);
-        });
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 60);
+        }, { passive: true });
 
-        // Mobile menu
+        // ===== Mobile menu =====
         function toggleMenu() {
-            const links = document.querySelector('.nav-links');
-            if (links.style.display === 'flex') {
-                links.style.display = 'none';
-            } else {
-                links.style.display = 'flex'; links.style.flexDirection = 'column';
-                links.style.position = 'absolute'; links.style.top = '100%';
-                links.style.left = '0'; links.style.right = '0';
-                links.style.background = 'rgba(8,8,8,0.98)'; links.style.padding = '2rem';
-                links.style.borderBottom = '1px solid var(--border)'; links.style.gap = '1.25rem';
-                links.style.backdropFilter = 'blur(20px)';
-            }
+            document.querySelector('.nav-links').classList.toggle('active');
         }
 
-        // Typewriter
-        const sub = document.querySelector('.hero-inner p');
-        const txt = sub.textContent; sub.textContent = '';
-        let i = 0;
-        function type() { if (i < txt.length) { sub.textContent += txt.charAt(i); i++; setTimeout(type, 22); } }
-        setTimeout(type, 1600);
+        // ===== Typewriter otimizado =====
+        (function(){
+            const sub = document.querySelector('.hero-inner p');
+            if (!sub || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const txt = sub.textContent;
+            sub.textContent = '';
+            let i = 0;
+            function type() {
+                if (i < txt.length) {
+                    sub.textContent = txt.substring(0, i + 1);
+                    i++;
+                    setTimeout(type, 22);
+                }
+            }
+            setTimeout(type, 1600);
+        })();
     </script>
 </body>
 </html>
