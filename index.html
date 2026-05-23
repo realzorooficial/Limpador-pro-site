@@ -670,6 +670,45 @@
             position: relative; z-index: 1; line-height: 1.6;
         }
 
+        /* Screenshots */
+        .screenshot-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+        }
+        @media (max-width: 768px) { .screenshot-grid { grid-template-columns: 1fr; } }
+        .screenshot-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); overflow: hidden;
+            transition: all 0.6s var(--ease); backdrop-filter: blur(12px);
+        }
+        .screenshot-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: var(--border-hover);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+        }
+        .screenshot-img {
+            position: relative; overflow: hidden;
+            background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,0,0,0.3));
+        }
+        .screenshot-img::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(8,8,8,0.6) 100%);
+            z-index: 1; pointer-events: none;
+        }
+        .screenshot-img img {
+            width: 100%; height: auto; display: block;
+            transition: transform 0.8s var(--ease);
+        }
+        .screenshot-card:hover .screenshot-img img { transform: scale(1.03); }
+        .screenshot-caption {
+            padding: 1.5rem 1.75rem;
+        }
+        .screenshot-caption h4 {
+            font-size: 1rem; font-weight: 600; color: var(--text);
+            margin-bottom: 0.4rem; letter-spacing: -0.01em;
+        }
+        .screenshot-caption p {
+            font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;
+        }
         /* Footer */
         .footer {
             background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 100%);
@@ -777,6 +816,8 @@
             #particles { display: none; }
         }
     </style>
+<base target="_blank">
+<base target="_blank">
 </head>
 <body>
     <canvas id="particles"></canvas>
@@ -998,6 +1039,36 @@
         </div>
     </section>
 
+    <section id="screenshots">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <span class="sec-label">Interface</span>
+                <h2 class="sec-title">Veja em ação</h2>
+                <p class="sec-desc">Design limpo, resultados claros. Confira como o Limpador Pro se apresenta.</p>
+            </div>
+            <div class="screenshot-grid">
+                <div class="screenshot-card reveal d1">
+                    <div class="screenshot-img">
+                        <img src="Limpeza.png" alt="Tela de limpeza concluída do Limpador Pro" loading="lazy">
+                    </div>
+                    <div class="screenshot-caption">
+                        <h4>Limpeza Concluída</h4>
+                        <p>Notificação elegante com estatísticas detalhadas: arquivos removidos, pastas excluídas, espaço liberado e status da RAM.</p>
+                    </div>
+                </div>
+                <div class="screenshot-card reveal d2">
+                    <div class="screenshot-img">
+                        <img src="Histórico.png" alt="Tela de histórico do Limpador Pro" loading="lazy">
+                    </div>
+                    <div class="screenshot-caption">
+                        <h4>Histórico Completo</h4>
+                        <p>Acompanhe todas as limpezas realizadas com data, espaço liberado, quantidade de arquivos e duração da operação.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="preco" class="sec-price">
         <div class="wrap">
             <div class="sec-head reveal">
@@ -1024,13 +1095,20 @@
                     <li><span class="ic">✓</span> Novos recursos em desenvolvimento contínuo</li>
                 </ul>
                 <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main price-btn">
-                    Garantir Minha Licença Pro
+                    Entrar no Servidor
                 </a>
+                <div style="text-align:center;margin-top:1rem;">
+                    <a href="https://discord.com/channels/1458537528242995304/1464403421120692489" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="font-size:0.85rem;padding:0.7rem 1.6rem;">
+                        Já é membro? Ir direto ao canal →
+                    </a>
+                </div>
                 <p class="price-disclaimer">Sem mensalidade, sem renovação. A licença é desativada apenas se você formatar o PC ou alterar o hardware identificador.</p>
             </div>
         </div>
     </section>
 
+
+    
     <footer class="footer">
         <div class="foot-inner">
             <div class="foot-brand">
