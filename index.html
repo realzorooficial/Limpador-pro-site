@@ -844,6 +844,8 @@
             transition: all 0.3s var(--ease); backdrop-filter: blur(8px);
         }
         .lightbox-close:hover { background: rgba(255,255,255,0.15); transform: scale(1.1); }
+
+        
     </style>
 <base target="_blank">
 <base target="_blank">
@@ -901,7 +903,7 @@
             <div class="screenshot-grid">
                 <div class="screenshot-card reveal d1">
                     <div class="screenshot-img">
-                        <img src="Limpeza.png" alt="Tela de limpeza concluída do Limpador Pro" loading="lazy">
+                        <img src="Limpeza.png" alt="Tela de limpeza concluída do Limpador Pro" loading="lazy" onclick="openLightbox(this.src)" style="cursor:zoom-in;">
                     </div>
                     <div class="screenshot-caption">
                         <h4>Limpeza Concluída</h4>
@@ -910,7 +912,7 @@
                 </div>
                 <div class="screenshot-card reveal d2">
                     <div class="screenshot-img">
-                        <img src="Histórico.png" alt="Tela de histórico do Limpador Pro" loading="lazy">
+                        <img src="Histórico.png" alt="Tela de histórico do Limpador Pro" loading="lazy" onclick="openLightbox(this.src)" style="cursor:zoom-in;">
                     </div>
                     <div class="screenshot-caption">
                         <h4>Histórico Completo</h4>
@@ -1129,7 +1131,7 @@
                     Entrar no Servidor
                 </a>
                 <div style="text-align:center;margin-top:1.2rem;">
-                    <a href="https://discord.com/channels/1458537528242995304/1464403421120692489" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--text-muted);font-size:0.82rem;font-weight:500;text-decoration:none;transition:all 0.4s var(--ease);border:1px solid var(--border);border-radius:50px;padding:0.5rem 1.2rem;background:rgba(255,255,255,0.02);cursor:pointer;" onmouseover="this.style.color='var(--text-secondary)';this.style.borderColor='var(--border-hover)';this.style.background='rgba(255,255,255,0.05)';" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)';this.style.background='rgba(255,255,255,0.02)'">
+                    <a href="https://discord.com/channels/1458537528242995304/1464403421120692489" target="_blank" rel="noopener noreferrer" class="btn-main" style="font-size:0.85rem;padding:0.75rem 1.6rem;">
                         Já é membro? Ir direto ao canal →
                     </a>
                 </div>
@@ -1399,41 +1401,54 @@
             lb.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        function closeLightbox(e) {
-            if (e.target === lb || e.target === lbImg) {
-                lb.classList.remove('active');
-                document.body.style.overflow = '';
-                setTimeout(function() { lbImg.src = ''; }, 400);
-            }
-        }
-        function closeLightboxBtn(e) {
-            e.stopPropagation();
+        function closeLightbox() {
             lb.classList.remove('active');
             document.body.style.overflow = '';
             setTimeout(function() { lbImg.src = ''; }, 400);
         }
-        document.querySelectorAll('.screenshot-img img').forEach(function(img) {
-            img.style.cursor = 'zoom-in';
-            img.parentElement.style.cursor = 'zoom-in';
-            img.parentElement.addEventListener('click', function(e) {
-                e.preventDefault();
-                openLightbox(img.src);
+        lb.addEventListener('click', function(e) {
+            if (e.target === lb || e.target === lbImg) closeLightbox();
+        });
+        document.querySelector('.lightbox-close').addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeLightbox();
+        });
+        document.querySelectorAll('.screenshot-card').forEach(function(card) {
+            card.style.cursor = 'zoom-in';
+            card.addEventListener('click', function(e) {
+                var img = card.querySelector('.screenshot-img img');
+                if (img && img.src) openLightbox(img.src);
             });
         });
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && lb.classList.contains('active')) {
-                lb.classList.remove('active');
-                document.body.style.overflow = '';
-                setTimeout(function() { lbImg.src = ''; }, 400);
-            }
+            if (e.key === 'Escape' && lb.classList.contains('active')) closeLightbox();
+        });
+
+        // === LIGHTBOX ===
+        function openLightbox(src) {
+            var overlay = document.getElementById('lightbox');
+            var img = document.getElementById('lightbox-img');
+            img.src = src;
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            var overlay = document.getElementById('lightbox');
+            var img = document.getElementById('lightbox-img');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(function() { img.src = ''; }, 400);
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
         });
 
 </script>
 
     <!-- Lightbox -->
-    <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
-        <button class="lightbox-close" onclick="closeLightboxBtn(event)">×</button>
-        <img src="" alt="Screenshot em tela cheia" id="lightbox-img">
+    <div class="lightbox-overlay" id="lightbox" onclick="if(event.target===this||event.target.id==='lightbox-img')closeLightbox()">
+        <button class="lightbox-close" onclick="event.stopPropagation();closeLightbox()">×</button>
+        <img src="" alt="Screenshot em tela cheia" id="lightbox-img" onclick="event.stopPropagation()">
     </div>
 
 </body>
