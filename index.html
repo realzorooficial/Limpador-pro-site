@@ -4,1452 +4,2498 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Limpador Pro — Limpeza Inteligente para Windows</title>
+    <meta name="description" content="Limpador Pro para Windows 10 e 11: limpeza inteligente de temporários, caches e lixeira, histórico de limpezas, proteção de dados e atualizações automáticas.">
+    <meta name="theme-color" content="#080808">
+    <meta name="color-scheme" content="dark">
+    <meta property="og:title" content="Limpador Pro — Limpeza Inteligente para Windows">
+    <meta property="og:description" content="Um clique. Resultado claro. Limpeza inteligente e segura sem complicação.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
+
     <style>
         :root {
-            --bg: #080808;
-            --bg-elevated: #0d0d0d;
-            --bg-card: rgba(255,255,255,0.015);
-            --text: #f5f5f5;
-            --text-secondary: #9ca3af;
-            --text-muted: #6b7280;
-            --border: rgba(255,255,255,0.05);
-            --border-hover: rgba(255,255,255,0.1);
-            --white: #ffffff;
-            --black: #000000;
+            --bg:#080808;
+            --bg-elevated:#0d0d0d;
+            --bg-card:rgba(255,255,255,.015);
+            --text:#f5f5f5;
+            --text-secondary:#9ca3af;
+            --text-muted:#6b7280;
+            --border:rgba(255,255,255,.05);
+            --border-hover:rgba(255,255,255,.11);
+            --white:#fff;
+            --black:#000;
 
-            --cyan: #22d3ee;
-            --cyan-glow: rgba(34,211,238,0.08);
-            --violet: #a78bfa;
-            --violet-glow: rgba(167,139,250,0.08);
-            --amber: #fbbf24;
-            --amber-glow: rgba(251,191,36,0.08);
-            --rose: #fb7185;
-            --rose-glow: rgba(251,113,133,0.08);
-            --emerald: #34d399;
-            --emerald-glow: rgba(52,211,153,0.08);
-            --blue: #60a5fa;
-            --blue-glow: rgba(96,165,250,0.08);
-            --orange: #fb923c;
-            --orange-glow: rgba(251,146,60,0.08);
-            --teal: #2dd4bf;
-            --teal-glow: rgba(45,212,191,0.08);
+            --cyan:#22d3ee; --cyan-rgb:34,211,238; --cyan-glow:rgba(34,211,238,.08);
+            --violet:#a78bfa; --violet-rgb:167,139,250; --violet-glow:rgba(167,139,250,.08);
+            --amber:#fbbf24; --amber-rgb:251,191,36; --amber-glow:rgba(251,191,36,.08);
+            --rose:#fb7185; --rose-rgb:251,113,133; --rose-glow:rgba(251,113,133,.08);
+            --emerald:#34d399; --emerald-rgb:52,211,153; --emerald-glow:rgba(52,211,153,.08);
+            --blue:#60a5fa; --blue-rgb:96,165,250; --blue-glow:rgba(96,165,250,.08);
+            --orange:#fb923c; --orange-rgb:251,146,60; --orange-glow:rgba(251,146,60,.08);
+            --teal:#2dd4bf; --teal-rgb:45,212,191; --teal-glow:rgba(45,212,191,.08);
 
-            --radius-sm: 14px;
-            --radius-md: 20px;
-            --radius-lg: 28px;
-            --ease: cubic-bezier(0.22, 1, 0.36, 1);
-            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --radius-sm:14px;
+            --radius-md:20px;
+            --radius-lg:28px;
+            --ease:cubic-bezier(.22,1,.36,1);
+            --ease-bounce:cubic-bezier(.34,1.56,.64,1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth;scroll-padding-top:90px}
+        body{
+            font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+            background:
+                radial-gradient(1000px 620px at 8% 8%,rgba(34,211,238,.032),transparent 72%),
+                radial-gradient(900px 620px at 93% 14%,rgba(167,139,250,.034),transparent 74%),
+                linear-gradient(180deg,#09090b 0%,#070709 100%);
+            color:var(--text);
+            overflow-x:hidden;
+            line-height:1.6;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
         }
 
-        /* Partículas */
-        #particles {
-            position: fixed; inset: 0; z-index: 0;
-            pointer-events: none; opacity: 0.35;
-            will-change: transform;
-            contain: strict;
+        a{color:inherit}
+        img{max-width:100%}
+        button,a{-webkit-tap-highlight-color:transparent}
+        ::selection{background:rgba(167,139,250,.25);color:#fff}
+        :focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+
+
+        .site-bg{
+            position:fixed;inset:0;z-index:0;pointer-events:none;
+            overflow:hidden;
+        }
+        .site-bg::before{
+            content:'';
+            position:absolute;inset:0;
+            background:
+                radial-gradient(60% 80% at 50% 0%,rgba(255,255,255,.015),transparent 62%),
+                linear-gradient(180deg,rgba(255,255,255,.012),transparent 18%,transparent 82%,rgba(0,0,0,.18));
+            opacity:.9;
+        }
+        .bg-orb{
+            position:absolute;border-radius:50%;
+            filter:blur(22px);
+            opacity:.55;
+            will-change:transform,opacity;
+        }
+        .bg-orb.orb-1{
+            width:520px;height:520px;left:-120px;top:6vh;
+            background:radial-gradient(circle at 35% 35%,rgba(34,211,238,.18),rgba(34,211,238,.05) 42%,transparent 70%);
+            animation:bgFloatOne 18s ease-in-out infinite alternate;
+        }
+        .bg-orb.orb-2{
+            width:620px;height:620px;right:-180px;top:8vh;
+            background:radial-gradient(circle at 52% 48%,rgba(167,139,250,.19),rgba(167,139,250,.05) 44%,transparent 72%);
+            animation:bgFloatTwo 22s ease-in-out infinite alternate;
+        }
+        .bg-orb.orb-3{
+            width:460px;height:460px;left:34%;bottom:-180px;
+            background:radial-gradient(circle at 50% 40%,rgba(251,191,36,.12),rgba(251,146,60,.045) 45%,transparent 70%);
+            animation:bgFloatThree 24s ease-in-out infinite alternate;
+        }
+        .bg-grid{
+            position:absolute;inset:0;
+            background:
+                linear-gradient(rgba(255,255,255,.024) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.024) 1px, transparent 1px);
+            background-size:72px 72px;
+            mask-image:radial-gradient(circle at 50% 28%,rgba(0,0,0,.85),transparent 82%);
+            -webkit-mask-image:radial-gradient(circle at 50% 28%,rgba(0,0,0,.85),transparent 82%);
+            opacity:.14;
+            transform:perspective(900px) rotateX(72deg) scale(1.5) translateY(-10%);
+            transform-origin:top center;
+        }
+        .bg-beam{
+            position:absolute;inset:-10% -15% auto;
+            height:65vh;
+            background:
+                radial-gradient(45% 65% at 50% 0%,rgba(255,255,255,.022),transparent 68%),
+                linear-gradient(90deg,transparent,rgba(255,255,255,.03),transparent);
+            opacity:.55;
+            filter:blur(10px);
+            animation:bgBeamShift 18s ease-in-out infinite alternate;
+        }
+        .bg-noise{
+            position:absolute;inset:0;opacity:.045;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E");
+            mix-blend-mode:soft-light;
+        }
+        .bg-vignette{
+            position:absolute;inset:0;
+            background:
+                radial-gradient(circle at 50% 22%, transparent 0%, transparent 48%, rgba(0,0,0,.14) 82%, rgba(0,0,0,.32) 100%),
+                linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.08));
         }
 
-        /* Nav */
-        .nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            padding: 1rem 2rem;
-            background: rgba(8,8,8,0.65);
-            backdrop-filter: blur(20px) saturate(1.3);
-            border-bottom: 1px solid var(--border);
-            transition: all 0.5s var(--ease);
-            will-change: transform;
-            contain: layout style;
+        @keyframes bgFloatOne{
+            0%{transform:translate3d(0,0,0) scale(1)}
+            100%{transform:translate3d(70px,40px,0) scale(1.08)}
         }
-        .nav.scrolled {
-            background: rgba(8,8,8,0.92);
-            padding: 0.75rem 2rem;
-            border-bottom-color: var(--border-hover);
+        @keyframes bgFloatTwo{
+            0%{transform:translate3d(0,0,0) scale(1)}
+            100%{transform:translate3d(-80px,55px,0) scale(1.1)}
         }
-        .nav-inner {
-            max-width: 1140px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
+        @keyframes bgFloatThree{
+            0%{transform:translate3d(0,0,0) scale(1)}
+            100%{transform:translate3d(-35px,-60px,0) scale(1.08)}
         }
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.3rem; font-weight: 700;
-            color: var(--white); text-decoration: none;
-            display: flex; align-items: center; gap: 0.5rem;
-            letter-spacing: -0.02em;
-        }
-        .logo-mark {
-            width: 32px; height: 32px;
-            background: linear-gradient(135deg, #fff, #9ca3af);
-            border-radius: 9px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1rem;
-            transition: transform 0.5s var(--ease);
-        }
-        .logo:hover .logo-mark { transform: rotate(-6deg) scale(1.05); }
-
-        .nav-links {
-            display: flex; gap: 2rem; list-style: none; align-items: center;
-        }
-        .nav-links a {
-            color: var(--text-secondary); text-decoration: none;
-            font-size: 0.85rem; font-weight: 500;
-            transition: color 0.4s var(--ease);
-            position: relative;
-        }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -4px; left: 50%;
-            width: 0; height: 1.5px; background: var(--white);
-            transition: all 0.4s var(--ease); transform: translateX(-50%);
-        }
-        .nav-links a:hover { color: var(--white); }
-        .nav-links a:hover::after { width: 100%; }
-
-        .nav-cta {
-            background: var(--white); color: var(--black);
-            padding: 0.55rem 1.4rem; border-radius: 50px;
-            font-weight: 600; font-size: 0.82rem;
-            text-decoration: none; transition: all 0.4s var(--ease);
-            border: none; cursor: pointer; letter-spacing: -0.01em;
-        }
-        .nav-cta:hover {
-            background: var(--text-secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(255,255,255,0.08);
+        @keyframes bgBeamShift{
+            0%{transform:translateX(-2%) translateY(0) scale(1)}
+            100%{transform:translateX(2%) translateY(1.5%) scale(1.04)}
         }
 
-        .mobile-toggle {
-            display: none; background: none; border: none;
-            color: var(--white); font-size: 1.3rem; cursor: pointer;
+        #particles{
+            position:fixed;inset:0;z-index:0;
+            pointer-events:none;opacity:.35;
+            contain:strict;
         }
 
-        /* Hero */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            position: relative; padding: 140px 2rem 100px; overflow: hidden;
+        .skip-link{
+            position:fixed;top:-100px;left:16px;z-index:9999;
+            background:#fff;color:#000;padding:.6rem 1rem;border-radius:10px;
         }
-        .hero::before {
-            content: ''; position: absolute; top: 35%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 700px; height: 700px;
-            background: radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 60%);
-            animation: breathe 10s ease-in-out infinite;
-            pointer-events: none;
+        .skip-link:focus{top:16px}
+
+        /* NAV — visual do site original */
+        .nav{
+            position:fixed;top:0;left:0;right:0;z-index:1000;
+            padding:1rem 2rem;
+            background:rgba(8,8,8,.65);
+            backdrop-filter:blur(20px) saturate(1.3);
+            border-bottom:1px solid var(--border);
+            transition:all .5s var(--ease);
         }
-        @keyframes breathe {
-            0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.4; }
-            50% { transform: translate(-50%,-50%) scale(1.2); opacity: 0.7; }
+        .nav.scrolled{
+            background:rgba(8,8,8,.92);
+            padding:.75rem 2rem;
+            border-bottom-color:var(--border-hover);
+            box-shadow:0 12px 32px rgba(0,0,0,.22);
+        }
+        .nav-inner{
+            max-width:1140px;margin:0 auto;
+            display:flex;justify-content:space-between;align-items:center;gap:1.5rem;
+        }
+        .logo{
+            font-family:'Space Grotesk',sans-serif;
+            font-size:1.3rem;font-weight:700;
+            color:var(--white);text-decoration:none;
+            display:flex;align-items:center;gap:.5rem;
+            letter-spacing:-.02em;white-space:nowrap;
+        }
+        .logo-mark{
+            width:32px;height:32px;
+            background:linear-gradient(135deg,#fff,#9ca3af);
+            border-radius:9px;
+            display:flex;align-items:center;justify-content:center;
+            font-size:1rem;
+            transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+        }
+        .logo:hover .logo-mark{
+            transform:rotate(-6deg) scale(1.05);
+            box-shadow:0 8px 24px rgba(255,255,255,.08);
+        }
+        .nav-links{
+            display:flex;gap:2rem;list-style:none;align-items:center;
+        }
+        .nav-links a{
+            color:var(--text-secondary);text-decoration:none;
+            font-size:.85rem;font-weight:500;
+            transition:color .4s var(--ease);
+            position:relative;
+        }
+        .nav-links a::after{
+            content:'';position:absolute;bottom:-4px;left:50%;
+            width:0;height:1.5px;background:var(--white);
+            transition:all .4s var(--ease);transform:translateX(-50%);
+        }
+        .nav-links a:hover,.nav-links a.active{color:var(--white)}
+        .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+        .nav-cta{
+            background:var(--white);color:var(--black);
+            padding:.55rem 1.4rem;border-radius:50px;
+            font-weight:600;font-size:.82rem;
+            text-decoration:none;transition:all .4s var(--ease);
+            border:none;cursor:pointer;letter-spacing:-.01em;
+            white-space:nowrap;
+        }
+        .nav-cta:hover{
+            background:var(--text-secondary);
+            transform:translateY(-2px);
+            box-shadow:0 8px 24px rgba(255,255,255,.08);
+        }
+        .mobile-toggle{
+            display:none;background:none;border:none;
+            color:var(--white);font-size:1.3rem;cursor:pointer;
+            width:40px;height:40px;border-radius:9px;
         }
 
-        .hero-inner {
-            position: relative; z-index: 2; text-align: center; max-width: 800px;
+        main{position:relative;z-index:2}
+        section{position:relative;padding:100px 2rem}
+        .wrap{max-width:1080px;margin:0 auto}
+
+        /* HERO — mantém a estrutura da versão nova */
+        .hero{
+            min-height:100vh;
+            display:flex;align-items:center;
+            padding:135px 2rem 90px;
+            overflow:hidden;
         }
-        .hero-pill {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-            padding: 0.5rem 1.2rem; border-radius: 50px;
-            font-size: 0.78rem; color: var(--text-muted);
-            margin-bottom: 2.5rem; backdrop-filter: blur(10px);
-            animation: fadeUp 0.6s var(--ease) both;
+        .hero::before{
+            content:'';position:absolute;top:34%;left:17%;
+            transform:translate(-50%,-50%);
+            width:640px;height:640px;
+            background:radial-gradient(circle,rgba(255,255,255,.025),transparent 62%);
+            animation:breathe 10s ease-in-out infinite;
+            pointer-events:none;
         }
-        .hero-pill .dot {
-            width: 5px; height: 5px; background: var(--emerald); border-radius: 50%;
-            animation: pulse 3s ease-in-out infinite; box-shadow: 0 0 6px var(--emerald);
+        .hero::after{
+            content:'';position:absolute;right:-180px;top:18%;
+            width:560px;height:560px;border-radius:50%;
+            background:radial-gradient(circle,rgba(167,139,250,.04),rgba(34,211,238,.018) 38%,transparent 70%);
+            animation:floatOrb 13s ease-in-out infinite alternate;
+            pointer-events:none;
         }
-        @keyframes pulse {
-            0%,100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(1.6); }
+        @keyframes breathe{
+            0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.4}
+            50%{transform:translate(-50%,-50%) scale(1.18);opacity:.72}
+        }
+        @keyframes floatOrb{to{transform:translate(-35px,28px) scale(1.08)}}
+
+        .hero-grid{
+            display:grid;grid-template-columns:minmax(0,1.05fr) minmax(420px,.95fr);
+            gap:64px;align-items:center;
+        }
+        .hero-copy{position:relative;z-index:2}
+        .hero-pill{
+            display:inline-flex;align-items:center;gap:.5rem;
+            background:rgba(255,255,255,.03);
+            border:1px solid var(--border);
+            padding:.5rem 1.15rem;border-radius:50px;
+            font-size:.78rem;color:var(--text-muted);
+            margin-bottom:2rem;backdrop-filter:blur(10px);
+            animation:fadeUp .6s var(--ease) both;
+        }
+        .hero-pill .dot{
+            width:5px;height:5px;background:var(--emerald);border-radius:50%;
+            animation:pulse 3s ease-in-out infinite;
+            box-shadow:0 0 6px var(--emerald);
+        }
+        @keyframes pulse{
+            0%,100%{opacity:1;transform:scale(1)}
+            50%{opacity:.35;transform:scale(1.55)}
+        }
+        .hero h1{
+            font-family:'Space Grotesk',sans-serif;
+            font-size:clamp(3rem,6.5vw,5.25rem);
+            font-weight:700;line-height:1.04;
+            letter-spacing:-.045em;margin-bottom:1.3rem;
+            animation:fadeUp .6s var(--ease) .05s both;
+        }
+        .hero h1 span{
+            background:linear-gradient(180deg,#fff 0%,#a1a1aa 100%);
+            -webkit-background-clip:text;background-clip:text;color:transparent;
+        }
+        .hero-lead{
+            font-size:clamp(1rem,2vw,1.18rem);
+            color:var(--text-secondary);max-width:560px;
+            margin:0 0 2.15rem;font-weight:400;line-height:1.7;
+            animation:fadeUp .6s var(--ease) .1s both;
+        }
+        .hero-actions{
+            display:flex;gap:.75rem;flex-wrap:wrap;
+            animation:fadeUp .6s var(--ease) .15s both;
+        }
+        .btn-main,.btn-ghost{
+            padding:.95rem 2.1rem;border-radius:50px;
+            font-size:.9rem;text-decoration:none;
+            display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
+            transition:all .5s var(--ease);position:relative;overflow:hidden;
+        }
+        .btn-main{
+            background:var(--white);color:var(--black);font-weight:600;border:none;
+        }
+        .btn-main::before{
+            content:'';position:absolute;top:0;left:-100%;
+            width:100%;height:100%;
+            background:linear-gradient(90deg,transparent,rgba(0,0,0,.06),transparent);
+            transition:.7s var(--ease);
+        }
+        .btn-main:hover::before{left:100%}
+        .btn-main:hover{
+            transform:translateY(-3px) scale(1.02);
+            box-shadow:0 12px 36px rgba(255,255,255,.12);
+        }
+        .btn-ghost{
+            background:transparent;color:var(--white);
+            font-weight:500;border:1px solid var(--border-hover);
+        }
+        .btn-ghost:hover{
+            border-color:rgba(255,255,255,.25);
+            background:rgba(255,255,255,.03);
+            transform:translateY(-3px) scale(1.02);
         }
 
-        .hero h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.8rem, 6.5vw, 5.5rem);
-            font-weight: 800; line-height: 1.08;
-            letter-spacing: -0.03em; margin-bottom: 1.25rem;
+        .app-preview{
+            position:relative;padding:12px;
+            border:1px solid var(--border-hover);
+            border-radius:24px;
+            background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));
+            box-shadow:0 28px 80px rgba(0,0,0,.36);
+            overflow:hidden;
+            --mx:50%;--my:50%;
+            transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .4s var(--ease);
         }
-        .hero h1 .main {
-            display: block;
-            background: linear-gradient(180deg, #fff 0%, #a1a1aa 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: fadeUp 0.6s var(--ease) 0.05s both;
+        .app-preview::before{
+            content:'';position:absolute;inset:0;
+            background:radial-gradient(420px circle at var(--mx) var(--my),rgba(255,255,255,.085),transparent 48%);
+            opacity:0;transition:opacity .35s var(--ease);pointer-events:none;z-index:2;
         }
-        .hero h1 .sub {
-            display: block; font-size: 0.4em; font-weight: 500;
-            color: var(--text-muted); letter-spacing: 0.3em;
-            text-transform: uppercase; margin-top: 0.6rem;
-            animation: fadeUp 0.6s var(--ease) 0.1s both;
+        .app-preview:hover{
+            transform:translateY(-6px) scale(1.008);
+            border-color:rgba(255,255,255,.18);
+            box-shadow:0 36px 94px rgba(0,0,0,.48),0 0 46px rgba(167,139,250,.045);
+        }
+        .app-preview:hover::before{opacity:1}
+        .app-preview img{
+            display:block;width:100%;border-radius:16px;
+            border:1px solid rgba(255,255,255,.055);
+            transition:transform .8s var(--ease);
+        }
+        .app-preview:hover img{transform:scale(1.012)}
+        .preview-caption{
+            display:flex;justify-content:space-between;gap:1rem;
+            padding:.8rem .35rem .15rem;
+            color:var(--text-muted);font-size:.76rem;
+        }
+        .preview-caption strong{color:var(--text-secondary)}
+
+        .stats{
+            display:grid;grid-template-columns:repeat(4,1fr);
+            gap:1px;margin-top:3.5rem;
+            border:1px solid var(--border);border-radius:18px;overflow:hidden;
+            background:var(--border);
+        }
+        .stat{
+            background:rgba(13,13,13,.97);padding:1.35rem;
+            position:relative;overflow:hidden;
+            transition:background .35s var(--ease),transform .35s var(--ease);
+        }
+        .stat::before{
+            content:'';position:absolute;top:0;left:15%;right:15%;height:1.5px;
+            background:linear-gradient(90deg,transparent,var(--stat-color),transparent);
+            opacity:.5;transform:scaleX(.55);transition:all .45s var(--ease);
+        }
+        .stat:nth-child(1){--stat-color:var(--cyan)}
+        .stat:nth-child(2){--stat-color:var(--violet)}
+        .stat:nth-child(3){--stat-color:var(--emerald)}
+        .stat:nth-child(4){--stat-color:var(--amber)}
+        .stat:hover{background:#121212;transform:translateY(-2px)}
+        .stat:hover::before{opacity:1;transform:scaleX(1)}
+        .stat strong{display:block;font-size:1rem;font-weight:600}
+        .stat span{color:var(--text-muted);font-size:.76rem}
+
+        /* CABEÇALHOS DE SEÇÃO — visual do original */
+        .sec-head{text-align:center;margin-bottom:4rem}
+        .sec-label{
+            display:inline-block;color:var(--text-muted);
+            font-size:.75rem;font-weight:600;
+            letter-spacing:.2em;text-transform:uppercase;
+            margin-bottom:1rem;
+        }
+        .sec-label::before,.sec-label::after{
+            content:'—';margin:0 .8rem;opacity:.25;
+        }
+        .sec-title{
+            font-family:'Space Grotesk',sans-serif;
+            font-size:clamp(1.9rem,3.5vw,2.8rem);
+            font-weight:700;color:var(--text);
+            margin-bottom:.75rem;letter-spacing:-.02em;line-height:1.15;
+        }
+        .sec-desc{
+            color:var(--text-secondary);font-size:1rem;
+            max-width:620px;margin:0 auto;line-height:1.7;
         }
 
-        .hero p {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: var(--text-secondary); max-width: 520px;
-            margin: 0 auto 2.5rem; font-weight: 400; line-height: 1.7;
-            animation: fadeUp 0.6s var(--ease) 0.15s both;
+        /* SCREENSHOTS */
+        .screenshot-grid{
+            display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;
+        }
+        .screenshot-card{
+            --mx:50%;--my:50%;
+            background:var(--bg-card);border:1px solid var(--border);
+            border-radius:var(--radius-lg);overflow:hidden;
+            transition:all .6s var(--ease);
+            backdrop-filter:blur(12px);position:relative;isolation:isolate;
+            box-shadow:0 18px 42px rgba(0,0,0,.16);
+        }
+        .screenshot-card:nth-child(1){--shot-rgb:var(--emerald-rgb);--shot-color:var(--emerald)}
+        .screenshot-card:nth-child(2){--shot-rgb:var(--violet-rgb);--shot-color:var(--violet)}
+        .screenshot-card::after{
+            content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+            background:radial-gradient(450px circle at var(--mx) var(--my),rgba(var(--shot-rgb),.10),transparent 55%);
+            opacity:0;transition:opacity .35s var(--ease);
+        }
+        .screenshot-card::before{
+            content:'';position:absolute;left:10%;right:10%;top:0;height:2px;z-index:3;
+            background:linear-gradient(90deg,transparent,var(--shot-color),transparent);
+            opacity:.55;
+        }
+        .screenshot-card:hover{
+            transform:translateY(-6px) scale(1.01);
+            border-color:rgba(var(--shot-rgb),.23);
+            box-shadow:0 26px 58px rgba(0,0,0,.4),0 0 34px rgba(var(--shot-rgb),.06);
+        }
+        .screenshot-card:hover::after{opacity:1}
+        .screenshot-img{position:relative;overflow:hidden;background:#020202}
+        .screenshot-img::before{
+            content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+            background:linear-gradient(180deg,transparent 66%,rgba(8,8,8,.55));
+        }
+        .screenshot-img img{
+            width:100%;height:auto;display:block;cursor:zoom-in;
+            transition:transform .8s var(--ease);
+        }
+        .screenshot-card:hover .screenshot-img img{transform:scale(1.025)}
+        .screenshot-caption{padding:1.5rem 1.75rem;position:relative;z-index:2}
+        .screenshot-caption h4{font-size:1rem;font-weight:600;margin-bottom:.4rem}
+        .screenshot-caption p{font-size:.82rem;color:var(--text-secondary);line-height:1.6}
+
+        /* RECURSOS — original + efeitos premium */
+        .grid-features{
+            display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
+        }
+        .f-card{
+            --mx:50%;--my:50%;
+            background:var(--bg-card);
+            border:1px solid rgba(var(--accent-rgb),.12);
+            border-radius:var(--radius-md);
+            padding:1.75rem;
+            transition:all .6s var(--ease);
+            position:relative;overflow:hidden;
+            backdrop-filter:blur(12px);
+            isolation:isolate;
+            min-height:205px;
+        }
+        .f-card::before{
+            content:'';position:absolute;top:0;left:0;
+            width:100%;height:2px;opacity:.28;
+            background:linear-gradient(90deg,transparent,var(--accent),transparent);
+            transition:opacity .6s var(--ease),transform .6s var(--ease);
+            transform:scaleX(.7);
+        }
+        .f-card::after{
+            content:'';position:absolute;inset:0;pointer-events:none;
+            background:
+                radial-gradient(360px circle at var(--mx) var(--my),rgba(var(--accent-rgb),.13),transparent 52%),
+                radial-gradient(circle at 50% 0%,rgba(var(--accent-rgb),.055),transparent 72%);
+            opacity:.18;transition:opacity .5s var(--ease);
+        }
+        .f-card:hover{
+            transform:translateY(-7px) scale(1.012);
+            border-color:rgba(var(--accent-rgb),.25);
+            box-shadow:0 20px 46px rgba(0,0,0,.36),0 0 36px rgba(var(--accent-rgb),.08);
+        }
+        .f-card:hover::before{opacity:1;transform:scaleX(1)}
+        .f-card:hover::after{opacity:1}
+        .f-card>*{position:relative;z-index:1}
+        .f-card.cyan{--accent:var(--cyan);--accent-rgb:var(--cyan-rgb)}
+        .f-card.violet{--accent:var(--violet);--accent-rgb:var(--violet-rgb)}
+        .f-card.amber{--accent:var(--amber);--accent-rgb:var(--amber-rgb)}
+        .f-card.rose{--accent:var(--rose);--accent-rgb:var(--rose-rgb)}
+        .f-card.emerald{--accent:var(--emerald);--accent-rgb:var(--emerald-rgb)}
+        .f-card.blue{--accent:var(--blue);--accent-rgb:var(--blue-rgb)}
+        .f-card.orange{--accent:var(--orange);--accent-rgb:var(--orange-rgb)}
+        .f-card.teal{--accent:var(--teal);--accent-rgb:var(--teal-rgb)}
+        .f-icon{
+            width:42px;height:42px;border-radius:11px;
+            display:flex;align-items:center;justify-content:center;
+            font-size:1.28rem;margin-bottom:1rem;
+            border:1px solid rgba(var(--accent-rgb),.2);
+            background:rgba(var(--accent-rgb),.075);
+            transition:all .5s var(--ease);
+        }
+        .f-card:hover .f-icon{
+            transform:scale(1.12) rotate(-4deg);
+            background:rgba(var(--accent-rgb),.12);
+            box-shadow:0 0 28px rgba(var(--accent-rgb),.10);
+        }
+        .f-title{font-size:.95rem;font-weight:600;margin-bottom:.4rem}
+        .f-desc{font-size:.82rem;color:var(--text-secondary);line-height:1.6}
+
+        /* SEGURANÇA — neutra, multicolorida e animada */
+        .sec-security{
+            background:linear-gradient(180deg,transparent,rgba(255,255,255,.008) 50%,transparent);
+        }
+        .security-shell{
+            position:relative;
+            display:grid;grid-template-columns:.9fr 1.1fr;
+            gap:3rem;align-items:center;
+            padding:2.3rem;
+            border:1px solid var(--border);
+            border-radius:var(--radius-lg);
+            background:linear-gradient(145deg,rgba(255,255,255,.022),rgba(255,255,255,.007));
+            overflow:hidden;
+            box-shadow:0 24px 70px rgba(0,0,0,.22);
+        }
+        .security-shell::before,
+        .security-shell::after{
+            content:'';position:absolute;border-radius:50%;pointer-events:none;
+            filter:blur(2px);
+        }
+        .security-shell::before{
+            width:350px;height:350px;left:-160px;top:-140px;
+            background:radial-gradient(circle,rgba(96,165,250,.07),transparent 70%);
+        }
+        .security-shell::after{
+            width:340px;height:340px;right:-140px;bottom:-160px;
+            background:radial-gradient(circle,rgba(167,139,250,.065),transparent 70%);
+        }
+        .shield-wrap{
+            display:flex;align-items:center;justify-content:center;min-height:320px;
+            position:relative;z-index:1;
+        }
+        .shield{
+            width:260px;height:260px;position:relative;
+            filter:drop-shadow(0 20px 40px rgba(0,0,0,.28));
+        }
+        .shield .ring,
+        .shield .ring::before,
+        .shield .ring::after{
+            position:absolute;border-radius:50%;content:'';
+        }
+        .shield .ring{
+            inset:0;
+            border:1.5px solid rgba(255,255,255,.07);
+            animation:spin 30s linear infinite;
+        }
+        .shield .ring::before{
+            inset:-12px;
+            border:1px solid rgba(96,165,250,.11);
+            border-top-color:rgba(96,165,250,.38);
+            border-right-color:rgba(167,139,250,.26);
+            animation:spin 20s linear infinite reverse;
+        }
+        .shield .ring::after{
+            inset:12px;
+            border:1px dashed rgba(251,191,36,.18);
+            border-left-color:rgba(52,211,153,.32);
+            animation:spin 40s linear infinite;
+        }
+        .shield .core{
+            position:absolute;inset:45px;
+            background:
+                radial-gradient(circle at 35% 25%,rgba(255,255,255,.055),transparent 48%),
+                linear-gradient(135deg,rgba(255,255,255,.025),rgba(255,255,255,.006));
+            border:1px solid var(--border-hover);border-radius:50%;
+            display:flex;align-items:center;justify-content:center;
+            font-size:3.6rem;backdrop-filter:blur(12px);
+            box-shadow:0 0 55px rgba(96,165,250,.025),0 0 70px rgba(167,139,250,.025);
+            transition:all .6s var(--ease);
+        }
+        .shield:hover .core{
+            transform:scale(1.04) rotate(-2deg);
+            box-shadow:0 0 55px rgba(96,165,250,.05),0 0 80px rgba(167,139,250,.045);
+        }
+        .orbit-dot{
+            position:absolute;width:7px;height:7px;border-radius:50%;
+            box-shadow:0 0 16px currentColor;
+        }
+        .orbit-dot.one{top:11px;left:126px;color:var(--cyan);background:currentColor;animation:dotPulse 2.8s ease-in-out infinite}
+        .orbit-dot.two{right:24px;bottom:55px;color:var(--violet);background:currentColor;animation:dotPulse 3.3s ease-in-out infinite .8s}
+        .orbit-dot.three{left:28px;bottom:70px;color:var(--amber);background:currentColor;animation:dotPulse 3.7s ease-in-out infinite 1.4s}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes dotPulse{50%{transform:scale(1.65);opacity:.35}}
+
+        .sec-list{list-style:none;position:relative;z-index:1}
+        .sec-list li{
+            --item:var(--emerald);--item-rgb:var(--emerald-rgb);
+            display:flex;align-items:flex-start;gap:.9rem;
+            padding:1rem 0;border-bottom:1px solid var(--border);
+            transition:all .45s var(--ease);
+        }
+        .sec-list li:nth-child(2){--item:var(--cyan);--item-rgb:var(--cyan-rgb)}
+        .sec-list li:nth-child(3){--item:var(--violet);--item-rgb:var(--violet-rgb)}
+        .sec-list li:nth-child(4){--item:var(--amber);--item-rgb:var(--amber-rgb)}
+        .sec-list li:nth-child(5){--item:var(--blue);--item-rgb:var(--blue-rgb)}
+        .sec-list li:nth-child(6){--item:var(--teal);--item-rgb:var(--teal-rgb)}
+        .sec-list li:hover{padding-left:.45rem;border-bottom-color:rgba(var(--item-rgb),.18)}
+        .sec-list li:last-child{border-bottom:none}
+        .sec-list .check{
+            width:20px;height:20px;min-width:20px;margin-top:2px;
+            display:flex;align-items:center;justify-content:center;
+            border-radius:5px;
+            color:var(--item);
+            background:rgba(var(--item-rgb),.075);
+            border:1.5px solid rgba(var(--item-rgb),.52);
+            font-size:.7rem;font-weight:700;
+            transition:all .35s var(--ease);
+        }
+        .sec-list li:hover .check{
+            transform:scale(1.12) rotate(-3deg);
+            background:rgba(var(--item-rgb),.13);
+            box-shadow:0 0 20px rgba(var(--item-rgb),.10);
+        }
+        .sec-list .txt{color:var(--text-secondary);font-size:.88rem;line-height:1.55}
+        .sec-list .txt strong{color:var(--text);display:block;margin-bottom:.15rem;font-weight:600}
+        .sec-note{
+            position:relative;z-index:1;margin-top:1.35rem;
+            padding:.85rem 1rem;border-radius:12px;
+            color:var(--text-secondary);font-size:.84rem;line-height:1.6;
+            border:1px solid var(--border);
+            background:rgba(255,255,255,.014);
         }
 
-        .hero-actions {
-            display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
-            animation: fadeUp 0.6s var(--ease) 0.2s both;
+        /* POR QUE ESCOLHER */
+        .sec-compare{background:linear-gradient(180deg,rgba(255,255,255,.009),transparent)}
+        .compare-grid{
+            display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
         }
-        .btn-main {
-            background: var(--white); color: var(--black);
-            padding: 0.95rem 2.2rem; border-radius: 50px;
-            font-weight: 600; font-size: 0.9rem;
-            text-decoration: none; transition: all 0.5s var(--ease);
-            border: none; cursor: pointer; display: inline-flex;
-            align-items: center; gap: 0.5rem; position: relative; overflow: hidden;
-            letter-spacing: -0.01em;
+        .c-card{
+            --mx:50%;--my:50%;
+            background:var(--bg-card);border:1px solid var(--border);
+            border-radius:var(--radius-lg);padding:2rem;
+            backdrop-filter:blur(12px);transition:all .5s var(--ease);
+            position:relative;overflow:hidden;isolation:isolate;
         }
-        .btn-main::before {
-            content: ''; position: absolute; top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.06), transparent);
-            transition: 0.7s var(--ease);
+        .c-card::after{
+            content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+            background:radial-gradient(430px circle at var(--mx) var(--my),rgba(var(--cmp-rgb),.10),transparent 55%);
+            opacity:0;transition:opacity .35s var(--ease);
         }
-        .btn-main:hover::before { left: 100%; }
-        .btn-main:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 36px rgba(255,255,255,0.12);
+        .c-card>*{position:relative;z-index:1}
+        .c-card.pro{
+            --cmp-rgb:var(--emerald-rgb);
+            border-color:rgba(52,211,153,.17);
+            background:linear-gradient(135deg,rgba(52,211,153,.02),rgba(0,0,0,.15));
+            padding-top:4.15rem;
         }
-
-        .btn-ghost {
-            background: transparent; color: var(--white);
-            padding: 0.95rem 2.2rem; border-radius: 50px;
-            font-weight: 500; font-size: 0.9rem;
-            text-decoration: none; transition: all 0.5s var(--ease);
-            border: 1px solid var(--border-hover); cursor: pointer;
-            display: inline-flex; align-items: center; gap: 0.5rem;
+        .c-card.avoid{
+            --cmp-rgb:var(--rose-rgb);
+            border-color:rgba(251,113,133,.13);
+            background:linear-gradient(135deg,rgba(251,113,133,.018),rgba(0,0,0,.15));
         }
-        .btn-ghost:hover {
-            border-color: rgba(255,255,255,0.25);
-            background: rgba(255,255,255,0.03);
-            transform: translateY(-3px) scale(1.02);
+        .c-card.pro::before{
+            content:'DESTAQUE';position:absolute;top:1.05rem;right:1.5rem;z-index:3;
+            background:linear-gradient(135deg,var(--emerald),var(--teal));
+            color:var(--black);padding:.32rem 1rem;border-radius:50px;
+            font-size:.65rem;font-weight:800;letter-spacing:.1em;line-height:1;
+            box-shadow:0 5px 16px rgba(52,211,153,.22);
+            white-space:nowrap;
         }
-
-        .hero-trust {
-            margin-top: 3rem; display: flex; align-items: center;
-            justify-content: center; gap: 0.6rem;
-            animation: fadeUp 0.6s var(--ease) 0.25s both;
+        .c-card:hover{
+            transform:translateY(-5px);
+            border-color:rgba(var(--cmp-rgb),.27);
+            box-shadow:0 18px 45px rgba(0,0,0,.32),0 0 35px rgba(var(--cmp-rgb),.055);
         }
-        .hero-trust .badge {
-            width: 22px; height: 22px;
-            background: linear-gradient(135deg, var(--emerald), var(--teal));
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            color: var(--black); font-size: 0.7rem; font-weight: 700;
-            box-shadow: 0 0 16px rgba(52,211,153,0.25);
-            transition: transform 0.5s var(--ease);
+        .c-card:hover::after{opacity:1}
+        .c-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1.25rem}
+        .c-head h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700}
+        .c-card.pro .c-head h3{color:var(--emerald)}
+        .c-card.avoid .c-head h3{color:var(--rose)}
+        .c-list{list-style:none}
+        .c-list li{
+            display:flex;align-items:center;gap:.7rem;
+            padding:.7rem 0;font-size:.85rem;color:var(--text-secondary);
+            border-bottom:1px solid var(--border);
+            transition:padding .3s var(--ease);
         }
-        .hero-trust:hover .badge { transform: scale(1.15) rotate(8deg); }
-        .hero-trust span { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
-
-        /* Sections */
-        section { position: relative; z-index: 2; padding: 100px 2rem; }
-        .wrap { max-width: 1080px; margin: 0 auto; }
-
-        .sec-head {
-            text-align: center; margin-bottom: 4rem;
+        .c-list li:hover{padding-left:.2rem}
+        .c-list li:last-child{border-bottom:none}
+        .c-icon{
+            width:18px;height:18px;border-radius:50%;
+            display:flex;align-items:center;justify-content:center;
+            font-size:.6rem;flex-shrink:0;font-weight:700;
         }
-        .sec-label {
-            display: inline-block; color: var(--text-muted);
-            font-size: 0.75rem; font-weight: 600;
-            letter-spacing: 0.2em; text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-        .sec-label::before, .sec-label::after {
-            content: '—'; margin: 0 0.8rem; opacity: 0.25;
-        }
-        .sec-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(1.9rem, 3.5vw, 2.8rem);
-            font-weight: 700; color: var(--text);
-            margin-bottom: 0.75rem; letter-spacing: -0.02em; line-height: 1.15;
-        }
-        .sec-desc {
-            color: var(--text-secondary); font-size: 1rem;
-            max-width: 500px; margin: 0 auto; line-height: 1.7;
+        .pro .c-icon{background:rgba(52,211,153,.12);color:var(--emerald)}
+        .avoid .c-icon{background:rgba(251,113,133,.10);color:var(--rose)}
+        .compare-foot{
+            text-align:center;margin:2rem auto 0;
+            color:var(--text-secondary);font-size:.88rem;
+            max-width:640px;line-height:1.7;
         }
 
-        /* Feature Cards — Coloridos */
-        .grid-features {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
+        /* EVOLUÇÃO / VERSÕES */
+        .evolution-track{position:relative}
+        .evolution-track::before{
+            content:'';position:absolute;left:8%;right:8%;top:21px;height:1px;
+            background:linear-gradient(90deg,rgba(96,165,250,.32),rgba(52,211,153,.4),rgba(251,191,36,.38));
+            opacity:.72;z-index:0;
         }
-        @media (max-width: 1024px) { .grid-features { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 560px) { .grid-features { grid-template-columns: 1fr; } }
+        .evo-proof-grid{
+            display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;
+            margin-bottom:1.15rem;
+        }
+        .evo-proof{
+            --proof:var(--blue);--proof-rgb:var(--blue-rgb);
+            position:relative;overflow:hidden;
+            padding:1.2rem 1.15rem;border-radius:16px;
+            border:1px solid rgba(var(--proof-rgb),.13);
+            background:linear-gradient(155deg,rgba(var(--proof-rgb),.035),rgba(255,255,255,.009));
+            transition:transform .4s var(--ease),border-color .35s var(--ease),box-shadow .4s var(--ease);
+        }
+        .evo-proof:nth-child(2){--proof:var(--violet);--proof-rgb:var(--violet-rgb)}
+        .evo-proof:nth-child(3){--proof:var(--emerald);--proof-rgb:var(--emerald-rgb)}
+        .evo-proof:nth-child(4){--proof:var(--amber);--proof-rgb:var(--amber-rgb)}
+        .evo-proof::before{
+            content:'';position:absolute;left:12%;right:12%;top:0;height:2px;
+            background:linear-gradient(90deg,transparent,var(--proof),transparent);opacity:.55;
+        }
+        .evo-proof:hover{
+            transform:translateY(-4px);border-color:rgba(var(--proof-rgb),.25);
+            box-shadow:0 18px 40px rgba(0,0,0,.26),0 0 30px rgba(var(--proof-rgb),.05);
+        }
+        .evo-proof-icon{font-size:1.25rem;margin-bottom:.7rem}
+        .evo-proof strong{display:block;font-size:.86rem;margin-bottom:.25rem}
+        .evo-proof p{margin:0;color:var(--text-secondary);font-size:.72rem;line-height:1.5}
+        .evo-proof small{
+            display:inline-flex;margin-top:.65rem;padding:.24rem .5rem;border-radius:999px;
+            color:var(--proof);background:rgba(var(--proof-rgb),.055);border:1px solid rgba(var(--proof-rgb),.13);
+            font-size:.59rem;font-weight:800;letter-spacing:.055em;text-transform:uppercase;
+        }
+        .version-grid{
+            position:relative;z-index:1;
+            display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;
+        }
+        .version-card{
+            --mx:50%;--my:50%;--ver:var(--blue);--ver-rgb:var(--blue-rgb);
+            background:
+                radial-gradient(420px circle at var(--mx) var(--my),rgba(var(--ver-rgb),.035),transparent 58%),
+                linear-gradient(160deg,rgba(var(--ver-rgb),.026),rgba(255,255,255,.012) 42%,rgba(255,255,255,.006));
+            border:1px solid rgba(var(--ver-rgb),.14);border-radius:var(--radius-lg);padding:1.75rem;
+            position:relative;overflow:hidden;
+            transition:transform .5s var(--ease),border-color .4s var(--ease),box-shadow .5s var(--ease);
+            min-height:100%;display:flex;flex-direction:column;
+        }
+        .version-card:nth-child(2){--ver:var(--emerald);--ver-rgb:var(--emerald-rgb)}
+        .version-card:nth-child(3){--ver:var(--amber);--ver-rgb:var(--amber-rgb)}
+        .version-card::before{
+            content:'';position:absolute;top:0;left:10%;right:10%;height:2px;
+            background:linear-gradient(90deg,transparent,var(--ver),transparent);opacity:.62;
+            box-shadow:0 0 14px rgba(var(--ver-rgb),.12);
+        }
+        .version-card::after{
+            content:'';position:absolute;inset:0;pointer-events:none;
+            background:radial-gradient(420px circle at var(--mx) var(--my),rgba(var(--ver-rgb),.11),transparent 54%);
+            opacity:0;transition:opacity .35s var(--ease);
+        }
+        .version-card>*{position:relative;z-index:1}
+        .version-card:hover{
+            transform:translateY(-6px);border-color:rgba(var(--ver-rgb),.28);
+            box-shadow:0 24px 56px rgba(0,0,0,.34),0 0 38px rgba(var(--ver-rgb),.06);
+        }
+        .version-card:hover::after{opacity:1}
+        .version-node{
+            width:42px;height:42px;border-radius:13px;display:grid;place-items:center;margin:-.15rem 0 1.05rem;
+            border:1px solid rgba(var(--ver-rgb),.24);background:rgba(var(--ver-rgb),.08);color:var(--ver);
+            box-shadow:0 8px 24px rgba(var(--ver-rgb),.055);font-size:1.15rem;
+            transition:transform .4s var(--ease),box-shadow .4s var(--ease);
+        }
+        .version-card:hover .version-node{transform:translateY(-2px) scale(1.08) rotate(-3deg);box-shadow:0 10px 30px rgba(var(--ver-rgb),.10)}
+        .version-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;margin-bottom:1rem}
+        .version-head h3{font-family:'Space Grotesk',sans-serif;font-size:1.28rem;letter-spacing:-.02em}
+        .version-date{font-size:.71rem;color:var(--text-muted);margin-bottom:.25rem}
+        .version-badge{
+            border-radius:50px;padding:.29rem .72rem;color:var(--ver);border:1px solid rgba(var(--ver-rgb),.23);
+            background:rgba(var(--ver-rgb),.07);font-size:.61rem;font-weight:800;letter-spacing:.075em;text-transform:uppercase;white-space:nowrap;
+        }
+        .version-title{margin:0 0 .55rem;font-size:.96rem;font-weight:700;color:var(--text)}
+        .version-summary{margin:0 0 1.05rem;color:var(--text-secondary);font-size:.81rem;line-height:1.62}
+        .version-impact{display:flex;flex-wrap:wrap;gap:.42rem;margin-bottom:1rem}
+        .version-impact span{
+            display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .58rem;border-radius:999px;
+            background:rgba(var(--ver-rgb),.055);border:1px solid rgba(var(--ver-rgb),.14);
+            color:var(--text-secondary);font-size:.67rem;font-weight:650;
+        }
+        .version-list{list-style:none;margin:0;padding:0}
+        .version-list li{
+            position:relative;padding:.47rem 0 .47rem 1.08rem;color:var(--text-secondary);font-size:.78rem;line-height:1.5;
+            border-bottom:1px solid rgba(255,255,255,.035);
+        }
+        .version-list li:last-child{border-bottom:none}
+        .version-list li::before{
+            content:'';position:absolute;left:0;top:.92rem;width:5px;height:5px;border-radius:50%;background:var(--ver);
+            box-shadow:0 0 10px rgba(var(--ver-rgb),.35);
+        }
+        .version-value{
+            margin-top:auto;padding-top:1rem;
+        }
+        .version-value div{
+            padding:.82rem .9rem;border-radius:12px;
+            border:1px solid rgba(var(--ver-rgb),.12);background:rgba(var(--ver-rgb),.045);
+            color:var(--text-secondary);font-size:.73rem;line-height:1.5;
+        }
+        .version-value strong{color:var(--ver);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em}
+        .roadmap-note{
+            margin-top:1.15rem;display:flex;align-items:center;justify-content:space-between;gap:1.4rem;
+            padding:1.2rem 1.35rem;border:1px solid var(--border);border-radius:var(--radius-md);
+            background:linear-gradient(135deg,rgba(167,139,250,.025),rgba(34,211,238,.015),rgba(255,255,255,.008));
+            position:relative;overflow:hidden;
+        }
+        .roadmap-note::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--violet),var(--cyan));opacity:.8}
+        .roadmap-note strong{display:block;margin-bottom:.2rem;font-size:.88rem}
+        .roadmap-note p{margin:0;color:var(--text-secondary);font-size:.78rem;line-height:1.55}
+        .roadmap-pill{
+            flex-shrink:0;padding:.42rem .8rem;border-radius:999px;border:1px solid rgba(167,139,250,.18);
+            background:rgba(167,139,250,.055);color:var(--violet);font-size:.66rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+        }
+        /* RECOMENDAÇÕES */
+        .rec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .rec-card{
+            background:var(--bg-card);border:1px solid var(--border);
+            border-radius:var(--radius-md);padding:1.5rem;
+            display:flex;gap:.9rem;transition:all .5s var(--ease);
+            backdrop-filter:blur(12px);position:relative;overflow:hidden;
+        }
+        .rec-card::before{
+            content:'';position:absolute;left:0;top:0;width:2px;height:100%;
+            background:linear-gradient(180deg,var(--amber),var(--orange));
+            opacity:.25;transition:opacity .5s var(--ease);
+        }
+        .rec-card:hover{
+            border-color:rgba(251,191,36,.16);
+            transform:translateY(-3px);
+            box-shadow:0 12px 28px rgba(0,0,0,.28),0 0 24px rgba(251,191,36,.035);
+        }
+        .rec-card:hover::before{opacity:1}
+        .rec-num{
+            width:28px;height:28px;min-width:28px;
+            background:linear-gradient(135deg,var(--amber),var(--orange));
+            border-radius:7px;display:flex;align-items:center;justify-content:center;
+            color:var(--black);font-weight:700;font-size:.8rem;
+            transition:all .5s var(--ease);
+        }
+        .rec-card:hover .rec-num{transform:scale(1.1) rotate(-4deg)}
+        .rec-txt{color:var(--text-secondary);font-size:.85rem;line-height:1.6}
 
-        .f-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 1.75rem;
-            transition: all 0.6s var(--ease);
-            position: relative; overflow: hidden;
-            backdrop-filter: blur(12px);
-            contain: layout style paint;
+        /* COMO USAR — visual original */
+        .steps{
+            display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;
         }
-        .f-card::before {
-            content: ''; position: absolute; top: 0; left: 0;
-            width: 100%; height: 2px; opacity: 0;
-            transition: opacity 0.6s var(--ease);
+        .step{
+            flex:1;min-width:240px;max-width:300px;
+            background:var(--bg-card);border:1px solid var(--border);
+            border-radius:var(--radius-lg);padding:2.5rem 1.75rem;
+            text-align:center;position:relative;
+            transition:all .6s var(--ease);backdrop-filter:blur(12px);
+            overflow:hidden;
         }
-        .f-card::after {
-            content: ''; position: absolute; inset: 0; border-radius: var(--radius-md);
-            opacity: 0; transition: opacity 0.6s var(--ease); pointer-events: none;
+        .step::before{
+            content:'';position:absolute;top:0;left:50%;
+            transform:translateX(-50%);width:50%;height:1.5px;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+            opacity:.25;transition:all .5s var(--ease);
         }
-        .f-card:hover {
-            transform: translateY(-6px) scale(1.01);
-            border-color: transparent;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+        .step:hover{
+            border-color:var(--border-hover);
+            transform:translateY(-8px) scale(1.02);
+            box-shadow:0 20px 40px rgba(0,0,0,.3);
         }
-        .f-card:hover::before { opacity: 1; }
-        .f-card:hover::after { opacity: 1; }
+        .step:hover::before{width:70%;opacity:.55}
+        .step-num{
+            width:56px;height:56px;
+            background:linear-gradient(135deg,#fff,#9ca3af);
+            border-radius:50%;display:flex;align-items:center;justify-content:center;
+            font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;
+            color:var(--black);margin:0 auto 1.25rem;
+            box-shadow:0 6px 20px rgba(255,255,255,.08);
+            transition:all .5s var(--ease-bounce);position:relative;z-index:1;
+        }
+        .step:hover .step-num{
+            transform:scale(1.12);
+            box-shadow:0 10px 28px rgba(255,255,255,.12);
+        }
+        .step h4{font-size:1rem;font-weight:600;margin-bottom:.5rem;position:relative;z-index:1}
+        .step p{font-size:.85rem;color:var(--text-secondary);line-height:1.6;position:relative;z-index:1}
 
-        /* Cores individuais */
-        .f-card.cyan { border-color: rgba(34,211,238,0.12); }
-        .f-card.cyan::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
-        .f-card.cyan::after { background: radial-gradient(circle at 50% 0%, var(--cyan-glow), transparent 70%); }
-        .f-card.cyan:hover { box-shadow: 0 20px 40px rgba(34,211,238,0.1), 0 0 0 1px rgba(34,211,238,0.15); }
-        .f-card.cyan .f-icon { background: var(--cyan-glow); border-color: rgba(34,211,238,0.18); }
-
-        .f-card.violet { border-color: rgba(167,139,250,0.12); }
-        .f-card.violet::before { background: linear-gradient(90deg, transparent, var(--violet), transparent); }
-        .f-card.violet::after { background: radial-gradient(circle at 50% 0%, var(--violet-glow), transparent 70%); }
-        .f-card.violet:hover { box-shadow: 0 20px 40px rgba(167,139,250,0.1), 0 0 0 1px rgba(167,139,250,0.15); }
-        .f-card.violet .f-icon { background: var(--violet-glow); border-color: rgba(167,139,250,0.18); }
-
-        .f-card.amber { border-color: rgba(251,191,36,0.12); }
-        .f-card.amber::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
-        .f-card.amber::after { background: radial-gradient(circle at 50% 0%, var(--amber-glow), transparent 70%); }
-        .f-card.amber:hover { box-shadow: 0 20px 40px rgba(251,191,36,0.1), 0 0 0 1px rgba(251,191,36,0.15); }
-        .f-card.amber .f-icon { background: var(--amber-glow); border-color: rgba(251,191,36,0.18); }
-
-        .f-card.rose { border-color: rgba(251,113,133,0.12); }
-        .f-card.rose::before { background: linear-gradient(90deg, transparent, var(--rose), transparent); }
-        .f-card.rose::after { background: radial-gradient(circle at 50% 0%, var(--rose-glow), transparent 70%); }
-        .f-card.rose:hover { box-shadow: 0 20px 40px rgba(251,113,133,0.1), 0 0 0 1px rgba(251,113,133,0.15); }
-        .f-card.rose .f-icon { background: var(--rose-glow); border-color: rgba(251,113,133,0.18); }
-
-        .f-card.emerald { border-color: rgba(52,211,153,0.12); }
-        .f-card.emerald::before { background: linear-gradient(90deg, transparent, var(--emerald), transparent); }
-        .f-card.emerald::after { background: radial-gradient(circle at 50% 0%, var(--emerald-glow), transparent 70%); }
-        .f-card.emerald:hover { box-shadow: 0 20px 40px rgba(52,211,153,0.1), 0 0 0 1px rgba(52,211,153,0.15); }
-        .f-card.emerald .f-icon { background: var(--emerald-glow); border-color: rgba(52,211,153,0.18); }
-
-        .f-card.blue { border-color: rgba(96,165,250,0.12); }
-        .f-card.blue::before { background: linear-gradient(90deg, transparent, var(--blue), transparent); }
-        .f-card.blue::after { background: radial-gradient(circle at 50% 0%, var(--blue-glow), transparent 70%); }
-        .f-card.blue:hover { box-shadow: 0 20px 40px rgba(96,165,250,0.1), 0 0 0 1px rgba(96,165,250,0.15); }
-        .f-card.blue .f-icon { background: var(--blue-glow); border-color: rgba(96,165,250,0.18); }
-
-        .f-card.orange { border-color: rgba(251,146,60,0.12); }
-        .f-card.orange::before { background: linear-gradient(90deg, transparent, var(--orange), transparent); }
-        .f-card.orange::after { background: radial-gradient(circle at 50% 0%, var(--orange-glow), transparent 70%); }
-        .f-card.orange:hover { box-shadow: 0 20px 40px rgba(251,146,60,0.1), 0 0 0 1px rgba(251,146,60,0.15); }
-        .f-card.orange .f-icon { background: var(--orange-glow); border-color: rgba(251,146,60,0.18); }
-
-        .f-card.teal { border-color: rgba(45,212,191,0.12); }
-        .f-card.teal::before { background: linear-gradient(90deg, transparent, var(--teal), transparent); }
-        .f-card.teal::after { background: radial-gradient(circle at 50% 0%, var(--teal-glow), transparent 70%); }
-        .f-card.teal:hover { box-shadow: 0 20px 40px rgba(45,212,191,0.1), 0 0 0 1px rgba(45,212,191,0.15); }
-        .f-card.teal .f-icon { background: var(--teal-glow); border-color: rgba(45,212,191,0.18); }
-
-        .f-icon {
-            width: 40px; height: 40px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.25rem; margin-bottom: 1rem;
-            border: 1px solid; transition: all 0.5s var(--ease);
-            position: relative; z-index: 1;
+        /* PREÇOS — recorrentes + permanente por quantidade */
+        .sec-price{
+            background:linear-gradient(180deg,rgba(255,255,255,.008),transparent);
         }
-        .f-card:hover .f-icon { transform: scale(1.12) rotate(-4deg); }
-
-        .f-title {
-            font-size: 0.95rem; font-weight: 600; color: var(--text);
-            margin-bottom: 0.4rem; position: relative; z-index: 1; letter-spacing: -0.01em;
+        .subscription-grid{
+            display:grid;
+            grid-template-columns:repeat(2,minmax(0,1fr));
+            gap:1.1rem;
+            max-width:860px;
+            margin:0 auto 1.2rem;
         }
-        .f-desc {
-            font-size: 0.82rem; color: var(--text-secondary);
-            line-height: 1.6; position: relative; z-index: 1;
+        .price-card,
+        .lifetime-panel,
+        .license-option{
+            --mx:50%;--my:50%;
+            position:relative;overflow:hidden;
+            transition:transform .5s var(--ease),border-color .4s var(--ease),box-shadow .5s var(--ease);
         }
-
-        /* Security */
-        .sec-security { background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.008) 50%, transparent 100%); }
-        .security-row {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 4rem; align-items: center;
+        .price-card{
+            --plan:var(--blue);--plan-rgb:var(--blue-rgb);
+            background:
+                radial-gradient(460px circle at var(--mx) var(--my),rgba(var(--plan-rgb),.04),transparent 58%),
+                linear-gradient(145deg,rgba(18,18,18,.96),rgba(8,8,8,.98));
+            border:1px solid rgba(var(--plan-rgb),.15);
+            border-radius:var(--radius-lg);
+            padding:2rem;
+            backdrop-filter:blur(18px);
+            box-shadow:0 20px 46px rgba(0,0,0,.31);
+            display:flex;flex-direction:column;
+            min-height:100%;
         }
-        @media (max-width: 768px) {
-            .security-row { grid-template-columns: 1fr; gap: 2.5rem; }
+        .price-card.annual{--plan:var(--violet);--plan-rgb:var(--violet-rgb)}
+        .price-card::before,
+        .lifetime-panel::before,
+        .license-option::before{
+            content:'';position:absolute;top:0;left:9%;right:9%;height:2px;
+            background:linear-gradient(90deg,transparent,var(--plan),transparent);
+            opacity:.68;
+            box-shadow:0 0 16px rgba(var(--plan-rgb),.14);
         }
-
-        .shield-wrap {
-            display: flex; align-items: center; justify-content: center;
-            position: relative;
+        .price-card::after,
+        .lifetime-panel::after,
+        .license-option::after{
+            content:'';position:absolute;inset:0;pointer-events:none;
+            background:radial-gradient(430px circle at var(--mx) var(--my),rgba(var(--plan-rgb),.08),transparent 56%);
+            opacity:0;transition:opacity .35s var(--ease);
         }
-        .shield {
-            width: 260px; height: 260px; position: relative;
+        .price-card:hover,
+        .license-option:hover{
+            transform:translateY(-6px);
+            border-color:rgba(var(--plan-rgb),.28);
+            box-shadow:0 28px 65px rgba(0,0,0,.42),0 0 42px rgba(var(--plan-rgb),.055);
         }
-        .shield .ring {
-            position: absolute; inset: 0;
-            border: 1.5px solid var(--border); border-radius: 50%;
-            animation: spin 30s linear infinite;
-            will-change: transform;
+        .price-card:hover::after,
+        .lifetime-panel:hover::after,
+        .license-option:hover::after{opacity:1}
+        .price-card>*,
+        .lifetime-panel>*,
+        .license-option>*{position:relative;z-index:1}
+        .plan-top{
+            display:flex;align-items:flex-start;justify-content:space-between;
+            gap:.8rem;margin-bottom:1.4rem;
         }
-        .shield .ring::before {
-            content: ''; position: absolute; inset: -12px;
-            border: 1px solid var(--border); border-radius: 50%;
-            animation: spin 20s linear infinite reverse;
+        .plan-name{
+            font-family:'Space Grotesk',sans-serif;
+            font-size:1.28rem;font-weight:700;letter-spacing:-.02em;
         }
-        .shield .ring::after {
-            content: ''; position: absolute; inset: 12px;
-            border: 1px dashed var(--border-hover); border-radius: 50%;
-            animation: spin 40s linear infinite;
+        .plan-kicker{
+            color:var(--text-muted);font-size:.74rem;margin-top:.2rem;
         }
-        .shield .core {
-            position: absolute; inset: 45px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
-            border: 1px solid var(--border-hover); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 3.5rem; backdrop-filter: blur(12px);
-            box-shadow: 0 0 50px rgba(255,255,255,0.02);
-            transition: all 0.6s var(--ease);
+        .plan-badge{
+            flex-shrink:0;
+            padding:.32rem .72rem;border-radius:999px;
+            border:1px solid rgba(var(--plan-rgb),.24);
+            color:var(--plan);
+            background:rgba(var(--plan-rgb),.07);
+            font-size:.62rem;font-weight:800;letter-spacing:.075em;
+            text-transform:uppercase;white-space:nowrap;
         }
-        .shield:hover .core { transform: scale(1.04); box-shadow: 0 0 70px rgba(255,255,255,0.04); }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        .sec-list { list-style: none; }
-        .sec-list li {
-            display: flex; align-items: flex-start; gap: 0.9rem;
-            padding: 1rem 0; border-bottom: 1px solid var(--border);
-            transition: all 0.5s var(--ease);
+        .plan-badge.hot{
+            color:#0b0b0b;
+            background:linear-gradient(135deg,var(--amber),var(--orange));
+            border-color:transparent;
+            box-shadow:0 5px 16px rgba(251,191,36,.18);
         }
-        .sec-list li:hover { padding-left: 0.5rem; border-bottom-color: var(--border-hover); }
-        .sec-list li:last-child { border-bottom: none; }
-        .sec-list .check {
-            width: 20px; height: 20px; min-width: 20px;
-            background: var(--emerald-glow); border: 1.5px solid var(--emerald);
-            border-radius: 5px; display: flex; align-items: center; justify-content: center;
-            color: var(--emerald); font-size: 0.7rem; font-weight: 700; margin-top: 2px;
-            transition: all 0.4s var(--ease);
+        .launch-label{
+            display:inline-flex;align-items:center;gap:.35rem;
+            width:max-content;max-width:100%;
+            margin-bottom:.85rem;
+            color:var(--text-secondary);
+            font-size:.7rem;font-weight:700;
+            letter-spacing:.075em;text-transform:uppercase;
         }
-        .sec-list li:hover .check { transform: scale(1.1); background: rgba(52,211,153,0.15); }
-        .sec-list .txt {
-            color: var(--text-secondary); font-size: 0.88rem; line-height: 1.55;
+        .launch-label::before{
+            content:'';width:6px;height:6px;border-radius:50%;
+            background:var(--plan);box-shadow:0 0 12px rgba(var(--plan-rgb),.55);
         }
-        .sec-list .txt strong {
-            color: var(--text); display: block; margin-bottom: 0.15rem; font-weight: 600;
+        .plan-price{
+            margin-bottom:.35rem;
+            display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;
         }
-        .sec-note {
-            margin-top: 1.5rem; color: var(--emerald); font-size: 0.88rem;
-            font-style: italic; line-height: 1.6;
+        .plan-price .current{
+            font-family:'Space Grotesk',sans-serif;
+            font-size:2.55rem;font-weight:700;letter-spacing:-.045em;
+            background:linear-gradient(135deg,#fff,#a1a1aa);
+            -webkit-background-clip:text;background-clip:text;color:transparent;
+            line-height:1;
         }
-
-        /* Comparison */
-        .sec-compare { background: linear-gradient(180deg, rgba(255,255,255,0.01) 0%, transparent 100%); }
-        .compare-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+        .plan-price .period{
+            color:var(--text-muted);font-size:.76rem;font-weight:500;
         }
-        @media (max-width: 768px) { .compare-grid { grid-template-columns: 1fr; } }
-
-        .c-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: var(--radius-lg); padding: 2rem;
-            backdrop-filter: blur(12px); transition: all 0.5s var(--ease);
+        .normal-price{
+            color:var(--text-muted);font-size:.8rem;margin-bottom:1.2rem;
         }
-        .c-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.3); }
-        .c-card.pro {
-            border-color: rgba(52,211,153,0.2);
-            background: linear-gradient(135deg, rgba(52,211,153,0.02), rgba(0,0,0,0.15));
-            position: relative;
+        .normal-price s{opacity:.8}
+        .price-note{
+            color:var(--text-secondary);font-size:.8rem;line-height:1.55;
+            min-height:2.5rem;margin-bottom:1.25rem;
         }
-        .c-card.pro::before {
-            content: 'RECOMENDADO'; position: absolute; top: -12px; right: 2rem;
-            background: linear-gradient(135deg, var(--emerald), var(--teal));
-            color: var(--black); padding: 0.3rem 1rem; border-radius: 50px;
-            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
-            box-shadow: 0 4px 12px rgba(52,211,153,0.25);
+        .price-list{
+            list-style:none;margin:0 0 1.5rem;
+            flex:1;
         }
-        .c-card.others { border-color: rgba(239,68,68,0.12); opacity: 0.7; }
-        .c-card.others:hover { opacity: 0.85; }
-
-        .c-head {
-            display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.25rem;
+        .price-list li{
+            display:flex;align-items:flex-start;gap:.65rem;
+            padding:.67rem 0;border-bottom:1px solid var(--border);
+            font-size:.83rem;color:var(--text-secondary);
+            transition:all .3s var(--ease);
         }
-        .c-head h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em;
+        .price-list li:hover{padding-left:.28rem;color:var(--text)}
+        .price-list li:last-child{border-bottom:none}
+        .price-list .ic{
+            color:var(--plan);font-size:.9rem;font-weight:800;line-height:1.45;
         }
-        .c-card.pro .c-head h3 { color: var(--emerald); }
-        .c-card.others .c-head h3 { color: #ef4444; }
-
-        .c-list { list-style: none; }
-        .c-list li {
-            display: flex; align-items: center; gap: 0.7rem;
-            padding: 0.7rem 0; font-size: 0.85rem;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s var(--ease); color: var(--text-secondary);
+        .price-actions{display:grid;gap:.7rem;margin-top:auto}
+        .price-btn{
+            width:100%;padding:.95rem 1rem;font-size:.9rem;
+            font-weight:600;justify-content:center;
         }
-        .c-list li:hover { padding-left: 0.2rem; }
-        .c-list li:last-child { border-bottom: none; }
-        .c-icon {
-            width: 18px; height: 18px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.6rem; flex-shrink: 0; font-weight: 700;
-            transition: transform 0.4s var(--ease);
-        }
-        .c-list li:hover .c-icon { transform: scale(1.25); }
-        .pro .c-icon { background: rgba(52,211,153,0.12); color: var(--emerald); }
-        .others .c-icon { background: rgba(239,68,68,0.1); color: #ef4444; }
-
-        .compare-foot {
-            text-align: center; margin-top: 2rem;
-            color: var(--text-secondary); font-size: 0.88rem;
-            max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7;
-        }
-
-        /* Recommendations */
-        .rec-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
-        }
-        @media (max-width: 640px) { .rec-grid { grid-template-columns: 1fr; } }
-
-        .rec-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: var(--radius-md); padding: 1.5rem;
-            display: flex; gap: 0.9rem; transition: all 0.5s var(--ease);
-            backdrop-filter: blur(12px); position: relative; overflow: hidden;
-        }
-        .rec-card::before {
-            content: ''; position: absolute; left: 0; top: 0;
-            width: 2px; height: 100%;
-            background: linear-gradient(180deg, var(--amber), var(--orange));
-            opacity: 0; transition: opacity 0.5s var(--ease);
-        }
-        .rec-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.25);
-        }
-        .rec-card:hover::before { opacity: 1; }
-
-        .rec-num {
-            width: 28px; height: 28px; min-width: 28px;
-            background: linear-gradient(135deg, var(--amber), var(--orange));
-            border-radius: 7px; display: flex; align-items: center; justify-content: center;
-            color: var(--black); font-weight: 700; font-size: 0.8rem;
-            transition: all 0.5s var(--ease);
-        }
-        .rec-card:hover .rec-num { transform: scale(1.1) rotate(-4deg); }
-        .rec-txt { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; }
-
-        /* Steps */
-        .steps {
-            display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
-        }
-        .step {
-            flex: 1; min-width: 240px; max-width: 300px;
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: var(--radius-lg); padding: 2.5rem 1.75rem;
-            text-align: center; position: relative;
-            transition: all 0.6s var(--ease); backdrop-filter: blur(12px);
-            overflow: hidden;
-        }
-        .step::before {
-            content: ''; position: absolute; top: 0; left: 50%;
-            transform: translateX(-50%); width: 50%; height: 1.5px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            opacity: 0.25; transition: all 0.5s var(--ease);
-        }
-        .step:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        .step:hover::before { width: 70%; opacity: 0.5; }
-
-        .step-num {
-            width: 56px; height: 56px;
-            background: linear-gradient(135deg, #fff, #9ca3af);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700;
-            color: var(--black); margin: 0 auto 1.25rem;
-            box-shadow: 0 6px 20px rgba(255,255,255,0.08);
-            transition: all 0.5s var(--ease-bounce); position: relative; z-index: 1;
-        }
-        .step:hover .step-num { transform: scale(1.12); box-shadow: 0 10px 28px rgba(255,255,255,0.12); }
-        .step h4 { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; position: relative; z-index: 1; }
-        .step p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; position: relative; z-index: 1; }
-
-        /* Pricing */
-        .sec-price { background: linear-gradient(180deg, rgba(255,255,255,0.008) 0%, transparent 100%); }
-        .price-card {
-            max-width: 520px; margin: 0 auto;
-            background: linear-gradient(135deg, rgba(18,18,18,0.9), rgba(10,10,10,0.95));
-            border: 1px solid var(--border-hover); border-radius: var(--radius-lg);
-            padding: 3rem; position: relative; overflow: hidden;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 0 60px rgba(255,255,255,0.02), 0 20px 40px rgba(0,0,0,0.3);
-            transition: all 0.5s var(--ease);
-        }
-        .price-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 80px rgba(255,255,255,0.03), 0 28px 56px rgba(0,0,0,0.4);
-        }
-        .price-card::before {
-            content: ''; position: absolute; top: -40%; left: -40%;
-            width: 180%; height: 180%;
-            background: radial-gradient(circle, rgba(255,255,255,0.015) 0%, transparent 50%);
-            animation: breathe 10s ease-in-out infinite;
-        }
-        .price-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--amber), var(--orange));
-            color: var(--black); padding: 0.45rem 1.25rem;
-            border-radius: 50px; font-size: 0.72rem; font-weight: 700;
-            letter-spacing: 0.08em; margin-bottom: 1.5rem;
-            position: relative; z-index: 1;
-            box-shadow: 0 4px 14px rgba(251,191,36,0.25);
-            transition: transform 0.4s var(--ease);
-        }
-        .price-card:hover .price-tag { transform: scale(1.04); }
-        .price-card h3 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.7rem;
-            font-weight: 700; margin-bottom: 0.4rem;
-            position: relative; z-index: 1; letter-spacing: -0.02em;
-        }
-        .price-card .sub {
-            color: var(--text-secondary); font-size: 0.88rem;
-            margin-bottom: 2rem; position: relative; z-index: 1;
-        }
-        .price-row {
-            display: flex; align-items: baseline; gap: 1rem;
-            margin-bottom: 1.5rem; position: relative; z-index: 1;
-        }
-        .price-old { font-size: 1.4rem; color: var(--text-muted); text-decoration: line-through; opacity: 0.45; font-weight: 500; }
-        .price-new {
-            font-family: 'Space Grotesk', sans-serif; font-size: 3.2rem;
-            font-weight: 800; letter-spacing: -0.03em;
-            background: linear-gradient(135deg, #fff, #a1a1aa);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .price-note { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 2rem; position: relative; z-index: 1; }
-        .price-list { list-style: none; margin-bottom: 2.5rem; position: relative; z-index: 1; }
-        .price-list li {
-            display: flex; align-items: center; gap: 0.7rem;
-            padding: 0.7rem 0; border-bottom: 1px solid var(--border);
-            font-size: 0.88rem; color: var(--text-secondary);
-            transition: all 0.3s var(--ease);
-        }
-        .price-list li:hover { padding-left: 0.4rem; color: var(--text); }
-        .price-list li:last-child { border-bottom: none; }
-        .price-list .ic { color: var(--emerald); font-size: 1rem; transition: transform 0.4s var(--ease); }
-        .price-list li:hover .ic { transform: scale(1.2); }
-        .price-btn {
-            width: 100%; padding: 1rem; font-size: 0.95rem;
-            position: relative; z-index: 1; font-weight: 600; justify-content: center;
-        }
-        .price-disclaimer {
-            text-align: center; margin-top: 1.5rem;
-            font-size: 0.75rem; color: var(--text-muted);
-            position: relative; z-index: 1; line-height: 1.6;
+        .price-card.annual .price-btn{
+            background:linear-gradient(135deg,#fff,#ded8ff);
         }
 
-        /* Screenshots */
-        .screenshot-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+        .founder-offer{
+            --mx:50%;--my:50%;
+            --plan:var(--amber);--plan-rgb:var(--amber-rgb);
+            position:relative;overflow:hidden;
+            max-width:980px;
+            margin:0 auto 1.6rem;
+            padding:2px;
+            border-radius:28px;
+            background:
+                linear-gradient(120deg,
+                    rgba(251,191,36,.95),
+                    rgba(251,146,60,.72) 34%,
+                    rgba(167,139,250,.5) 68%,
+                    rgba(251,191,36,.9));
+            box-shadow:
+                0 34px 90px rgba(0,0,0,.48),
+                0 0 72px rgba(251,191,36,.09);
+            transition:transform .5s var(--ease),box-shadow .5s var(--ease);
         }
-        @media (max-width: 768px) { .screenshot-grid { grid-template-columns: 1fr; } }
-        .screenshot-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: var(--radius-lg); overflow: hidden;
-            transition: all 0.6s var(--ease); backdrop-filter: blur(12px);
+        .founder-offer::before{
+            content:'';
+            position:absolute;
+            inset:-35%;
+            background:
+                conic-gradient(from 180deg,
+                    transparent 0 18%,
+                    rgba(251,191,36,.12) 28%,
+                    transparent 38% 58%,
+                    rgba(167,139,250,.09) 67%,
+                    transparent 78%);
+            animation:founderAura 14s linear infinite;
+            pointer-events:none;
         }
-        .screenshot-card:hover {
-            transform: translateY(-6px) scale(1.01);
-            border-color: var(--border-hover);
-            box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+        .founder-offer::after{
+            content:'';
+            position:absolute;inset:0;pointer-events:none;
+            background:
+                radial-gradient(520px circle at var(--mx) var(--my),rgba(255,225,145,.11),transparent 58%);
+            opacity:.65;
+            transition:opacity .35s var(--ease);
         }
-        .screenshot-img {
-            position: relative; overflow: hidden;
-            background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,0,0,0.3));
+        .founder-offer:hover{
+            transform:translateY(-7px);
+            box-shadow:
+                0 42px 110px rgba(0,0,0,.56),
+                0 0 92px rgba(251,191,36,.14);
         }
-        .screenshot-img::before {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(180deg, transparent 60%, rgba(8,8,8,0.6) 100%);
-            z-index: 1; pointer-events: none;
-        }
-        .screenshot-img img {
-            width: 100%; height: auto; display: block;
-            transition: transform 0.8s var(--ease);
-        }
-        .screenshot-card:hover .screenshot-img img { transform: scale(1.03); }
-        .screenshot-caption {
-            padding: 1.5rem 1.75rem;
-        }
-        .screenshot-caption h4 {
-            font-size: 1rem; font-weight: 600; color: var(--text);
-            margin-bottom: 0.4rem; letter-spacing: -0.01em;
-        }
-        .screenshot-caption p {
-            font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;
-        }
-        /* Footer */
-        .footer {
-            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 100%);
-            padding: 70px 2rem 40px; border-top: 1px solid var(--border);
-            position: relative; z-index: 2;
-        }
-        .foot-inner {
-            max-width: 1080px; margin: 0 auto;
-            display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem;
-        }
-        @media (max-width: 768px) { .foot-inner { grid-template-columns: 1fr; gap: 2rem; } }
+        .founder-offer:hover::after{opacity:1}
+        @keyframes founderAura{to{transform:rotate(360deg)}}
 
-        .foot-brand { display: flex; flex-direction: column; gap: 1rem; }
-        .foot-brand .logo { font-size: 1.2rem; }
-        .foot-brand p { color: var(--text-muted); font-size: 0.85rem; max-width: 260px; line-height: 1.6; }
-        .foot-email {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-            padding: 0.65rem 1.1rem; border-radius: 50px;
-            color: var(--text-secondary); font-size: 0.85rem;
-            text-decoration: none; transition: all 0.5s var(--ease); width: fit-content;
+        .founder-inner{
+            position:relative;z-index:1;
+            border-radius:26px;
+            padding:2.05rem;
+            background:
+                radial-gradient(780px circle at 18% 15%,rgba(251,191,36,.08),transparent 54%),
+                radial-gradient(600px circle at 86% 18%,rgba(167,139,250,.055),transparent 48%),
+                linear-gradient(145deg,rgba(19,17,12,.985),rgba(8,8,8,.992) 62%);
+            border:1px solid rgba(255,255,255,.035);
+            overflow:hidden;
         }
-        .foot-email:hover {
-            background: rgba(255,255,255,0.06); border-color: var(--border-hover);
-            transform: translateY(-2px); color: var(--white);
+        .founder-inner::before{
+            content:'FOUNDER';
+            position:absolute;
+            right:-1.5rem;bottom:-1.3rem;
+            font-family:'Space Grotesk',sans-serif;
+            font-size:5.8rem;font-weight:800;letter-spacing:-.06em;
+            color:rgba(255,255,255,.018);
+            pointer-events:none;
+            user-select:none;
+        }
+        .founder-grid{
+            position:relative;z-index:1;
+            display:grid;
+            grid-template-columns:1.25fr .75fr;
+            gap:2rem;
+            align-items:center;
+        }
+        .founder-eyebrow{
+            display:flex;align-items:center;gap:.75rem;
+            margin-bottom:1rem;
+        }
+        .founder-crown{
+            width:46px;height:46px;border-radius:15px;
+            display:grid;place-items:center;
+            font-size:1.35rem;
+            background:linear-gradient(145deg,rgba(251,191,36,.16),rgba(251,146,60,.06));
+            border:1px solid rgba(251,191,36,.28);
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 10px 30px rgba(251,191,36,.08);
+        }
+        .founder-label{
+            display:inline-flex;align-items:center;gap:.45rem;
+            padding:.4rem .78rem;border-radius:999px;
+            margin:0;
+            color:#111;
+            background:linear-gradient(135deg,#ffe08a,var(--amber),var(--orange));
+            font-size:.64rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;
+            box-shadow:0 6px 20px rgba(251,191,36,.22);
+        }
+        .founder-limit{
+            color:var(--text-muted);
+            font-size:.7rem;font-weight:700;
+            letter-spacing:.04em;
+        }
+        .founder-title{
+            margin:0 0 .6rem;
+            max-width:650px;
+            font-family:'Space Grotesk',sans-serif;
+            font-size:clamp(1.55rem,2.6vw,2rem);
+            line-height:1.08;
+            letter-spacing:-.035em;
+        }
+        .founder-title .gold{
+            background:linear-gradient(135deg,#fff2c4,var(--amber),var(--orange));
+            -webkit-background-clip:text;background-clip:text;color:transparent;
+        }
+        .founder-copy{
+            margin:0;
+            max-width:650px;
+            color:var(--text-secondary);
+            font-size:.84rem;line-height:1.66;
+        }
+        .founder-points{
+            display:grid;
+            grid-template-columns:repeat(2,minmax(0,1fr));
+            gap:.58rem;
+            margin-top:1rem;
+        }
+        .founder-points span{
+            display:flex;align-items:center;gap:.45rem;
+            min-height:42px;
+            padding:.5rem .68rem;border-radius:12px;
+            background:rgba(255,255,255,.018);
+            border:1px solid rgba(251,191,36,.105);
+            color:var(--text-secondary);
+            font-size:.71rem;font-weight:650;
+        }
+        .founder-points span::before{
+            content:'✓';
+            width:18px;height:18px;flex:0 0 18px;
+            display:grid;place-items:center;
+            border-radius:50%;
+            color:#15110a;
+            background:linear-gradient(135deg,var(--amber),var(--orange));
+            font-size:.62rem;font-weight:900;
+        }
+        .founder-after{
+            margin-top:1rem;
+            padding:.85rem 1rem;
+            border-radius:13px;
+            border:1px solid rgba(251,191,36,.11);
+            background:linear-gradient(135deg,rgba(251,191,36,.045),rgba(255,255,255,.01));
+            color:var(--text-muted);
+            font-size:.72rem;line-height:1.55;
+        }
+        .founder-after strong{color:#f7d57b}
+
+        .founder-pricebox{
+            position:relative;
+            min-width:235px;
+            text-align:left;
+            padding:1.35rem;
+            border-radius:20px;
+            border:1px solid rgba(251,191,36,.17);
+            background:
+                radial-gradient(330px circle at 70% 0%,rgba(251,191,36,.09),transparent 58%),
+                rgba(255,255,255,.018);
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.045);
+        }
+        .founder-pricebox .small{
+            display:block;
+            margin-bottom:.35rem;
+            color:var(--text-muted);
+            font-size:.68rem;font-weight:750;
+            letter-spacing:.065em;text-transform:uppercase;
+        }
+        .founder-oldprice{
+            display:flex;align-items:center;gap:.48rem;
+            margin-bottom:.2rem;
+            color:var(--text-muted);
+            font-size:.72rem;
+        }
+        .founder-oldprice s{opacity:.72}
+        .founder-oldprice .save-pill{
+            padding:.22rem .46rem;border-radius:999px;
+            color:#171209;
+            background:linear-gradient(135deg,var(--amber),var(--orange));
+            font-size:.58rem;font-weight:900;
+        }
+        .founder-price{
+            display:block;
+            margin:.1rem 0 .35rem;
+            font-family:'Space Grotesk',sans-serif;
+            font-size:3.15rem;font-weight:750;line-height:.98;
+            letter-spacing:-.055em;
+            background:linear-gradient(135deg,#fff,#ffe8a9 55%,var(--amber));
+            -webkit-background-clip:text;background-clip:text;color:transparent;
+        }
+        .founder-once{
+            color:var(--text-secondary);
+            font-size:.71rem;margin-bottom:.8rem;
+        }
+        .founder-save{
+            margin:0 0 .9rem;
+            color:var(--text-secondary);
+            font-size:.73rem;line-height:1.5;
+        }
+        .founder-pricebox .btn-main{
+            width:100%;
+            padding:.92rem 1rem;
+            font-size:.84rem;
+            font-weight:800;
+            background:linear-gradient(135deg,#fff7de,#ffd773);
+            box-shadow:0 10px 28px rgba(251,191,36,.12);
+        }
+        .founder-pricebox .btn-main:hover{
+            transform:translateY(-2px);
+            box-shadow:0 15px 34px rgba(251,191,36,.18);
+        }
+        .founder-micro{
+            margin:.72rem 0 0;
+            text-align:center;
+            color:var(--text-muted);
+            font-size:.64rem;line-height:1.45;
+        }
+        .lifetime-panel{
+            --plan:var(--amber);--plan-rgb:var(--amber-rgb);
+            margin-top:1rem;
+            padding:2rem;
+            border:1px solid rgba(251,191,36,.17);
+            border-radius:var(--radius-lg);
+            background:
+                radial-gradient(700px circle at var(--mx) var(--my),rgba(251,191,36,.035),transparent 58%),
+                linear-gradient(145deg,rgba(18,16,10,.7),rgba(8,8,8,.98) 46%);
+            box-shadow:0 26px 66px rgba(0,0,0,.34),0 0 50px rgba(251,191,36,.025);
+        }
+        .lifetime-panel:hover{
+            border-color:rgba(251,191,36,.24);
+            box-shadow:0 30px 76px rgba(0,0,0,.4),0 0 54px rgba(251,191,36,.045);
+        }
+        .lifetime-head{
+            display:flex;align-items:flex-start;justify-content:space-between;gap:1.3rem;
+            margin-bottom:1.45rem;
+        }
+        .lifetime-head h3{
+            margin:0 0 .32rem;
+            font-family:'Space Grotesk',sans-serif;
+            font-size:1.55rem;letter-spacing:-.025em;
+        }
+        .lifetime-head p{
+            margin:0;color:var(--text-secondary);
+            font-size:.83rem;line-height:1.55;max-width:700px;
+        }
+        .lifetime-options{
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:.85rem;
+        }
+        .license-option{
+            --plan:var(--amber);--plan-rgb:var(--amber-rgb);
+            padding:1.45rem;
+            border-radius:var(--radius-md);
+            border:1px solid rgba(251,191,36,.12);
+            background:
+                radial-gradient(360px circle at var(--mx) var(--my),rgba(var(--plan-rgb),.035),transparent 58%),
+                rgba(255,255,255,.012);
+            display:flex;flex-direction:column;
+        }
+        .license-option.family{
+            --plan:var(--orange);--plan-rgb:var(--orange-rgb);
+        }
+        .license-option.team{
+            --plan:var(--emerald);--plan-rgb:var(--emerald-rgb);
+        }
+        .license-option.featured{
+            border-color:rgba(52,211,153,.24);
+            box-shadow:0 12px 38px rgba(52,211,153,.035);
+        }
+        .license-top{
+            display:flex;align-items:flex-start;justify-content:space-between;gap:.6rem;
+            margin-bottom:.9rem;
+        }
+        .license-icon{font-size:1.35rem;line-height:1}
+        .license-name{
+            font-family:'Space Grotesk',sans-serif;
+            font-size:1rem;font-weight:700;margin-top:.5rem;
+        }
+        .license-pcs{
+            color:var(--text-muted);font-size:.72rem;margin-top:.15rem;
+        }
+        .license-tag{
+            border-radius:999px;padding:.27rem .55rem;
+            color:var(--plan);
+            border:1px solid rgba(var(--plan-rgb),.2);
+            background:rgba(var(--plan-rgb),.055);
+            font-size:.58rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+            white-space:nowrap;
+        }
+        .license-price{
+            font-family:'Space Grotesk',sans-serif;
+            font-size:2rem;font-weight:700;letter-spacing:-.04em;
+            color:#fff;line-height:1.05;
+            margin-bottom:.3rem;
+        }
+        .license-unit{
+            min-height:1.25rem;
+            color:var(--text-muted);
+            font-size:.72rem;
+            margin-bottom:.8rem;
+        }
+        .license-saving{
+            margin-bottom:.9rem;
+            padding:.55rem .65rem;
+            border-radius:10px;
+            background:rgba(var(--plan-rgb),.055);
+            border:1px solid rgba(var(--plan-rgb),.1);
+            color:var(--text-secondary);
+            font-size:.69rem;line-height:1.45;
+        }
+        .license-option ul{
+            list-style:none;margin:0 0 1.1rem;
+            flex:1;
+        }
+        .license-option li{
+            display:flex;gap:.5rem;
+            padding:.43rem 0;
+            color:var(--text-secondary);
+            font-size:.74rem;line-height:1.45;
+            border-bottom:1px solid rgba(255,255,255,.03);
+        }
+        .license-option li:last-child{border-bottom:none}
+        .license-option li b{color:var(--plan)}
+        .license-option .btn-main{
+            width:100%;padding:.82rem .9rem;
+            font-size:.79rem;
+        }
+        .lifetime-note{
+            margin:1rem 0 0;
+            color:var(--text-muted);font-size:.73rem;line-height:1.6;
+            text-align:center;
+        }
+        .pricing-footnote{
+            margin:1.35rem auto 0;
+            max-width:820px;
+            color:var(--text-muted);
+            font-size:.76rem;line-height:1.65;text-align:center;
+        }
+        /* RODAPÉ */
+        .footer{
+            background:linear-gradient(180deg,transparent,rgba(0,0,0,.55));
+            padding:62px 2rem 34px;border-top:1px solid var(--border);
+            position:relative;z-index:2;
+        }
+        .foot-inner{
+            max-width:1080px;margin:0 auto;
+            display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:3rem;
+        }
+        .foot-brand{display:flex;flex-direction:column;gap:.9rem}
+        .foot-brand .logo{font-size:1.2rem}
+        .foot-brand p{color:var(--text-muted);font-size:.84rem;max-width:310px;line-height:1.65}
+        .foot-email{
+            display:inline-flex;align-items:center;gap:.5rem;
+            color:var(--text-secondary);font-size:.83rem;text-decoration:none;width:fit-content;
+            transition:color .3s var(--ease),transform .3s var(--ease);
+        }
+        .foot-email:hover{color:#fff;transform:translateX(2px)}
+        .foot-col h4{
+            font-family:'Space Grotesk',sans-serif;font-size:.88rem;
+            font-weight:600;margin-bottom:1rem;
+        }
+        .foot-links{list-style:none}
+        .foot-links li{margin-bottom:.48rem}
+        .foot-links a{
+            color:var(--text-muted);text-decoration:none;font-size:.82rem;
+            transition:all .35s var(--ease);display:inline-block;
+        }
+        .foot-links a:hover{color:#fff;transform:translateX(3px)}
+        .foot-bottom{
+            max-width:1080px;margin:2.4rem auto 0;padding-top:1.4rem;
+            border-top:1px solid var(--border);
+            display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+        }
+        .foot-bottom p{color:var(--text-muted);font-size:.74rem}
+        .os-tag{
+            display:inline-flex;align-items:center;gap:.4rem;
+            background:rgba(255,255,255,.02);border:1px solid var(--border);
+            padding:.4rem .9rem;border-radius:50px;
+            font-size:.74rem;color:var(--text-muted);
         }
 
-        .foot-col h4 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem;
-            font-weight: 600; color: var(--text); margin-bottom: 1rem; letter-spacing: -0.01em;
+        /* Reveal */
+        .reveal{
+            opacity:0;transform:translateY(20px);
+            transition:opacity .55s var(--ease),transform .55s var(--ease);
         }
-        .foot-links { list-style: none; }
-        .foot-links li { margin-bottom: 0.45rem; }
-        .foot-links a {
-            color: var(--text-muted); text-decoration: none; font-size: 0.84rem;
-            transition: all 0.4s var(--ease); display: inline-block;
-        }
-        .foot-links a:hover { color: var(--white); transform: translateX(3px); }
-
-        .foot-bottom {
-            max-width: 1080px; margin: 2.5rem auto 0; padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-        }
-        .foot-bottom p { color: var(--text-muted); font-size: 0.75rem; }
-        .os-tag {
-            display: inline-flex; align-items: center; gap: 0.4rem;
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-            padding: 0.4rem 0.9rem; border-radius: 50px;
-            font-size: 0.75rem; color: var(--text-muted);
+        .reveal.visible{opacity:1;transform:translateY(0)}
+        .reveal.instant{opacity:1;transform:translateY(0);transition:none}
+        .d1{transition-delay:.04s}.d2{transition-delay:.08s}.d3{transition-delay:.12s}.d4{transition-delay:.16s}
+        .d5{transition-delay:.20s}.d6{transition-delay:.24s}.d7{transition-delay:.28s}.d8{transition-delay:.32s}
+        @keyframes fadeUp{
+            from{opacity:0;transform:translateY(30px)}
+            to{opacity:1;transform:translateY(0)}
         }
 
-        /* Animations */
-        .reveal {
-            opacity: 0; transform: translateY(20px);
-            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
-        }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal.instant { opacity: 1; transform: translateY(0); transition: none; }
-        .d1 { transition-delay: 0.04s; }
-        .d2 { transition-delay: 0.08s; }
-        .d3 { transition-delay: 0.12s; }
-        .d4 { transition-delay: 0.16s; }
-        .d5 { transition-delay: 0.20s; }
-        .d6 { transition-delay: 0.24s; }
-        .d7 { transition-delay: 0.28s; }
-        .d8 { transition-delay: 0.32s; }
+        ::-webkit-scrollbar{width:5px}
+        ::-webkit-scrollbar-track{background:var(--bg)}
+        ::-webkit-scrollbar-thumb{background:var(--border-hover);border-radius:3px}
+        ::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* LIGHTBOX */
+        .lightbox{
+            position:fixed;inset:0;z-index:2000;
+            display:flex;align-items:center;justify-content:center;
+            padding:2rem;background:rgba(0,0,0,.92);
+            backdrop-filter:blur(12px);
+            opacity:0;visibility:hidden;pointer-events:none;
+            transition:opacity .35s var(--ease),visibility .35s var(--ease);
+        }
+        .lightbox.open{opacity:1;visibility:visible;pointer-events:auto}
+        .lightbox-inner{position:relative;max-width:1280px;width:100%}
+        .lightbox img{
+            display:block;max-width:100%;max-height:90vh;margin:auto;
+            border-radius:var(--radius-md);
+            box-shadow:0 24px 64px rgba(0,0,0,.6);
+            border:1px solid var(--border-hover);
+        }
+        .lightbox-close{
+            position:absolute;top:-14px;right:-14px;
+            width:40px;height:40px;border-radius:50%;
+            background:rgba(255,255,255,.08);border:1px solid var(--border-hover);
+            color:var(--text);font-size:1.2rem;cursor:pointer;
+            display:flex;align-items:center;justify-content:center;
+            transition:all .3s var(--ease);backdrop-filter:blur(8px);
+        }
+        .lightbox-close:hover{background:rgba(255,255,255,.15);transform:scale(1.08)}
+
+        @media(max-width:1024px){
+            .bg-orb.orb-1{width:420px;height:420px;left:-150px;top:4vh;opacity:.44}
+            .bg-orb.orb-2{width:460px;height:460px;right:-150px;top:10vh;opacity:.42}
+            .bg-orb.orb-3{width:340px;height:340px;left:20%;bottom:-140px;opacity:.36}
+            .bg-grid{opacity:.1;background-size:84px 84px}
+            .grid-features{grid-template-columns:repeat(2,1fr)}
+            .evo-proof-grid{grid-template-columns:repeat(2,1fr)}
+            .lifetime-options{grid-template-columns:1fr 1fr}
+            .license-option.team{grid-column:1/-1;max-width:520px;width:100%;justify-self:center}
+            .hero-grid{grid-template-columns:1fr;gap:3rem}
+            .hero-copy{text-align:center}
+            .hero-lead{margin-left:auto;margin-right:auto}
+            .hero-actions{justify-content:center}
+            .app-preview{max-width:760px;margin:0 auto}
+            .version-grid{grid-template-columns:1fr 1fr}
+            .version-card:last-child{grid-column:1/-1}
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-toggle { display: block; }
-            .hero { padding: 110px 1.5rem 60px; }
-            section { padding: 60px 1.5rem; }
-            .sec-head { margin-bottom: 2.5rem; }
-            .price-card { padding: 2rem 1.5rem; }
-            .price-new { font-size: 2.6rem; }
-            .foot-bottom { flex-direction: column; text-align: center; }
-        }
-        @media (max-width: 480px) {
-            .hero h1 .main { font-size: clamp(2.2rem, 11vw, 3.5rem); }
-            .btn-main, .btn-ghost { width: 100%; justify-content: center; }
-            .price-card { padding: 1.75rem 1.25rem; }
-        }
-
-        /* Reduced motion for accessibility and performance */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+        @media(max-width:768px){
+            .bg-orb.orb-2{opacity:.3}
+            .bg-orb.orb-3{display:none}
+            .bg-grid{opacity:.08}
+            .nav{padding:.8rem 1.5rem}
+            .nav.scrolled{padding:.7rem 1.5rem}
+            .nav-links{
+                display:none;position:absolute;top:100%;left:0;right:0;
+                flex-direction:column;align-items:stretch;gap:.25rem;
+                padding:1rem 1.5rem 1.3rem;
+                background:rgba(8,8,8,.98);
+                border-bottom:1px solid var(--border-hover);
+                backdrop-filter:blur(20px);
             }
-            html { scroll-behavior: auto; }
-            #particles { display: none; }
+            .nav-links.open{display:flex}
+            .nav-links a{display:block;padding:.7rem 0}
+            .nav-links a::after{display:none}
+            .nav-cta{display:none}
+            .mobile-toggle{display:block}
+            .hero{padding:120px 1.5rem 70px}
+            section{padding:70px 1.5rem}
+            .sec-head{margin-bottom:2.8rem}
+            .screenshot-grid,.security-shell,.compare-grid,.subscription-grid,.lifetime-options,.evo-proof-grid{grid-template-columns:1fr}
+            .license-option.team{grid-column:auto;max-width:none}
+            .lifetime-head{flex-direction:column}
+            .founder-grid{grid-template-columns:1fr}
+            .founder-pricebox{min-width:0;max-width:420px}
+            .founder-points{grid-template-columns:1fr}
+            .founder-inner{padding:1.55rem}
+            .security-shell{gap:1.5rem;padding:1.5rem}
+            .shield-wrap{min-height:285px}
+            .version-grid{grid-template-columns:1fr}
+            .version-card:last-child{grid-column:auto}
+            .rec-grid{grid-template-columns:1fr}
+            .stats{grid-template-columns:repeat(2,1fr)}
+            .foot-inner{grid-template-columns:1fr;gap:2rem}
+            .foot-bottom{flex-direction:column;align-items:flex-start}
         }
 
-        /* Lightbox */
-        .lightbox-overlay {
-            position: fixed; inset: 0; z-index: 9999;
-            background: rgba(0,0,0,0.92);
-            backdrop-filter: blur(12px);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.4s var(--ease);
-            padding: 2rem;
+        @media(max-width:560px){
+            .founder-pricebox{max-width:none}
+            .founder-inner{padding:1.25rem}
+            .founder-price{font-size:2.75rem}
+            .grid-features,.stats{grid-template-columns:1fr}
+            .hero h1{font-size:clamp(2.7rem,14vw,4rem)}
+            .hero-actions{flex-direction:column}
+            .btn-main,.btn-ghost{width:100%}
+            .price-card{padding:2rem 1.3rem}
+            .price-new{font-size:2.65rem}
+            .preview-caption{flex-direction:column;gap:.2rem}
         }
-        .lightbox-overlay.active { opacity: 1; pointer-events: auto; }
-        .lightbox-overlay img {
-            max-width: 90vw; max-height: 90vh;
-            border-radius: var(--radius-md);
-            box-shadow: 0 24px 64px rgba(0,0,0,0.6);
-            transform: scale(0.96);
-            transition: transform 0.4s var(--ease);
-        }
-        .lightbox-overlay.active img { transform: scale(1); }
-        .lightbox-close {
-            position: absolute; top: 1.5rem; right: 1.5rem;
-            width: 40px; height: 40px; border-radius: 50%;
-            background: rgba(255,255,255,0.08); border: 1px solid var(--border-hover);
-            color: var(--text); font-size: 1.2rem; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s var(--ease); backdrop-filter: blur(8px);
-        }
-        .lightbox-close:hover { background: rgba(255,255,255,0.15); transform: scale(1.1); }
 
-        
+        @media(prefers-reduced-motion:reduce){
+            .bg-orb,.bg-beam,.founder-offer::before{animation:none !important}
+
+            *,*::before,*::after{
+                animation-duration:.01ms!important;
+                animation-iteration-count:1!important;
+                transition-duration:.01ms!important;
+                scroll-behavior:auto!important;
+            }
+            html{scroll-behavior:auto}
+            #particles{display:none}
+        }
     </style>
-<base target="_blank">
-<base target="_blank">
 </head>
-<body>
-    <canvas id="particles"></canvas>
 
-    <nav class="nav">
+<body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <div class="site-bg" aria-hidden="true">
+        <span class="bg-beam"></span>
+        <span class="bg-orb orb-1"></span>
+        <span class="bg-orb orb-2"></span>
+        <span class="bg-orb orb-3"></span>
+        <span class="bg-grid"></span>
+        <span class="bg-noise"></span>
+        <span class="bg-vignette"></span>
+    </div>
+
+    <nav class="nav" aria-label="Navegação principal">
         <div class="nav-inner">
-            <a href="#" class="logo">
+            <a href="#inicio" class="logo" aria-label="Limpador Pro — início">
                 <span class="logo-mark">🧹</span>
                 Limpador Pro
             </a>
-            <ul class="nav-links">
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#interface">Interface</a></li>
                 <li><a href="#recursos">Recursos</a></li>
                 <li><a href="#seguranca">Segurança</a></li>
-                <li><a href="#comparativo">Comparativo</a></li>
+                <li><a href="#novidades">Novidades</a></li>
                 <li><a href="#como-usar">Como Usar</a></li>
-                <li><a href="#preco">Versão Pro</a></li>
             </ul>
+
             <a href="#preco" class="nav-cta">Obter Pro</a>
-            <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+            <button class="mobile-toggle" id="mobileToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menu">☰</button>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="hero-inner">
-            <div class="hero-pill">
-                <span class="dot"></span>
-                Disponível para Windows 10 e 11
-            </div>
-            <h1>
-                <span class="main">Limpador Pro</span>
-                <span class="sub">Limpeza Inteligente</span>
-            </h1>
-            <p>Um clique. Resultado imediato. Limpeza profunda sem complicação — seu PC mais rápido em segundos.</p>
-            <div class="hero-actions">
-                <a href="#preco" class="btn-main">🔓 Acessar Versão Pro</a>
-                <a href="#como-usar" class="btn-ghost">Como Funciona</a>
-            </div>
-            <div class="hero-trust">
-                <span class="badge">✓</span>
-                <span>Testado e aprovado.</span>
-            </div>
-        </div>
-    </section>
+    <main id="conteudo">
+        <section class="hero" id="inicio">
+            <div class="wrap" style="width:100%">
+                <div class="hero-grid">
+                    <div class="hero-copy">
+                        <div class="hero-pill">
+                            <span class="dot"></span>
+                            Compatível com Windows 10 e 11
+                        </div>
 
-    <section id="screenshots">
-        <div class="wrap">
-            <div class="sec-head reveal">
-                <span class="sec-label">Interface</span>
-                <h2 class="sec-title">Veja em ação</h2>
-                <p class="sec-desc">Design limpo, resultados claros. Confira como o Limpador Pro se apresenta.</p>
-            </div>
-            <div class="screenshot-grid">
-                <div class="screenshot-card reveal d1">
-                    <div class="screenshot-img">
-                        <img src="Limpeza.png" alt="Tela de limpeza concluída do Limpador Pro" loading="lazy" onclick="openLightbox(this.src)" style="cursor:zoom-in;">
+                        <h1>Limpeza <span>segura</span> e transparente.</h1>
+
+                        <p class="hero-lead">Um clique. Resultado claro. Limpeza inteligente e segura sem complicação.</p>
+
+                        <div class="hero-actions">
+                            <a href="#preco" class="btn-main">🔓 Conhecer a versão Pro</a>
+                            <a href="#interface" class="btn-ghost">Ver o aplicativo</a>
+                        </div>
                     </div>
-                    <div class="screenshot-caption">
-                        <h4>Limpeza Concluída</h4>
-                        <p>Notificação elegante com estatísticas detalhadas: arquivos removidos, pastas excluídas, espaço liberado e status da RAM.</p>
+
+                    <figure class="app-preview">
+                        <img src="Limpeza.png" alt="Tela do Limpador Pro exibindo uma limpeza concluída" width="1365" height="768" fetchpriority="high">
+                        <figcaption class="preview-caption">
+                            <strong>Resultado da limpeza</strong>
+                            <span>Arquivos, pastas, espaço liberado e RAM</span>
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="stats" aria-label="Principais características">
+                    <div class="stat"><strong>3 idiomas</strong><span>Português, English e Español</span></div>
+                    <div class="stat"><strong>Atualização automática</strong><span>Novas versões pelo próprio aplicativo</span></div>
+                    <div class="stat"><strong>Histórico</strong><span>Resultados de limpezas anteriores</span></div>
+                    <div class="stat"><strong>Portátil</strong><span>Executável sem instalação tradicional</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interface">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <span class="sec-label">Interface</span>
+                    <h2 class="sec-title">Veja em ação</h2>
+                    <p class="sec-desc">Design limpo, resultados claros. Confira como o Limpador Pro apresenta cada etapa da limpeza.</p>
+                </div>
+
+                <div class="screenshot-grid">
+                    <article class="screenshot-card reveal d1">
+                        <div class="screenshot-img">
+                            <img src="Limpeza.png" alt="Tela de limpeza concluída do Limpador Pro" loading="lazy" class="zoom-image">
+                        </div>
+                        <div class="screenshot-caption">
+                            <h4>Limpeza Concluída</h4>
+                            <p>Visualize arquivos removidos, pastas excluídas, espaço liberado e o status da rotina de RAM.</p>
+                        </div>
+                    </article>
+
+                    <article class="screenshot-card reveal d2">
+                        <div class="screenshot-img">
+                            <img src="Histórico.png" alt="Tela de histórico do Limpador Pro" loading="lazy" class="zoom-image">
+                        </div>
+                        <div class="screenshot-caption">
+                            <h4>Histórico Completo</h4>
+                            <p>Acompanhe as limpezas realizadas com data, espaço liberado, quantidade de arquivos e duração da operação.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="recursos">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <span class="sec-label">O que faz</span>
+                    <h2 class="sec-title">Limpeza completa em um clique</h2>
+                    <p class="sec-desc">Limpe temporários, caches e a Lixeira com verificações de segurança que ajudam a preservar dados pessoais e arquivos em uso.</p>
+                </div>
+
+                <div class="grid-features">
+                    <article class="f-card cyan reveal d1">
+                        <div class="f-icon">🧹</div>
+                        <h3 class="f-title">Arquivos Temporários</h3>
+                        <p class="f-desc">Limpa áreas temporárias suportadas do Windows sem forçar a remoção de itens que estejam em uso.</p>
+                    </article>
+
+                    <article class="f-card violet reveal d2">
+                        <div class="f-icon">🧩</div>
+                        <h3 class="f-title">Caches Inteligentes</h3>
+                        <p class="f-desc">Remove caches recriáveis de navegadores e aplicativos reconhecidos preservando dados importantes.</p>
+                    </article>
+
+                    <article class="f-card amber reveal d3">
+                        <div class="f-icon">🧠</div>
+                        <h3 class="f-title">Liberação de RAM</h3>
+                        <p class="f-desc">Executa a rotina de memória ao final da limpeza e mostra o resultado junto ao resumo da sessão.</p>
+                    </article>
+
+                    <article class="f-card rose reveal d4">
+                        <div class="f-icon">🌐</div>
+                        <h3 class="f-title">Cache DNS</h3>
+                        <p class="f-desc">Executa a etapa de DNS separadamente e informa corretamente quando a operação não é concluída.</p>
+                    </article>
+
+                    <article class="f-card emerald reveal d5">
+                        <div class="f-icon">🗑️</div>
+                        <h3 class="f-title">Lixeira</h3>
+                        <p class="f-desc">Remove os itens da Lixeira e contabiliza apenas aquilo que foi realmente excluído.</p>
+                    </article>
+
+                    <article class="f-card blue reveal d6">
+                        <div class="f-icon">🛡️</div>
+                        <h3 class="f-title">Proteção de Aplicativos</h3>
+                        <p class="f-desc">Considera aplicativos abertos para evitar a limpeza de caches reconhecidos enquanto estão sendo utilizados.</p>
+                    </article>
+
+                    <article class="f-card orange reveal d7">
+                        <div class="f-icon">🎯</div>
+                        <h3 class="f-title">Multi-Perfil</h3>
+                        <p class="f-desc">Suporte a Chrome, Edge, Brave, Opera, Discord, Teams, WhatsApp, Slack, Spotify e VS Code.</p>
+                    </article>
+
+                    <article class="f-card teal reveal d8">
+                        <div class="f-icon">📊</div>
+                        <h3 class="f-title">Histórico de Limpeza</h3>
+                        <p class="f-desc">Consulte sessões anteriores com informações de espaço liberado, arquivos processados e duração.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="seguranca" class="sec-security">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <span class="sec-label">Segurança</span>
+                    <h2 class="sec-title">Totalmente transparente e conservador</h2>
+                    <p class="sec-desc">O Limpador Pro foi pensado para limpar o que pode ser recriado e preservar o que realmente importa.</p>
+                </div>
+
+                <div class="security-shell reveal">
+                    <div class="shield-wrap">
+                        <div class="shield" aria-hidden="true">
+                            <div class="ring"></div>
+                            <span class="orbit-dot one"></span>
+                            <span class="orbit-dot two"></span>
+                            <span class="orbit-dot three"></span>
+                            <div class="core">🛡️</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <ul class="sec-list">
+                            <li><span class="check">✓</span><span class="txt"><strong>Cookies e sessões preservados</strong>Os dados de navegação permanecem fora da limpeza de cache.</span></li>
+                            <li><span class="check">✓</span><span class="txt"><strong>Senhas e favoritos protegidos</strong>Credenciais e favoritos não fazem parte das categorias de limpeza.</span></li>
+                            <li><span class="check">✓</span><span class="txt"><strong>Aplicativos abertos são considerados</strong>O programa verifica aplicativos reconhecidos antes e durante determinadas limpezas de cache.</span></li>
+                            <li><span class="check">✓</span><span class="txt"><strong>Arquivos em uso são preservados</strong>Itens bloqueados ou sem permissão não são forçados durante a exclusão.</span></li>
+                            <li><span class="check">✓</span><span class="txt"><strong>Configurações do Windows permanecem intactas</strong>A limpeza não tem como objetivo alterar configurações gerais do sistema.</span></li>
+                            <li><span class="check">✓</span><span class="txt"><strong>Arquivos pessoais fora do alvo</strong>Documentos, fotos e vídeos pessoais não fazem parte das rotinas padrão.</span></li>
+                        </ul>
+                        <p class="sec-note">Quando uma exclusão não pode ser confirmada com segurança, a prioridade é preservar o item em vez de forçar a remoção.</p>
                     </div>
                 </div>
-                <div class="screenshot-card reveal d2">
-                    <div class="screenshot-img">
-                        <img src="Histórico.png" alt="Tela de histórico do Limpador Pro" loading="lazy" onclick="openLightbox(this.src)" style="cursor:zoom-in;">
+            </div>
+        </section>
+
+        <section id="comparativo" class="sec-compare">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <span class="sec-label">Por que escolher</span>
+                    <h2 class="sec-title">A diferença está nos detalhes</h2>
+                    <p class="sec-desc">Uma experiência simples por fora, com decisões mais cuidadosas por trás de cada limpeza.</p>
+                </div>
+
+                <div class="compare-grid">
+                    <article class="c-card pro reveal d1">
+                        <div class="c-head">
+                            <span style="font-size:1.3rem">✅</span>
+                            <h3>Limpador Pro</h3>
+                        </div>
+                        <ul class="c-list">
+                            <li><span class="c-icon">✓</span> Detecta aplicativos reconhecidos antes de limpar caches</li>
+                            <li><span class="c-icon">✓</span> Executável único — sem instalação tradicional</li>
+                            <li><span class="c-icon">✓</span> Solicita administrador automaticamente quando necessário</li>
+                            <li><span class="c-icon">✓</span> Multi-idioma: Português, English e Español</li>
+                            <li><span class="c-icon">✓</span> Histórico e relatório após as limpezas</li>
+                            <li><span class="c-icon">✓</span> Atualizações automáticas pelo próprio aplicativo</li>
+                        </ul>
+                    </article>
+
+                    <article class="c-card avoid reveal d2">
+                        <div class="c-head">
+                            <span style="font-size:1.3rem">🛡️</span>
+                            <h3>O que ele preserva</h3>
+                        </div>
+                        <ul class="c-list">
+                            <li><span class="c-icon">✕</span> Cookies, senhas, favoritos e sessões</li>
+                            <li><span class="c-icon">✕</span> Documentos, fotos e vídeos pessoais</li>
+                            <li><span class="c-icon">✕</span> Arquivos bloqueados ou sem permissão</li>
+                            <li><span class="c-icon">✕</span> Configurações gerais do Windows</li>
+                            <li><span class="c-icon">✕</span> Limpezas sensíveis fora da rotina padrão</li>
+                            <li><span class="c-icon">✕</span> Exclusões forçadas apenas para aumentar o número exibido</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <p class="compare-foot">Mais controle para remover dados recriáveis sem transformar arquivos importantes em alvo da limpeza.</p>
+            </div>
+        </section>
+
+        <section id="novidades">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <span class="sec-label">Evolução</span>
+                    <h2 class="sec-title">Mais do que novas funções: cada versão melhora o que você sente no uso</h2>
+                    <p class="sec-desc">O Limpador Pro evolui em segurança, compatibilidade e transparência. A próxima v1.0.2 é a maior evolução até agora: mais histórico, relatórios muito mais úteis e uma limpeza que sabe melhor quando remover, preservar ou seguir adiante.</p>
+                </div>
+
+                <div class="evo-proof-grid">
+                    <article class="evo-proof reveal d1">
+                        <div class="evo-proof-icon">📚</div>
+                        <strong>Histórico para até 5.000 execuções</strong>
+                        <p>Mais espaço para acompanhar limpezas antigas sem perder a visão do que já foi feito.</p>
+                        <small>Chega na v1.0.2</small>
+                    </article>
+                    <article class="evo-proof reveal d2">
+                        <div class="evo-proof-icon">🔎</div>
+                        <strong>Relatórios muito mais fáceis de consultar</strong>
+                        <p>Busca, cartões de resultado e separação clara entre removidos, preservados, etapas e falhas.</p>
+                        <small>Chega na v1.0.2</small>
+                    </article>
+                    <article class="evo-proof reveal d3">
+                        <div class="evo-proof-icon">🛡️</div>
+                        <strong>Só conta o que realmente foi removido</strong>
+                        <p>Falhas e itens preservados deixam de inflar o resultado mostrado ao usuário.</p>
+                        <small>Precisão reforçada</small>
+                    </article>
+                    <article class="evo-proof reveal d4">
+                        <div class="evo-proof-icon">🧩</div>
+                        <strong>Mais variantes de apps reconhecidas</strong>
+                        <p>Expansão para versões Beta, Dev, Canary, Nightly, PTB e Insiders dos aplicativos compatíveis.</p>
+                        <small>Compatibilidade ampliada</small>
+                    </article>
+                </div>
+
+                <div class="evolution-track">
+                    <div class="version-grid">
+                        <article class="version-card reveal d1">
+                            <div class="version-node" aria-hidden="true">🚀</div>
+                            <div class="version-head">
+                                <div>
+                                    <div class="version-date">19/05/2026</div>
+                                    <h3>v1.0.0</h3>
+                                </div>
+                                <span class="version-badge">Primeiro lançamento</span>
+                            </div>
+
+                            <h4 class="version-title">O Limpador Pro nasce simples e direto</h4>
+                            <p class="version-summary">A primeira versão reuniu as principais rotinas de limpeza em uma experiência única: abrir, executar e receber um resultado claro.</p>
+
+                            <div class="version-impact">
+                                <span>🧹 Limpeza centralizada</span>
+                                <span>⚡ Uso simples</span>
+                                <span>🌐 3 idiomas</span>
+                            </div>
+
+                            <ul class="version-list">
+                                <li>Limpeza de arquivos temporários, caches compatíveis e itens da Lixeira.</li>
+                                <li>Executável portátil, sem instalação tradicional.</li>
+                                <li>Resumo da limpeza com itens processados e espaço liberado.</li>
+                                <li>Base para atualização automática pelo próprio aplicativo.</li>
+                                <li>Português, English e Español desde a estrutura inicial do produto.</li>
+                            </ul>
+
+                            <div class="version-value"><div><strong>O ganho para o usuário</strong><br>Uma ferramenta simples para concentrar as tarefas principais de limpeza em poucos passos.</div></div>
+                        </article>
+
+                        <article class="version-card reveal d2">
+                            <div class="version-node" aria-hidden="true">🛡️</div>
+                            <div class="version-head">
+                                <div>
+                                    <div class="version-date">23/09/2026</div>
+                                    <h3>v1.0.1</h3>
+                                </div>
+                                <span class="version-badge">Versão pública atual</span>
+                            </div>
+
+                            <h4 class="version-title">A base fica mais confiável e conservadora</h4>
+                            <p class="version-summary">A segunda versão não tentou apenas “limpar mais”: ela passou a priorizar melhor precisão, estabilidade e proteção de dados.</p>
+
+                            <div class="version-impact">
+                                <span>🎯 Contagem mais confiável</span>
+                                <span>🔒 Menos risco</span>
+                                <span>✨ Interface refinada</span>
+                            </div>
+
+                            <ul class="version-list">
+                                <li>Correções na identificação de caches do Opera e Opera GX.</li>
+                                <li>Correções na contabilização de arquivos e espaço quando existem itens bloqueados.</li>
+                                <li>Rotina de memória RAM restaurada ao final da execução.</li>
+                                <li>Limpezas consideradas mais sensíveis retiradas da rotina padrão.</li>
+                                <li>Configurações, Conta e Sobre receberam melhorias visuais e de organização.</li>
+                                <li>Histórico passou a acompanhar melhor o idioma escolhido pelo usuário.</li>
+                                <li>Ajustes gerais de estabilidade e experiência de uso.</li>
+                            </ul>
+
+                            <div class="version-value"><div><strong>O ganho para o usuário</strong><br>Menos números enganosos, menos risco de atingir áreas sensíveis e uma experiência mais consistente.</div></div>
+                        </article>
+
+                        <article class="version-card reveal d3">
+                            <div class="version-node" aria-hidden="true">⚙️</div>
+                            <div class="version-head">
+                                <div>
+                                    <div class="version-date">Próxima atualização</div>
+                                    <h3>v1.0.2</h3>
+                                </div>
+                                <span class="version-badge">Em desenvolvimento</span>
+                            </div>
+
+                            <h4 class="version-title">A maior evolução da linha 1.0 até agora</h4>
+                            <p class="version-summary">A v1.0.2 transforma o histórico e o relatório em partes centrais do produto e reforça a segurança em praticamente toda a rotina de exclusão.</p>
+
+                            <div class="version-impact">
+                                <span>📚 Até 5.000 execuções</span>
+                                <span>🔎 Busca no relatório</span>
+                                <span>🧠 Mais inteligência</span>
+                                <span>🧩 Mais compatibilidade</span>
+                            </div>
+
+                            <ul class="version-list">
+                                <li><strong>Histórico ampliado para até 5.000 execuções</strong>, com recuperação de registros de limpezas interrompidas.</li>
+                                <li>Tela de detalhes mais completa, com busca e cartões para dados removidos, arquivos, pastas e duração.</li>
+                                <li>Separação mais clara entre arquivos removidos, etapas concluídas, itens preservados e falhas.</li>
+                                <li>Proteções reforçadas para arquivos em uso, sem permissão, de sistema, somente leitura, links, junções e caminhos protegidos.</li>
+                                <li>Pastas só são removidas quando realmente estão vazias e falhas individuais não interrompem o restante da limpeza.</li>
+                                <li>Somente bytes, arquivos e pastas realmente removidos entram no resultado final.</li>
+                                <li>Detecção de processos e aplicativos aprimorada antes da limpeza de caches compatíveis.</li>
+                                <li>Compatibilidade ampliada com Chrome/Edge Dev, Beta e Canary, Brave Beta/Nightly, Discord PTB/Canary, VS Code Insiders e outras variantes suportadas.</li>
+                                <li>Melhorias em desempenho, memória, notificações, DNS, Lixeira e sistema de atualização.</li>
+                            </ul>
+
+                            <div class="version-value"><div><strong>O ganho para o usuário</strong><br>Mais confiança no resultado, muito mais histórico para consultar e detalhes suficientes para entender exatamente o que aconteceu em cada limpeza.</div></div>
+                        </article>
                     </div>
-                    <div class="screenshot-caption">
-                        <h4>Histórico Completo</h4>
-                        <p>Acompanhe todas as limpezas realizadas com data, espaço liberado, quantidade de arquivos e duração da operação.</p>
+
+                    <div class="roadmap-note reveal">
+                        <div>
+                            <strong>Depois da v1.0.2, a evolução continua.</strong>
+                            <p>A v1.1.0 está reservada para a futura “Limpeza Extra”, com novas categorias e controles adicionais. Ela permanece como roadmap e não é apresentada como recurso disponível hoje.</p>
+                        </div>
+                        <span class="roadmap-pill">Próxima fase: v1.1.0</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="recursos">
-        <div class="wrap">
-            <div class="sec-head reveal">
-                <span class="sec-label">O que faz</span>
-                <h2 class="sec-title">Limpeza completa em um clique</h2>
-                <p class="sec-desc">Tecnologia inteligente que limpa apenas o que é seguro remover, preservando seus dados pessoais.</p>
-            </div>
-            <div class="grid-features">
-                <div class="f-card cyan reveal d1">
-                    <div class="f-icon">🧹</div>
-                    <h3 class="f-title">Limpeza Profunda</h3>
-                    <p class="f-desc">Remove cache de navegadores, logs do sistema, resíduos de atualizações e arquivos temporários.</p>
+        <section id="recomendacoes">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <span class="sec-label">Recomendações</span>
+                    <h2 class="sec-title">Antes de executar</h2>
                 </div>
-                <div class="f-card violet reveal d2">
-                    <div class="f-icon">🧠</div>
-                    <h3 class="f-title">Liberação de RAM</h3>
-                    <p class="f-desc">Recupera memória alocada por processos inativos, sem necessidade de reiniciar.</p>
-                </div>
-                <div class="f-card amber reveal d3">
-                    <div class="f-icon">🌐</div>
-                    <h3 class="f-title">Cache DNS Inteligente</h3>
-                    <p class="f-desc">Renova o cache de DNS apenas quando nenhum navegador está aberto.</p>
-                </div>
-                <div class="f-card rose reveal d4">
-                    <div class="f-icon">🗑️</div>
-                    <h3 class="f-title">Esvaziamento da Lixeira</h3>
-                    <p class="f-desc">Remoção definitiva e silenciosa dos arquivos da lixeira.</p>
-                </div>
-                <div class="f-card emerald reveal d5">
-                    <div class="f-icon">📁</div>
-                    <h3 class="f-title">Pastas Residuais</h3>
-                    <p class="f-desc">Elimina Windows.old, $Windows.~BT e $Windows.~WS automaticamente.</p>
-                </div>
-                <div class="f-card blue reveal d6">
-                    <div class="f-icon">🛡️</div>
-                    <h3 class="f-title">Proteção contra Lentidão</h3>
-                    <p class="f-desc">Detecta apps abertos e nunca limpa seus caches enquanto estiverem rodando.</p>
-                </div>
-                <div class="f-card orange reveal d7">
-                    <div class="f-icon">🎯</div>
-                    <h3 class="f-title">Multi-Perfil</h3>
-                    <p class="f-desc">Suporte a Chrome, Edge, Brave, Opera, Discord, Teams, WhatsApp, Slack, Spotify e VS Code.</p>
-                </div>
-                <div class="f-card teal reveal d8">
-                    <div class="f-icon">📊</div>
-                    <h3 class="f-title">Relatório Detalhado</h3>
-                    <p class="f-desc">Acompanhe em tempo real arquivos removidos, pastas excluídas e espaço recuperado.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="seguranca" class="sec-security">
-        <div class="wrap">
-            <div class="sec-head reveal">
-                <span class="sec-label">Segurança</span>
-                <h2 class="sec-title">Totalmente transparente e conservador</h2>
+                <div class="rec-grid">
+                    <article class="rec-card reveal d1">
+                        <span class="rec-num">1</span>
+                        <p class="rec-txt">Verifique se a Lixeira não contém arquivos importantes antes de iniciar a limpeza.</p>
+                    </article>
+                    <article class="rec-card reveal d2">
+                        <span class="rec-num">2</span>
+                        <p class="rec-txt">Evite executar a limpeza enquanto instalações ou atualizações do Windows estiverem em andamento.</p>
+                    </article>
+                    <article class="rec-card reveal d3">
+                        <span class="rec-num">3</span>
+                        <p class="rec-txt">Após limpar caches, a primeira abertura de alguns programas pode levar um pouco mais de tempo enquanto os dados são recriados.</p>
+                    </article>
+                    <article class="rec-card reveal d4">
+                        <span class="rec-num">4</span>
+                        <p class="rec-txt">Feche navegadores e aplicativos compatíveis quando quiser permitir uma limpeza mais completa dos caches suportados.</p>
+                    </article>
+                </div>
             </div>
-            <div class="security-row">
-                <div class="shield-wrap reveal">
-                    <div class="shield">
-                        <div class="ring"></div>
-                        <div class="core">🛡️</div>
+        </section>
+
+        <section id="como-usar">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <span class="sec-label">Como usar</span>
+                    <h2 class="sec-title">Simples assim</h2>
+                    <p class="sec-desc">Sem instalação, sem configuração, sem surpresas.</p>
+                </div>
+
+                <div class="steps">
+                    <article class="step reveal d1">
+                        <div class="step-num">1</div>
+                        <h4>Execute o arquivo</h4>
+                        <p>O pedido de administrador aparece automaticamente. Basta confirmar.</p>
+                    </article>
+
+                    <article class="step reveal d2">
+                        <div class="step-num">2</div>
+                        <h4>Aguarde instantes</h4>
+                        <p>A operação ocorre em silêncio, em segundo plano, sem interromper seu trabalho.</p>
+                    </article>
+
+                    <article class="step reveal d3">
+                        <div class="step-num">3</div>
+                        <h4>Veja o resultado</h4>
+                        <p>Uma notificação elegante apresenta o resultado detalhado da limpeza.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="preco" class="sec-price">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <span class="sec-label">Versão Pro</span>
+                    <h2 class="sec-title">Escolha a forma de acesso que faz sentido para você</h2>
+                    <p class="sec-desc">Mensal para começar, anual para economizar ou permanente para pagar uma vez. As primeiras 30 licenças permanentes individuais recebem a condição Founder.</p>
+                </div>
+
+                <div class="subscription-grid">
+                    <article class="price-card monthly reveal d1">
+                        <div class="plan-top">
+                            <div>
+                                <h3 class="plan-name">Mensal</h3>
+                                <p class="plan-kicker">Menor compromisso para começar</p>
+                            </div>
+                            <span class="plan-badge">Flexível</span>
+                        </div>
+
+                        <span class="launch-label">Preço de lançamento</span>
+
+                        <div class="plan-price">
+                            <span class="current">R$ 12,90</span>
+                            <span class="period">no 1º mês</span>
+                        </div>
+                        <p class="normal-price">Depois <strong>R$ 19,90/mês</strong></p>
+
+                        <p class="price-note">Ideal para experimentar o Pro e manter o acesso enquanto a assinatura estiver ativa.</p>
+
+                        <ul class="price-list">
+                            <li><span class="ic">✓</span> Todos os recursos Pro</li>
+                            <li><span class="ic">✓</span> Atualizações durante a assinatura</li>
+                            <li><span class="ic">✓</span> Português, English e Español</li>
+                            <li><span class="ic">✓</span> Histórico de limpezas</li>
+                            <li><span class="ic">✓</span> Suporte por e-mail e Discord</li>
+                        </ul>
+
+                        <div class="price-actions">
+                            <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main price-btn">Escolher mensal</a>
+                        </div>
+                    </article>
+
+                    <article class="price-card annual reveal d2">
+                        <div class="plan-top">
+                            <div>
+                                <h3 class="plan-name">Anual</h3>
+                                <p class="plan-kicker">Mais economia na assinatura</p>
+                            </div>
+                            <span class="plan-badge">Mais popular</span>
+                        </div>
+
+                        <span class="launch-label">Preço de lançamento</span>
+
+                        <div class="plan-price">
+                            <span class="current">R$ 129,90</span>
+                            <span class="period">/ano</span>
+                        </div>
+                        <p class="normal-price"><s>R$ 169,90/ano</s> · cerca de <strong>R$ 10,83/mês</strong></p>
+
+                        <p class="price-note">Para quem quer usar o Limpador Pro durante o ano pagando menos do que no plano mensal.</p>
+
+                        <ul class="price-list">
+                            <li><span class="ic">✓</span> Todos os recursos Pro</li>
+                            <li><span class="ic">✓</span> 12 meses de acesso</li>
+                            <li><span class="ic">✓</span> Atualizações durante todo o período</li>
+                            <li><span class="ic">✓</span> Histórico completo de limpezas</li>
+                            <li><span class="ic">✓</span> Suporte por e-mail e Discord</li>
+                        </ul>
+
+                        <div class="price-actions">
+                            <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main price-btn">Escolher anual</a>
+                        </div>
+                    </article>
+                </div>
+
+                <article class="founder-offer reveal d3">
+                    <div class="founder-inner">
+                        <div class="founder-grid">
+                            <div>
+                                <div class="founder-eyebrow">
+                                    <div class="founder-crown" aria-hidden="true">🏆</div>
+                                    <div>
+                                        <span class="founder-label">Founder Edition</span>
+                                        <div class="founder-limit">Somente as primeiras 30 licenças permanentes</div>
+                                    </div>
+                                </div>
+
+                                <h3 class="founder-title">O menor preço permanente será de quem <span class="gold">apoiar primeiro.</span></h3>
+                                <p class="founder-copy">A Founder Edition é a condição exclusiva para os primeiros apoiadores do Limpador Pro. Você garante 1 licença permanente, paga uma única vez e recebe todas as futuras atualizações do aplicativo.</p>
+
+                                <div class="founder-points">
+                                    <span>1 licença permanente · 1 PC</span>
+                                    <span>Todas as futuras atualizações</span>
+                                    <span>Sem mensalidade ou renovação</span>
+                                    <span>Oferta limitada a 30 licenças</span>
+                                </div>
+
+                                <p class="founder-after"><strong>Quando as 30 licenças Founder acabarem, essa condição não volta.</strong> O Permanente Individual passa diretamente para o preço normal de <strong>R$ 199,90</strong>.</p>
+                            </div>
+
+                            <div class="founder-pricebox">
+                                <span class="small">Founder Permanente</span>
+                                <div class="founder-oldprice">
+                                    <s>R$ 199,90</s>
+                                    <span class="save-pill">- R$ 40</span>
+                                </div>
+                                <span class="founder-price">R$ 159,90</span>
+                                <div class="founder-once">pagamento único · sem renovação</div>
+                                <p class="founder-save">O mesmo acesso permanente do Individual, reservado aos 30 primeiros compradores por um valor menor.</p>
+                                <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Garantir Founder por R$ 159,90</a>
+                                <p class="founder-micro">30 vagas totais · disponibilidade atualizada conforme as vendas</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="reveal d2">
-                    <ul class="sec-list">
-                        <li><span class="check">✓</span><span class="txt"><strong>Nunca toca em cookies</strong>Seus dados de navegação permanecem intactos</span></li>
-                        <li><span class="check">✓</span><span class="txt"><strong>Histórico preservado</strong>Nenhum registro de navegação é removido</span></li>
-                        <li><span class="check">✓</span><span class="txt"><strong>Senhas salvas protegidas</strong>Suas credenciais continuam seguras nos navegadores</span></li>
-                        <li><span class="check">✓</span><span class="txt"><strong>Configurações do Windows intactas</strong>Nenhuma alteração nos ajustes do sistema</span></li>
-                        <li><span class="check">✓</span><span class="txt"><strong>Sem alteração no registro</strong>Não modifica entradas do registro do Windows</span></li>
-                        <li><span class="check">✓</span><span class="txt"><strong>Programas instalados preservados</strong>Nenhum software é removido ou alterado</span></li>
-                        <li><span class="check">✓</span><span class="txt"><strong>Arquivos pessoais seguros</strong>Documentos, fotos e vídeos nunca são tocados</span></li>
-                    </ul>
-                    <p class="sec-note">Mais seguro do que limpadores populares: o Limpador Pro verifica se o aplicativo está aberto antes de agir — nenhum concorrente faz isso por padrão.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+                </article>
 
-    <section id="comparativo" class="sec-compare">
-        <div class="wrap">
-            <div class="sec-head reveal">
-                <span class="sec-label">Por que escolher</span>
-                <h2 class="sec-title">A diferença está nos detalhes</h2>
-            </div>
-            <div class="compare-grid">
-                <div class="c-card pro reveal d1">
-                    <div class="c-head">
-                        <span style="font-size:1.3rem">✅</span>
-                        <h3>Limpador Pro</h3>
+                <div class="lifetime-panel reveal d4">
+                    <div class="lifetime-head">
+                        <div>
+                            <span class="launch-label">Permanente · preço normal</span>
+                            <h3>🔓 Pague uma vez. Use para sempre.</h3>
+                            <p>Depois das 30 vagas Founder, a licença Individual passa diretamente para R$ 199,90. Família e Equipe mantêm descontos por quantidade para quem precisa de mais PCs.</p>
+                        </div>
+                        <span class="plan-badge hot">Melhor valor a longo prazo</span>
                     </div>
-                    <ul class="c-list">
-                        <li><span class="c-icon">✓</span> Detecta apps abertos antes de limpar</li>
-                        <li><span class="c-icon">✓</span> Executável único — sem instalação</li>
-                        <li><span class="c-icon">✓</span> Abre automaticamente como administrador</li>
-                        <li><span class="c-icon">✓</span> Multi-idioma (PT / EN / ES)</li>
-                        <li><span class="c-icon">✓</span> Relatório detalhado após cada limpeza</li>
-                        <li><span class="c-icon">✓</span> Atualizações automáticas silenciosas</li>
-                        <li><span class="c-icon">✓</span> Zero processos em background</li>
-                    </ul>
-                </div>
-                <div class="c-card others reveal d2">
-                    <div class="c-head">
-                        <span style="font-size:1.3rem">❌</span>
-                        <h3>Outros Limpadores</h3>
+
+                    <div class="lifetime-options">
+                        <article class="license-option individual">
+                            <div class="license-top">
+                                <div>
+                                    <div class="license-icon">👤</div>
+                                    <h4 class="license-name">Individual</h4>
+                                    <p class="license-pcs">1 PC · 1 licença permanente</p>
+                                </div>
+                                <span class="license-tag">1 PC</span>
+                            </div>
+
+                            <div class="license-price">R$ 199,90</div>
+                            <p class="license-unit">R$ 199,90 por PC</p>
+                            <div class="license-saving">Preço normal após o Founder: <strong>R$ 199,90</strong>.</div>
+
+                            <ul>
+                                <li><b>✓</b> Acesso permanente ao Pro</li>
+                                <li><b>✓</b> Todas as futuras atualizações</li>
+                                <li><b>✓</b> Sem mensalidade ou renovação</li>
+                            </ul>
+
+                            <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Comprar Individual</a>
+                        </article>
+
+                        <article class="license-option family">
+                            <div class="license-top">
+                                <div>
+                                    <div class="license-icon">👨‍👩‍👧</div>
+                                    <h4 class="license-name">Família</h4>
+                                    <p class="license-pcs">3 PCs · 3 licenças permanentes</p>
+                                </div>
+                                <span class="license-tag">~R$ 210/PC</span>
+                            </div>
+
+                            <div class="license-price">R$ 499,90</div>
+                            <p class="license-unit">aprox. R$ 166,63 por PC</p>
+                            <div class="license-saving">Economize <strong>R$ 99,80</strong> em relação a 3 licenças individuais de lançamento. <br><span style="color:var(--text-muted)">Preço normal futuro do pacote: R$ 899,90.</span></div>
+
+                            <ul>
+                                <li><b>✓</b> 3 licenças independentes</li>
+                                <li><b>✓</b> Todas as futuras atualizações</li>
+                                <li><b>✓</b> Ideal para vários PCs da casa</li>
+                            </ul>
+
+                            <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Comprar Família</a>
+                        </article>
+
+                        <article class="license-option team featured">
+                            <div class="license-top">
+                                <div>
+                                    <div class="license-icon">👥</div>
+                                    <h4 class="license-name">Equipe</h4>
+                                    <p class="license-pcs">5 PCs · 5 licenças permanentes</p>
+                                </div>
+                                <span class="license-tag">Maior economia</span>
+                            </div>
+
+                            <div class="license-price">R$ 749,90</div>
+                            <p class="license-unit">aprox. R$ 149,98 por PC</p>
+                            <div class="license-saving">Economize <strong>R$ 249,60</strong> em relação a 5 licenças individuais de lançamento. <br><span style="color:var(--text-muted)">Preço normal futuro do pacote: R$ 1.299,90.</span></div>
+
+                            <ul>
+                                <li><b>✓</b> 5 licenças independentes</li>
+                                <li><b>✓</b> Todas as futuras atualizações</li>
+                                <li><b>✓</b> Melhor valor por licença</li>
+                            </ul>
+
+                            <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Comprar Equipe</a>
+                        </article>
                     </div>
-                    <ul class="c-list">
-                        <li><span class="c-icon">✕</span> Não verificam apps abertos</li>
-                        <li><span class="c-icon">✕</span> Exigem instalação completa</li>
-                        <li><span class="c-icon">✕</span> Pedem administrador manualmente</li>
-                        <li><span class="c-icon">✕</span> Apenas um idioma</li>
-                        <li><span class="c-icon">✕</span> Sem relatório detalhado</li>
-                        <li><span class="c-icon">✕</span> Atualizações manuais</li>
-                        <li><span class="c-icon">✕</span> Rodam serviços em background</li>
-                    </ul>
-                </div>
-            </div>
-            <p class="compare-foot">Outros limpadores populares não verificam se o aplicativo está aberto antes de agir — e é exatamente isso que causa a lentidão que você sente depois de usar.</p>
-        </div>
-    </section>
 
-    <section id="recomendacoes">
-        <div class="wrap">
-            <div class="sec-head reveal">
-                <span class="sec-label">Recomendações</span>
-                <h2 class="sec-title">Antes de executar</h2>
-            </div>
-            <div class="rec-grid">
-                <div class="rec-card reveal d1">
-                    <span class="rec-num">1</span>
-                    <p class="rec-txt">Verifique se a lixeira não contém arquivos importantes antes de executar a limpeza.</p>
+                    <p class="lifetime-note">Os pacotes Família e Equipe são exclusivos da licença permanente. As licenças são individuais por computador e não representam uma única licença compartilhada entre vários PCs.</p>
                 </div>
-                <div class="rec-card reveal d2">
-                    <span class="rec-num">2</span>
-                    <p class="rec-txt">Evite rodar durante atualizações do Windows em andamento para prevenir conflitos.</p>
-                </div>
-                <div class="rec-card reveal d3">
-                    <span class="rec-num">3</span>
-                    <p class="rec-txt">Após a limpeza, a primeira abertura de alguns programas pode ser levemente mais lenta — o Windows reconstrói os caches automaticamente.</p>
-                </div>
-                <div class="rec-card reveal d4">
-                    <span class="rec-num">4</span>
-                    <p class="rec-txt">Para possível rollback futuro, faça backup antes de executar (a pasta Windows.old será removida).</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="como-usar">
-        <div class="wrap">
-            <div class="sec-head reveal">
-                <span class="sec-label">Como usar</span>
-                <h2 class="sec-title">Simples assim</h2>
-                <p class="sec-desc">Sem instalação, sem configuração, sem surpresas.</p>
+                <p class="pricing-footnote">A condição Founder é limitada às primeiras 30 licenças permanentes individuais por R$ 159,90. Depois disso, o Permanente Individual passa diretamente para R$ 199,90. A licença utiliza identificação de hardware; formatação ou alteração relevante no computador pode exigir nova validação pelo suporte.</p>
             </div>
-            <div class="steps">
-                <div class="step reveal d1">
-                    <div class="step-num">1</div>
-                    <h4>Execute o arquivo</h4>
-                    <p>O pedido de administrador aparece automaticamente. Basta confirmar.</p>
-                </div>
-                <div class="step reveal d2">
-                    <div class="step-num">2</div>
-                    <h4>Aguarde instantes</h4>
-                    <p>A operação ocorre em silêncio, em segundo plano, sem interromper seu trabalho.</p>
-                </div>
-                <div class="step reveal d3">
-                    <div class="step-num">3</div>
-                    <h4>Veja o resultado</h4>
-                    <p>Uma notificação elegante apresenta o resultado detalhado da limpeza.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    
-
-    <section id="preco" class="sec-price">
-        <div class="wrap">
-            <div class="sec-head reveal">
-                <span class="sec-label">Versão Pro</span>
-                <h2 class="sec-title">Desbloqueie o potencial máximo</h2>
-            </div>
-            <div class="price-card reveal">
-                <span class="price-tag">🔥 PREÇO DE LANÇAMENTO</span>
-                <h3>Licença Pro Permanente</h3>
-                <p class="sub">Vinculada ao seu PC — funciona para sempre na mesma máquina</p>
-                <div class="price-row">
-                    <span class="price-old">R$ 34,90</span>
-                    <span class="price-new">R$ 12,90</span>
-                </div>
-                <p class="price-note">Apenas 25 licenças com desconto de lançamento</p>
-                <p class="price-note">⚠️ Vinculada ao hardware atual. Formatação ou troca de peças principais invalida a licença.</p>
-                <ul class="price-list">
-                    <li><span class="ic">✓</span> Atualizações automáticas silenciosas</li>
-                    <li><span class="ic">✓</span> Multi-idioma (Português, English, Español)</li>
-                    <li><span class="ic">✓</span> Sistema de licença por HWID — seguro e pessoal</li>
-                    <li><span class="ic">✓</span> Suporte prioritário e canal exclusivo no Discord</li>
-                    <li><span class="ic">✓</span> Histórico completo de limpezas com estatísticas</li>
-                    <li><span class="ic">✓</span> Proteção contra banimento e revogação de licença</li>
-                    <li><span class="ic">✓</span> Novos recursos em desenvolvimento contínuo</li>
-                </ul>
-                <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main price-btn">
-                    Entrar no Servidor
-                </a>
-                <div style="text-align:center;margin-top:1.2rem;">
-                    <a href="https://discord.com/channels/1458537528242995304/1464403421120692489" target="_blank" rel="noopener noreferrer" class="btn-main" style="font-size:0.85rem;padding:0.75rem 1.6rem;">
-                        Já é membro? Ir direto ao canal →
-                    </a>
-                </div>
-                <p class="price-disclaimer">Sem mensalidade, sem renovação. A licença é desativada apenas se você formatar o PC ou alterar o hardware identificador.</p>
-            </div>
-        </div>
-    </section>
-
-
-    
     <footer class="footer">
         <div class="foot-inner">
             <div class="foot-brand">
-                <a href="#" class="logo">
+                <a href="#inicio" class="logo">
                     <span class="logo-mark">🧹</span>
                     Limpador Pro
                 </a>
-                <p>Limpeza inteligente para Windows. Um clique. Resultado imediato.</p>
-                <a href="mailto:realzoro.suporte@gmail.com" class="foot-email">
-                    ✉️ realzoro.suporte@gmail.com
-                </a>
+                <p>Limpeza inteligente e segura para Windows, com resultados claros e histórico das operações realizadas.</p>
+                <a href="mailto:realzoro.suporte@gmail.com" class="foot-email">✉️ realzoro.suporte@gmail.com</a>
             </div>
+
             <div class="foot-col">
                 <h4>Navegação</h4>
                 <ul class="foot-links">
+                    <li><a href="#interface">Interface</a></li>
                     <li><a href="#recursos">Recursos</a></li>
                     <li><a href="#seguranca">Segurança</a></li>
-                    <li><a href="#comparativo">Comparativo</a></li>
+                    <li><a href="#comparativo">Por que escolher</a></li>
+                    <li><a href="#novidades">Novidades</a></li>
                     <li><a href="#como-usar">Como Usar</a></li>
                     <li><a href="#preco">Versão Pro</a></li>
                 </ul>
             </div>
+
             <div class="foot-col">
                 <h4>Suporte</h4>
                 <ul class="foot-links">
-                    <li><a href="mailto:realzoro.suporte@gmail.com">Contato por E-mail</a></li>
-                    <li><a href="#recomendacoes">Recomendações</a></li>
-                    <li><span style="color:var(--text-muted);font-size:0.84rem">Canal exclusivo no Discord (Pro)</span></li>
+                    <li><a href="mailto:realzoro.suporte@gmail.com">Contato por e-mail</a></li>
+                    <li><a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer">Discord</a></li>
+                    <li><a href="#recomendacoes">Recomendações de uso</a></li>
                 </ul>
             </div>
         </div>
+
         <div class="foot-bottom">
             <p>© 2026 Limpador Pro. Todos os direitos reservados.</p>
             <span class="os-tag">🪟 Windows 10 • Windows 11</span>
         </div>
     </footer>
 
-    <script>
-        // === PARTICLES (optimized) ===
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d', { alpha: true });
-        let particles = [], mx = -9999, my = -9999, animId = null, isVisible = true;
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resize();
-
-        // Debounced resize
-        let resizeTimer;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(resize, 150);
-        }, { passive: true });
-
-        class P {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.s = Math.random() * 1.2 + 0.3;
-                this.vx = (Math.random() - 0.5) * 0.25;
-                this.vy = (Math.random() - 0.5) * 0.25;
-                this.o = Math.random() * 0.25 + 0.04;
-                this.life = Math.random() * 120 + 120;
-                this.max = this.life;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.life--;
-                if (mx > -9999) {
-                    const dx = mx - this.x, dy = my - this.y;
-                    const dSq = dx * dx + dy * dy;
-                    if (dSq < 25600) { // 160*160
-                        const d = Math.sqrt(dSq);
-                        const f = (160 - d) / 160;
-                        this.x -= dx * f * 0.012;
-                        this.y -= dy * f * 0.012;
-                    }
-                }
-                if (this.life <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-            }
-            draw() {
-                const r = this.life / this.max;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.s, 0, 6.2832);
-                ctx.fillStyle = `rgba(255,255,255,${this.o * r})`;
-                ctx.fill();
-            }
-        }
-
-        // Reduce particle count: fewer on mobile, cap at 35
-        const isMobile = window.innerWidth < 768;
-        const count = isMobile ? Math.min(18, Math.floor(window.innerWidth / 45)) : Math.min(35, Math.floor(window.innerWidth / 35));
-        for (let i = 0; i < count; i++) particles.push(new P());
-
-        // Optimized lines: use spatial proximity check, limit line draws
-        function lines() {
-            const len = particles.length;
-            for (let i = 0; i < len; i++) {
-                const pi = particles[i];
-                for (let j = i + 1; j < len; j++) {
-                    const pj = particles[j];
-                    const dx = pi.x - pj.x;
-                    if (dx > 120 || dx < -120) continue;
-                    const dy = pi.y - pj.y;
-                    if (dy > 120 || dy < -120) continue;
-                    const dSq = dx * dx + dy * dy;
-                    if (dSq < 14400) { // 120*120
-                        const d = Math.sqrt(dSq);
-                        ctx.beginPath();
-                        ctx.moveTo(pi.x, pi.y);
-                        ctx.lineTo(pj.x, pj.y);
-                        ctx.strokeStyle = `rgba(255,255,255,${0.035 * (1 - d / 120)})`;
-                        ctx.lineWidth = 0.35;
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        // Skip lines on mobile entirely for performance
-        function loop() {
-            if (!isVisible) { animId = requestAnimationFrame(loop); return; }
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-            if (!isMobile) lines();
-            animId = requestAnimationFrame(loop);
-        }
-
-        // Page visibility: pause animation when tab is hidden
-        document.addEventListener('visibilitychange', function() {
-            isVisible = !document.hidden;
-        });
-
-        loop();
-
-        // Throttled mousemove (every 50ms)
-        let lastMouse = 0;
-        document.addEventListener('mousemove', function(e) {
-            const now = Date.now();
-            if (now - lastMouse < 50) return;
-            lastMouse = now;
-            mx = e.clientX;
-            my = e.clientY;
-        }, { passive: true });
-
-        // === INTERSECTION OBSERVER (reveal animations) ===
-        // Use generous rootMargin so elements start appearing before entering viewport
-        let scrollSpeed = 0, lastScrollY = window.pageYOffset, lastScrollTime = Date.now();
-        const obs = new IntersectionObserver(function(entries) {
-            for (let i = 0; i < entries.length; i++) {
-                if (entries[i].isIntersecting) {
-                    const el = entries[i].target;
-                    // If user is scrolling fast, show instantly without animation delay
-                    if (scrollSpeed > 1500) {
-                        el.classList.add('instant');
-                    } else {
-                        el.classList.add('visible');
-                    }
-                    obs.unobserve(el);
-                }
-            }
-        }, { threshold: 0.01, rootMargin: '0px 0px 100px 0px' });
-        document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
-
-        // Track scroll speed for instant reveal on fast navigation
-        window.addEventListener('scroll', function() {
-            const now = Date.now();
-            const dt = now - lastScrollTime;
-            if (dt > 0) {
-                scrollSpeed = Math.abs(window.pageYOffset - lastScrollY) / dt * 1000;
-            }
-            lastScrollY = window.pageYOffset;
-            lastScrollTime = now;
-        }, { passive: true });
-
-        // === SMOOTH SCROLL (instant reveal of target section) ===
-        document.querySelectorAll('a[href^="#"]').forEach(function(a) {
-            a.addEventListener('click', function(e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                const t = document.querySelector(href);
-                if (!t) return;
-                // Immediately reveal all .reveal elements in the target section
-                t.querySelectorAll('.reveal:not(.visible):not(.instant)').forEach(function(el) {
-                    el.classList.add('instant');
-                    obs.unobserve(el);
-                });
-                t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-
-        // === NAV SCROLL (throttled with rAF) ===
-        const nav = document.querySelector('.nav');
-        let ticking = false;
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                ticking = true;
-                requestAnimationFrame(function() {
-                    nav.classList.toggle('scrolled', window.pageYOffset > 60);
-                    ticking = false;
-                });
-            }
-        }, { passive: true });
-
-        // === MOBILE MENU ===
-        function toggleMenu() {
-            const links = document.querySelector('.nav-links');
-            if (links.style.display === 'flex') {
-                links.style.display = 'none';
-            } else {
-                links.style.display = 'flex';
-                links.style.flexDirection = 'column';
-                links.style.position = 'absolute';
-                links.style.top = '100%';
-                links.style.left = '0';
-                links.style.right = '0';
-                links.style.background = 'rgba(8,8,8,0.98)';
-                links.style.padding = '2rem';
-                links.style.borderBottom = '1px solid var(--border)';
-                links.style.gap = '1.25rem';
-                links.style.backdropFilter = 'blur(20px)';
-            }
-        }
-
-        // === TYPEWRITER (non-blocking: text is visible immediately via CSS, effect is cosmetic) ===
-        const sub = document.querySelector('.hero-inner p');
-        const txt = sub.textContent;
-        // Show full text immediately for accessibility and fast interaction
-        sub.style.visibility = 'visible';
-        // Optional cosmetic typewriter only if page loads fresh (not scrolled)
-        if (window.pageYOffset < 100) {
-            sub.textContent = '';
-            let charIdx = 0;
-            function type() {
-                if (charIdx < txt.length) {
-                    sub.textContent += txt.charAt(charIdx);
-                    charIdx++;
-                    requestAnimationFrame(function() { setTimeout(type, 18); });
-                }
-            }
-            setTimeout(type, 800);
-        }
-    
-        // === LIGHTBOX ===
-        const lb = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lightbox-img');
-        function openLightbox(src) {
-            lbImg.src = src;
-            lb.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox() {
-            lb.classList.remove('active');
-            document.body.style.overflow = '';
-            setTimeout(function() { lbImg.src = ''; }, 400);
-        }
-        lb.addEventListener('click', function(e) {
-            if (e.target === lb || e.target === lbImg) closeLightbox();
-        });
-        document.querySelector('.lightbox-close').addEventListener('click', function(e) {
-            e.stopPropagation();
-            closeLightbox();
-        });
-        document.querySelectorAll('.screenshot-card').forEach(function(card) {
-            card.style.cursor = 'zoom-in';
-            card.addEventListener('click', function(e) {
-                var img = card.querySelector('.screenshot-img img');
-                if (img && img.src) openLightbox(img.src);
-            });
-        });
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && lb.classList.contains('active')) closeLightbox();
-        });
-
-        // === LIGHTBOX ===
-        function openLightbox(src) {
-            var overlay = document.getElementById('lightbox');
-            var img = document.getElementById('lightbox-img');
-            img.src = src;
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox() {
-            var overlay = document.getElementById('lightbox');
-            var img = document.getElementById('lightbox-img');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-            setTimeout(function() { img.src = ''; }, 400);
-        }
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeLightbox();
-        });
-
-</script>
-
-    <!-- Lightbox -->
-    <div class="lightbox-overlay" id="lightbox" onclick="if(event.target===this||event.target.id==='lightbox-img')closeLightbox()">
-        <button class="lightbox-close" onclick="event.stopPropagation();closeLightbox()">×</button>
-        <img src="" alt="Screenshot em tela cheia" id="lightbox-img" onclick="event.stopPropagation()">
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada da imagem">
+        <div class="lightbox-inner">
+            <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Fechar imagem ampliada">×</button>
+            <img id="lightboxImage" alt="">
+        </div>
     </div>
 
+    <script>
+    (() => {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const finePointer = window.matchMedia('(pointer: fine)').matches;
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d', { alpha: true });
+
+        /* Partículas inspiradas no site original, com custo reduzido */
+        if (!reduceMotion) {
+            let particles = [];
+            let mouseX = -9999, mouseY = -9999;
+            let visible = !document.hidden;
+            let resizeTimer;
+
+            class Particle {
+                constructor(){ this.reset(); }
+                reset(){
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.s = Math.random() * 1.1 + .3;
+                    this.vx = (Math.random() - .5) * .22;
+                    this.vy = (Math.random() - .5) * .22;
+                    this.o = Math.random() * .22 + .035;
+                    this.life = Math.random() * 140 + 160;
+                    this.max = this.life;
+                }
+                update(){
+                    this.x += this.vx; this.y += this.vy; this.life--;
+                    if (finePointer && mouseX > -9999) {
+                        const dx = mouseX - this.x, dy = mouseY - this.y;
+                        const d2 = dx*dx + dy*dy;
+                        if (d2 < 19600) {
+                            const d = Math.sqrt(d2);
+                            const f = (140-d)/140;
+                            this.x -= dx*f*.009;
+                            this.y -= dy*f*.009;
+                        }
+                    }
+                    if (this.life <= 0 || this.x < 0 || this.y < 0 || this.x > canvas.width || this.y > canvas.height) this.reset();
+                }
+                draw(){
+                    const r = this.life / this.max;
+                    ctx.beginPath();
+                    ctx.arc(this.x,this.y,this.s,0,Math.PI*2);
+                    ctx.fillStyle = `rgba(255,255,255,${this.o*r})`;
+                    ctx.fill();
+                }
+            }
+
+            const resize = () => {
+                const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+                canvas.width = Math.floor(innerWidth * dpr);
+                canvas.height = Math.floor(innerHeight * dpr);
+                canvas.style.width = innerWidth + 'px';
+                canvas.style.height = innerHeight + 'px';
+                ctx.setTransform(dpr,0,0,dpr,0,0);
+                const count = innerWidth < 768 ? Math.min(14, Math.floor(innerWidth/55)) : Math.min(30, Math.floor(innerWidth/42));
+                particles = Array.from({length:Math.max(8,count)}, () => new Particle());
+            };
+
+            const drawLines = () => {
+                if (innerWidth < 768) return;
+                for (let i=0;i<particles.length;i++){
+                    for (let j=i+1;j<particles.length;j++){
+                        const a=particles[i], b=particles[j];
+                        const dx=a.x-b.x, dy=a.y-b.y;
+                        if (Math.abs(dx)>110 || Math.abs(dy)>110) continue;
+                        const d2=dx*dx+dy*dy;
+                        if (d2<12100){
+                            const d=Math.sqrt(d2);
+                            ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+                            ctx.strokeStyle=`rgba(255,255,255,${.03*(1-d/110)})`;
+                            ctx.lineWidth=.35;ctx.stroke();
+                        }
+                    }
+                }
+            };
+
+            const loop = () => {
+                if (visible) {
+                    ctx.clearRect(0,0,innerWidth,innerHeight);
+                    particles.forEach(p=>{p.update();p.draw()});
+                    drawLines();
+                }
+                requestAnimationFrame(loop);
+            };
+
+            resize();
+            loop();
+
+            addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(resize,160);
+            }, {passive:true});
+
+            document.addEventListener('visibilitychange', () => { visible = !document.hidden; });
+
+            if (finePointer) {
+                let last = 0;
+                addEventListener('pointermove', e => {
+                    const now = performance.now();
+                    if (now-last < 45) return;
+                    last=now; mouseX=e.clientX; mouseY=e.clientY;
+                }, {passive:true});
+            }
+        }
+
+        /* Spotlights premium */
+        if (finePointer && !reduceMotion) {
+            document.querySelectorAll('.app-preview,.screenshot-card,.f-card,.c-card,.evo-proof,.version-card,.price-card,.lifetime-panel,.license-option').forEach(el => {
+                el.addEventListener('pointermove', e => {
+                    const r = el.getBoundingClientRect();
+                    el.style.setProperty('--mx', `${e.clientX-r.left}px`);
+                    el.style.setProperty('--my', `${e.clientY-r.top}px`);
+                }, {passive:true});
+            });
+        }
+
+        /* Reveal */
+        if (!reduceMotion && 'IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                });
+            }, {threshold:.04,rootMargin:'0px 0px 90px 0px'});
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        } else {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('instant'));
+        }
+
+        /* Nav */
+        const nav = document.querySelector('.nav');
+        let ticking = false;
+        addEventListener('scroll', () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                nav.classList.toggle('scrolled', scrollY > 60);
+                ticking = false;
+            });
+        }, {passive:true});
+
+        const navLinks = document.getElementById('navLinks');
+        const mobileToggle = document.getElementById('mobileToggle');
+
+        const closeMenu = () => {
+            navLinks.classList.remove('open');
+            mobileToggle.setAttribute('aria-expanded','false');
+        };
+
+        mobileToggle.addEventListener('click', e => {
+            e.stopPropagation();
+            const open = navLinks.classList.toggle('open');
+            mobileToggle.setAttribute('aria-expanded',String(open));
+        });
+
+        navLinks.addEventListener('click', e => {
+            if (e.target.closest('a')) closeMenu();
+        });
+
+        document.addEventListener('click', e => {
+            if (!navLinks.contains(e.target) && !mobileToggle.contains(e.target)) closeMenu();
+        });
+
+        addEventListener('resize', () => {
+            if (innerWidth > 768) closeMenu();
+        }, {passive:true});
+
+        /* Navegação ativa */
+        if ('IntersectionObserver' in window) {
+            const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+            const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+            const navObserver = new IntersectionObserver(entries => {
+                const visible = entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+                if (!visible) return;
+                links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${visible.target.id}`));
+            }, {rootMargin:'-35% 0px -55% 0px',threshold:[0,.1,.3]});
+            targets.forEach(t => navObserver.observe(t));
+        }
+
+        /* Lightbox */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxClose = document.getElementById('lightboxClose');
+        let lastTrigger = null;
+
+        const openLightbox = img => {
+            lastTrigger = img;
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+            lightbox.classList.add('open');
+            document.body.style.overflow='hidden';
+            lightboxClose.focus();
+        };
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('open');
+            document.body.style.overflow='';
+            lightboxImage.removeAttribute('src');
+            if (lastTrigger) lastTrigger.focus?.();
+        };
+
+        document.querySelectorAll('.zoom-image').forEach(img => {
+            img.setAttribute('tabindex','0');
+            img.setAttribute('role','button');
+            img.setAttribute('aria-label',`Ampliar: ${img.alt}`);
+            img.addEventListener('click',()=>openLightbox(img));
+            img.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLightbox(img)}});
+        });
+
+        lightboxClose.addEventListener('click',closeLightbox);
+        lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox()});
+        document.addEventListener('keydown',e=>{
+            if(e.key!=='Escape')return;
+            if(lightbox.classList.contains('open'))closeLightbox();
+            else closeMenu();
+        });
+    })();
+    </script>
 </body>
 </html>
