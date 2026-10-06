@@ -1051,17 +1051,122 @@
         }
         .version-value strong{color:var(--ver);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em}
         .roadmap-note{
-            margin-top:1.15rem;display:flex;align-items:center;justify-content:space-between;gap:1.4rem;
-            padding:1.2rem 1.35rem;border:1px solid var(--border);border-radius:var(--radius-md);
-            background:linear-gradient(135deg,rgba(167,139,250,.025),rgba(34,211,238,.015),rgba(255,255,255,.008));
+            --road-a:96,165,250;
+            --road-b:167,139,250;
+            margin-top:1.3rem;
             position:relative;overflow:hidden;
+            padding:1.1rem;
+            border:1px solid rgba(132,153,215,.12);
+            border-radius:24px;
+            background:
+                radial-gradient(520px circle at 18% 50%,rgba(var(--road-a),.055),transparent 68%),
+                radial-gradient(520px circle at 82% 50%,rgba(var(--road-b),.055),transparent 68%),
+                linear-gradient(145deg,rgba(14,17,24,.88),rgba(7,8,12,.96));
+            box-shadow:0 24px 58px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.025);
         }
-        .roadmap-note::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--violet),var(--cyan));opacity:.8}
-        .roadmap-note strong{display:block;margin-bottom:.2rem;font-size:.88rem}
-        .roadmap-note p{margin:0;color:var(--text-secondary);font-size:.78rem;line-height:1.55}
+        .roadmap-note::before{
+            content:'';
+            position:absolute;left:9%;right:9%;top:0;height:1px;
+            background:linear-gradient(90deg,transparent,var(--blue),var(--violet),transparent);
+            opacity:.7;
+        }
+        .roadmap-heading{
+            display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;
+            padding:.25rem .3rem 1rem;
+        }
+        .roadmap-heading .roadmap-kicker{
+            display:block;margin-bottom:.22rem;
+            color:#a9cfff;font-size:.62rem;font-weight:850;
+            letter-spacing:.11em;text-transform:uppercase;
+        }
+        .roadmap-heading strong{
+            display:block;
+            font-family:'Space Grotesk',sans-serif;
+            font-size:1.02rem;letter-spacing:-.02em;
+        }
+        .roadmap-heading p{
+            max-width:560px;margin:.28rem 0 0;
+            color:var(--text-muted);font-size:.74rem;line-height:1.55;
+        }
+        .roadmap-flow{
+            display:grid;
+            grid-template-columns:minmax(0,1fr) 52px minmax(0,1fr);
+            gap:.8rem;align-items:stretch;
+        }
+        .roadmap-stage{
+            position:relative;overflow:hidden;
+            min-height:172px;
+            padding:1rem 1.05rem;
+            border-radius:17px;
+            border:1px solid rgba(var(--stage-rgb),.13);
+            background:
+                radial-gradient(360px circle at 15% 0%,rgba(var(--stage-rgb),.055),transparent 62%),
+                rgba(255,255,255,.012);
+            transition:transform .4s var(--ease),border-color .35s var(--ease),box-shadow .4s var(--ease);
+        }
+        .roadmap-stage.essential{--stage-rgb:96,165,250;--stage-color:#7cc5ff}
+        .roadmap-stage.complete{--stage-rgb:167,139,250;--stage-color:#b49cff}
+        .roadmap-stage::before{
+            content:'';
+            position:absolute;left:12%;right:12%;top:0;height:1px;
+            background:linear-gradient(90deg,transparent,var(--stage-color),transparent);
+            opacity:.7;
+        }
+        .roadmap-stage:hover{
+            transform:translateY(-4px);
+            border-color:rgba(var(--stage-rgb),.25);
+            box-shadow:0 16px 38px rgba(0,0,0,.24),0 0 28px rgba(var(--stage-rgb),.045);
+        }
+        .roadmap-version{
+            display:flex;align-items:center;justify-content:space-between;gap:.7rem;
+            margin-bottom:.75rem;
+        }
+        .roadmap-version strong{
+            margin:0;
+            font-family:'Space Grotesk',sans-serif;
+            font-size:1.05rem;color:#fff;
+        }
         .roadmap-pill{
-            flex-shrink:0;padding:.42rem .8rem;border-radius:999px;border:1px solid rgba(167,139,250,.18);
-            background:rgba(167,139,250,.055);color:var(--violet);font-size:.66rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+            flex-shrink:0;
+            padding:.3rem .6rem;border-radius:999px;
+            color:var(--stage-color);
+            border:1px solid rgba(var(--stage-rgb),.18);
+            background:rgba(var(--stage-rgb),.055);
+            font-size:.57rem;font-weight:850;letter-spacing:.075em;text-transform:uppercase;
+        }
+        .roadmap-stage h4{
+            margin:0 0 .38rem;
+            font-size:.9rem;font-weight:700;color:var(--text);
+        }
+        .roadmap-stage p{
+            margin:0;color:var(--text-secondary);
+            font-size:.73rem;line-height:1.55;
+        }
+        .roadmap-stage ul{
+            list-style:none;margin:.72rem 0 0;padding:0;
+            display:grid;gap:.34rem;
+        }
+        .roadmap-stage li{
+            position:relative;padding-left:.9rem;
+            color:var(--text-muted);font-size:.67rem;line-height:1.45;
+        }
+        .roadmap-stage li::before{
+            content:'';
+            position:absolute;left:0;top:.52em;
+            width:4px;height:4px;border-radius:50%;
+            background:var(--stage-color);
+            box-shadow:0 0 8px rgba(var(--stage-rgb),.28);
+        }
+        .roadmap-arrow{
+            display:grid;place-items:center;
+            color:#8fa5d9;font-size:1.15rem;
+        }
+        .roadmap-arrow span{
+            width:36px;height:36px;border-radius:50%;
+            display:grid;place-items:center;
+            border:1px solid rgba(138,158,217,.12);
+            background:rgba(255,255,255,.015);
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
         }
         /* RECOMENDAÇÕES */
         .rec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
@@ -1091,6 +1196,29 @@
         }
         .rec-card:hover .rec-num{transform:scale(1.1) rotate(-4deg)}
         .rec-txt{color:var(--text-secondary);font-size:.85rem;line-height:1.6}
+        .rec-card.important{
+            border-color:rgba(251,191,36,.16);
+            background:
+                radial-gradient(300px circle at 0 0,rgba(251,191,36,.045),transparent 68%),
+                var(--bg-card);
+        }
+        .rec-content{min-width:0}
+        .rec-important{
+            display:inline-flex;align-items:center;gap:.35rem;
+            margin-bottom:.42rem;
+            padding:.24rem .55rem;border-radius:999px;
+            color:#ffd86a;
+            background:rgba(251,191,36,.065);
+            border:1px solid rgba(251,191,36,.16);
+            font-size:.58rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;
+        }
+        .rec-important::before{
+            content:'!';
+            width:15px;height:15px;border-radius:50%;
+            display:grid;place-items:center;
+            color:#151006;background:linear-gradient(135deg,#ffe384,#fbbf24);
+            font-size:.56rem;font-weight:950;
+        }
 
         /* COMO USAR — visual original */
         .steps{
@@ -1999,6 +2127,10 @@
             .founder-pricebox{min-width:0;max-width:420px}
             .founder-points{grid-template-columns:1fr}
             .founder-inner{padding:1.55rem}
+            .roadmap-flow{grid-template-columns:1fr}
+            .roadmap-arrow{transform:rotate(90deg);min-height:34px}
+            .roadmap-heading{align-items:flex-start}
+
             .security-shell{gap:1.5rem;padding:1.5rem}
             .shield-wrap{min-height:285px}
             .version-grid{grid-template-columns:1fr}
@@ -2411,7 +2543,7 @@
                             </div>
 
                             <h4 class="version-title">Limpeza Extra — Essencial e uma base muito mais completa</h4>
-                            <p class="version-summary">A v1.0.2 estreia a primeira versão da Limpeza Extra e reúne melhorias importantes em interface, segurança, compatibilidade, histórico, relatório e desempenho.</p>
+                            <p class="version-summary">A v1.0.2 estreia a Limpeza Extra — Essencial e reúne melhorias importantes em interface, segurança, compatibilidade, histórico, relatório, idiomas e desempenho.</p>
 
                             <div class="version-impact">
                                 <span>✨ Limpeza Extra — Essencial</span>
@@ -2428,8 +2560,10 @@
                                 <li>Detecção de aplicativos abertos aprimorada e compatibilidade ampliada com variantes Beta, Dev, Canary, Nightly, PTB e Insiders dos aplicativos suportados.</li>
                                 <li>Histórico ampliado para até <strong>5.000 execuções</strong>, com recuperação melhor quando uma limpeza é interrompida.</li>
                                 <li>Detalhes de cada limpeza com pesquisa, cartões de dados, arquivos, pastas e duração, além de abas para arquivos excluídos e etapas da limpeza.</li>
-                                <li>Janela Revisar Downloads refinada, sem a barra branca destoando da interface, e Configurações com suporte a maximizar/restaurar e melhor responsividade.</li>
-                                <li>Correções no Windows Update, melhorias no tratamento de falhas do DNS, desempenho, uso de memória, Lixeira e estabilidade geral.</li>
+                                <li>A <strong>Limpeza Extra — Essencial</strong> estreia com recursos como Revisar Downloads e a área de Windows Update, em uma primeira implementação de escopo controlado.</li>
+                                <li>Configurações agora podem ser maximizadas/restauradas e se adaptam melhor a diferentes tamanhos de janela e tela.</li>
+                                <li><strong>Troca de idioma instantânea:</strong> ao selecionar outro idioma, a interface muda na hora, sem precisar salvar, fechar e abrir novamente o aplicativo.</li>
+                                <li>Melhorias no tratamento de falhas do DNS, desempenho, uso de memória, Lixeira e estabilidade geral.</li>
                                 <li>Atualizações automáticas permanecem sempre ativadas e a segurança do próprio sistema de atualização foi reforçada.</li>
                             </ul>
 
@@ -2438,11 +2572,45 @@
                     </div>
 
                     <div class="roadmap-note reveal">
-                        <div>
-                            <strong>v1.0.2 traz a Essencial. v1.1.0 traz a Limpeza Extra completa.</strong>
-                            <p>A <strong>Limpeza Extra — Essencial</strong> da v1.0.2 é a primeira etapa, mais simples e cuidadosamente limitada. A v1.1.0 está reservada para a implementação completa da Limpeza Extra, com expansão de categorias, controles e funcionalidades maiores.</p>
+                        <div class="roadmap-heading">
+                            <div>
+                                <span class="roadmap-kicker">Evolução planejada</span>
+                                <strong>A Limpeza Extra cresce por etapas</strong>
+                                <p>A v1.0.2 entrega uma versão Essencial estável e útil. A v1.1.0 amplia a experiência com a Limpeza Extra completa.</p>
+                            </div>
                         </div>
-                        <span class="roadmap-pill">Limpeza Extra completa · v1.1.0</span>
+
+                        <div class="roadmap-flow">
+                            <article class="roadmap-stage essential">
+                                <div class="roadmap-version">
+                                    <strong>v1.0.2</strong>
+                                    <span class="roadmap-pill">Essencial</span>
+                                </div>
+                                <h4>Limpeza Extra — Essencial</h4>
+                                <p>A primeira etapa chega com escopo controlado, mantendo a abordagem segura do Limpador Pro.</p>
+                                <ul>
+                                    <li>Primeira implementação da nova aba</li>
+                                    <li>Revisar Downloads e área de Windows Update</li>
+                                    <li>Base preparada para evoluir sem exagerar no escopo</li>
+                                </ul>
+                            </article>
+
+                            <div class="roadmap-arrow" aria-hidden="true"><span>→</span></div>
+
+                            <article class="roadmap-stage complete">
+                                <div class="roadmap-version">
+                                    <strong>v1.1.0</strong>
+                                    <span class="roadmap-pill">Completa · futura</span>
+                                </div>
+                                <h4>Limpeza Extra completa</h4>
+                                <p>A evolução maior da funcionalidade, reservada para uma versão posterior.</p>
+                                <ul>
+                                    <li>Expansão das categorias disponíveis</li>
+                                    <li>Mais controles e opções de limpeza</li>
+                                    <li>Funcionalidades maiores planejadas para a aba</li>
+                                </ul>
+                            </article>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2460,9 +2628,12 @@
                         <span class="rec-num">1</span>
                         <p class="rec-txt">Verifique se a Lixeira não contém arquivos importantes antes de iniciar a limpeza.</p>
                     </article>
-                    <article class="rec-card reveal d2">
+                    <article class="rec-card important reveal d2">
                         <span class="rec-num">2</span>
-                        <p class="rec-txt">Evite executar a limpeza enquanto instalações ou atualizações do Windows estiverem em andamento.</p>
+                        <div class="rec-content">
+                            <span class="rec-important">Importante</span>
+                            <p class="rec-txt">Evite executar a limpeza enquanto instalações ou atualizações do Windows estiverem em andamento.</p>
+                        </div>
                     </article>
                     <article class="rec-card reveal d3">
                         <span class="rec-num">3</span>
@@ -2511,7 +2682,7 @@
                 <div class="sec-head reveal">
                     <span class="sec-label">Versão Pro</span>
                     <h2 class="sec-title">Escolha a forma de acesso que faz sentido para você</h2>
-                    <p class="sec-desc">Mensal para começar, anual para economizar ou permanente para pagar uma vez. As primeiras 30 licenças permanentes individuais recebem a condição Founder.</p>
+                    <p class="sec-desc">Mensal para começar, anual para economizar ou permanente para pagar uma vez. As primeiras 50 licenças permanentes individuais recebem a condição Founder.</p>
                 </div>
 
                 <div class="subscription-grid">
@@ -2588,21 +2759,23 @@
                                     <div class="founder-crown" aria-hidden="true">♛</div>
                                     <div>
                                         <span class="founder-label">Founder Edition</span>
-                                        <div class="founder-limit">Somente as primeiras 30 licenças permanentes</div>
+                                        <div class="founder-limit">Somente as primeiras 50 licenças permanentes</div>
                                     </div>
                                 </div>
 
                                 <h3 class="founder-title">O menor preço permanente será de quem <span class="accent">apoiar primeiro.</span></h3>
-                                <p class="founder-copy">A Founder Edition é a condição exclusiva para os primeiros apoiadores do Limpador Pro. Você garante 1 licença permanente, paga uma única vez e recebe todas as futuras atualizações do aplicativo.</p>
+                                <p class="founder-copy">A Founder Edition é reservada aos primeiros apoiadores do Limpador Pro. Além da licença permanente e de todas as futuras atualizações, o Founder recebe benefícios exclusivos que identificam quem apoiou o projeto desde o início.</p>
 
                                 <div class="founder-points">
                                     <span>1 licença permanente · 1 PC</span>
-                                    <span>Todas as futuras atualizações</span>
-                                    <span>Sem mensalidade ou renovação</span>
-                                    <span>Oferta limitada a 30 licenças</span>
+                                    <span>Badge de Fundador no Limpador Pro</span>
+                                    <span>Cargo exclusivo no Discord</span>
+                                    <span>Prioridade no atendimento</span>
+                                    <span>Benefícios e descontos exclusivos</span>
+                                    <span>Oferta limitada a 50 licenças</span>
                                 </div>
 
-                                <p class="founder-after"><strong>Quando as 30 licenças Founder acabarem, essa condição não volta.</strong> O Permanente Individual passa diretamente para o preço normal de <strong>R$ 179,90</strong>.</p>
+                                <p class="founder-after"><strong>Quando as 50 licenças Founder acabarem, essa condição não volta.</strong> O Permanente Individual passa diretamente para o preço normal de <strong>R$ 179,90</strong>.</p>
                             </div>
 
                             <div class="founder-pricebox">
@@ -2613,9 +2786,9 @@
                                 </div>
                                 <span class="founder-price">R$ 149,90</span>
                                 <div class="founder-once">pagamento único · sem renovação</div>
-                                <p class="founder-save">O mesmo acesso permanente do Individual, reservado aos 30 primeiros compradores por um valor menor.</p>
+                                <p class="founder-save">Licença permanente com preço especial, identidade Founder e benefícios reservados aos 50 primeiros apoiadores.</p>
                                 <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Garantir Founder por R$ 149,90</a>
-                                <p class="founder-micro">30 vagas totais · disponibilidade atualizada conforme as vendas</p>
+                                <p class="founder-micro">50 vagas totais · disponibilidade atualizada conforme as vendas</p>
                             </div>
                         </div>
                     </div>
@@ -2626,7 +2799,7 @@
                         <div>
                             <span class="launch-label">Permanente · preço normal</span>
                             <h3>🔓 Pague uma vez. Use para sempre.</h3>
-                            <p>Depois das 30 vagas Founder, a licença Individual passa diretamente para R$ 179,90. Família e Equipe mantêm descontos por quantidade para quem precisa de mais PCs.</p>
+                            <p>Depois das 50 vagas Founder, a licença Individual passa diretamente para R$ 179,90. Família e Equipe mantêm descontos por quantidade para quem precisa de mais PCs.</p>
                         </div>
                         <span class="plan-badge hot">Melhor valor a longo prazo</span>
                     </div>
@@ -2662,12 +2835,12 @@
                                     <h4 class="license-name">Família</h4>
                                     <p class="license-pcs">3 PCs · 3 licenças permanentes</p>
                                 </div>
-                                <span class="license-tag">R$ 146,63/PC</span>
+                                <span class="license-tag">R$ 133,30/PC</span>
                             </div>
 
-                            <div class="license-price">R$ 439,90</div>
-                            <p class="license-unit">aprox. R$ 146,63 por PC</p>
-                            <div class="license-saving">Economize <strong>R$ 99,80</strong> em relação a 3 licenças individuais compradas separadamente.</div>
+                            <div class="license-price">R$ 399,90</div>
+                            <p class="license-unit">aprox. R$ 133,30 por PC</p>
+                            <div class="license-saving">Economize <strong>R$ 139,80</strong> em relação a 3 licenças individuais compradas separadamente.</div>
 
                             <ul>
                                 <li><b>✓</b> 3 licenças independentes</li>
@@ -2688,9 +2861,9 @@
                                 <span class="license-tag">Maior economia</span>
                             </div>
 
-                            <div class="license-price">R$ 649,90</div>
-                            <p class="license-unit">aprox. R$ 129,98 por PC</p>
-                            <div class="license-saving">Economize <strong>R$ 249,60</strong> em relação a 5 licenças individuais compradas separadamente.</div>
+                            <div class="license-price">R$ 549,90</div>
+                            <p class="license-unit">aprox. R$ 109,98 por PC</p>
+                            <div class="license-saving">Economize <strong>R$ 349,60</strong> em relação a 5 licenças individuais compradas separadamente.</div>
 
                             <ul>
                                 <li><b>✓</b> 5 licenças independentes</li>
@@ -2705,7 +2878,7 @@
                     <p class="lifetime-note">Os pacotes Família e Equipe são exclusivos da licença permanente. As licenças são individuais por computador e não representam uma única licença compartilhada entre vários PCs.</p>
                 </div>
 
-                <p class="pricing-footnote">A condição Founder é limitada às primeiras 30 licenças permanentes individuais por R$ 149,90. Depois disso, o Permanente Individual passa diretamente para R$ 179,90. A licença utiliza identificação de hardware; formatação ou alteração relevante no computador pode exigir nova validação pelo suporte.</p>
+                <p class="pricing-footnote">A condição Founder é limitada às primeiras 50 licenças permanentes individuais por R$ 149,90. Depois disso, o Permanente Individual passa diretamente para R$ 179,90. A licença utiliza identificação de hardware; formatação ou alteração relevante no computador pode exigir nova validação pelo suporte.</p>
             </div>
         </section>
     </main>
