@@ -378,6 +378,129 @@
         }
         .preview-caption strong{color:var(--text-secondary)}
 
+        .hero-launcher{
+            padding:12px;
+        }
+        .launcher-stage{
+            position:relative;
+            min-height:510px;
+            display:grid;
+            place-items:center;
+            overflow:hidden;
+            border-radius:16px;
+            border:1px solid rgba(255,255,255,.055);
+            background:
+                radial-gradient(460px circle at 50% 44%,rgba(34,211,238,.055),transparent 60%),
+                radial-gradient(380px circle at 78% 20%,rgba(167,139,250,.045),transparent 62%),
+                linear-gradient(145deg,#050608,#020203 72%);
+        }
+        .launcher-stage::before{
+            content:'';
+            position:absolute;inset:0;
+            background:
+                linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+                linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+            background-size:46px 46px;
+            mask-image:radial-gradient(circle at 50% 44%,#000 0 30%,transparent 78%);
+            -webkit-mask-image:radial-gradient(circle at 50% 44%,#000 0 30%,transparent 78%);
+            opacity:.48;
+        }
+        .launcher-stage::after{
+            content:'';
+            position:absolute;
+            width:320px;height:320px;
+            left:50%;top:50%;
+            transform:translate(-50%,-50%);
+            border-radius:50%;
+            border:1px solid rgba(34,211,238,.045);
+            box-shadow:
+                0 0 0 48px rgba(167,139,250,.018),
+                0 0 90px rgba(34,211,238,.035);
+            pointer-events:none;
+        }
+        .launcher-windowbar{
+            position:absolute;left:18px;right:18px;top:16px;
+            height:38px;
+            display:flex;align-items:center;gap:7px;
+            padding:0 12px;
+            border:1px solid rgba(255,255,255,.045);
+            border-radius:11px;
+            background:rgba(255,255,255,.015);
+            color:var(--text-muted);
+            font-size:.67rem;
+        }
+        .launcher-windowbar span{
+            width:7px;height:7px;border-radius:50%;
+            background:rgba(255,255,255,.16);
+        }
+        .launcher-windowbar span:nth-child(1){background:rgba(251,113,133,.55)}
+        .launcher-windowbar span:nth-child(2){background:rgba(251,191,36,.55)}
+        .launcher-windowbar span:nth-child(3){background:rgba(52,211,153,.55)}
+        .launcher-windowbar em{
+            margin-left:auto;
+            font-style:normal;
+            letter-spacing:.04em;
+        }
+        .hero-shortcut{
+            position:relative;z-index:2;
+            display:flex;flex-direction:column;align-items:center;
+            margin-top:18px;
+            padding:1.75rem 2rem 1.55rem;
+            min-width:230px;
+            border-radius:24px;
+            border:1px solid rgba(255,255,255,.075);
+            background:
+                linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+            box-shadow:
+                0 28px 65px rgba(0,0,0,.45),
+                inset 0 1px 0 rgba(255,255,255,.045);
+            backdrop-filter:blur(10px);
+        }
+        .hero-icon-shell{
+            width:142px;height:142px;
+            display:grid;place-items:center;
+            margin-bottom:1rem;
+            border-radius:32px;
+            background:
+                radial-gradient(circle at 45% 35%,rgba(96,165,250,.09),transparent 55%),
+                rgba(255,255,255,.018);
+            border:1px solid rgba(255,255,255,.055);
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+        }
+        .hero-icon-shell img{
+            width:118px;height:118px;
+            object-fit:contain;
+            border:0;
+            filter:drop-shadow(0 14px 22px rgba(0,0,0,.48));
+            transform:none !important;
+        }
+        .hero-shortcut strong{
+            font-family:'Space Grotesk',sans-serif;
+            font-size:1.1rem;
+            letter-spacing:-.01em;
+        }
+        .hero-shortcut small{
+            margin-top:.24rem;
+            color:var(--text-muted);
+            font-size:.7rem;
+        }
+        .launcher-status{
+            position:absolute;z-index:2;
+            left:18px;bottom:18px;
+            display:flex;align-items:center;gap:.48rem;
+            padding:.48rem .7rem;
+            border-radius:999px;
+            border:1px solid rgba(52,211,153,.1);
+            background:rgba(52,211,153,.035);
+            color:var(--text-muted);
+            font-size:.67rem;
+        }
+        .launcher-status-dot{
+            width:6px;height:6px;border-radius:50%;
+            background:var(--emerald);
+            box-shadow:0 0 12px rgba(52,211,153,.55);
+        }
+
         .stats{
             display:grid;grid-template-columns:repeat(4,1fr);
             gap:1px;margin-top:3.5rem;
@@ -719,73 +842,134 @@
             background:rgba(255,255,255,.014);
         }
 
-        /* POR QUE ESCOLHER */
-        .sec-compare{background:linear-gradient(180deg,rgba(255,255,255,.009),transparent)}
+        /* POR QUE ESCOLHER — premium e orientado a benefício */
+        .sec-compare{
+            background:
+                radial-gradient(700px 360px at 20% 38%,rgba(52,211,153,.025),transparent 70%),
+                radial-gradient(680px 360px at 82% 42%,rgba(96,165,250,.025),transparent 70%);
+        }
         .compare-grid{
-            display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
+            display:grid;grid-template-columns:1fr 1fr;gap:1.15rem;
         }
         .c-card{
             --mx:50%;--my:50%;
-            background:var(--bg-card);border:1px solid var(--border);
-            border-radius:var(--radius-lg);padding:2rem;
-            backdrop-filter:blur(12px);transition:all .5s var(--ease);
+            --cmp-rgb:var(--emerald-rgb);
+            --cmp-color:var(--emerald);
             position:relative;overflow:hidden;isolation:isolate;
+            padding:1.8rem;
+            border:1px solid rgba(var(--cmp-rgb),.14);
+            border-radius:var(--radius-lg);
+            background:
+                radial-gradient(420px circle at var(--mx) var(--my),rgba(var(--cmp-rgb),.025),transparent 58%),
+                linear-gradient(150deg,rgba(var(--cmp-rgb),.026),rgba(255,255,255,.01) 46%,rgba(0,0,0,.16));
+            backdrop-filter:blur(14px);
+            transition:transform .5s var(--ease),border-color .4s var(--ease),box-shadow .5s var(--ease);
+        }
+        .c-card.preserve{
+            --cmp-rgb:var(--blue-rgb);
+            --cmp-color:var(--blue);
+        }
+        .c-card::before{
+            content:'';
+            position:absolute;left:10%;right:10%;top:0;height:2px;
+            background:linear-gradient(90deg,transparent,var(--cmp-color),transparent);
+            opacity:.7;
         }
         .c-card::after{
-            content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
-            background:radial-gradient(430px circle at var(--mx) var(--my),rgba(var(--cmp-rgb),.10),transparent 55%);
+            content:'';
+            position:absolute;inset:0;z-index:0;pointer-events:none;
+            background:radial-gradient(440px circle at var(--mx) var(--my),rgba(var(--cmp-rgb),.10),transparent 56%);
             opacity:0;transition:opacity .35s var(--ease);
         }
         .c-card>*{position:relative;z-index:1}
-        .c-card.pro{
-            --cmp-rgb:var(--emerald-rgb);
-            border-color:rgba(52,211,153,.17);
-            background:linear-gradient(135deg,rgba(52,211,153,.02),rgba(0,0,0,.15));
-            padding-top:4.15rem;
-        }
-        .c-card.avoid{
-            --cmp-rgb:var(--rose-rgb);
-            border-color:rgba(251,113,133,.13);
-            background:linear-gradient(135deg,rgba(251,113,133,.018),rgba(0,0,0,.15));
-        }
-        .c-card.pro::before{
-            content:'DESTAQUE';position:absolute;top:1.05rem;right:1.5rem;z-index:3;
-            background:linear-gradient(135deg,var(--emerald),var(--teal));
-            color:var(--black);padding:.32rem 1rem;border-radius:50px;
-            font-size:.65rem;font-weight:800;letter-spacing:.1em;line-height:1;
-            box-shadow:0 5px 16px rgba(52,211,153,.22);
-            white-space:nowrap;
-        }
         .c-card:hover{
-            transform:translateY(-5px);
+            transform:translateY(-6px);
             border-color:rgba(var(--cmp-rgb),.27);
-            box-shadow:0 18px 45px rgba(0,0,0,.32),0 0 35px rgba(var(--cmp-rgb),.055);
+            box-shadow:0 24px 58px rgba(0,0,0,.35),0 0 38px rgba(var(--cmp-rgb),.05);
         }
         .c-card:hover::after{opacity:1}
-        .c-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1.25rem}
-        .c-head h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700}
-        .c-card.pro .c-head h3{color:var(--emerald)}
-        .c-card.avoid .c-head h3{color:var(--rose)}
-        .c-list{list-style:none}
+        .c-head{
+            display:flex;align-items:center;gap:.85rem;
+            margin-bottom:.7rem;
+        }
+        .c-head-icon{
+            width:46px;height:46px;flex:0 0 46px;
+            display:grid;place-items:center;
+            border-radius:14px;
+            color:var(--cmp-color);
+            background:rgba(var(--cmp-rgb),.065);
+            border:1px solid rgba(var(--cmp-rgb),.16);
+            font-size:1.15rem;
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+        }
+        .c-head-copy{min-width:0}
+        .c-kicker{
+            display:block;
+            margin-bottom:.15rem;
+            color:var(--cmp-color);
+            font-size:.61rem;font-weight:850;
+            letter-spacing:.09em;text-transform:uppercase;
+        }
+        .c-head h3{
+            font-family:'Space Grotesk',sans-serif;
+            font-size:1.18rem;font-weight:700;
+            letter-spacing:-.02em;
+        }
+        .c-summary{
+            margin:0 0 1.15rem;
+            color:var(--text-secondary);
+            font-size:.79rem;line-height:1.6;
+        }
+        .c-list{
+            list-style:none;
+            display:grid;
+            gap:.48rem;
+        }
         .c-list li{
-            display:flex;align-items:center;gap:.7rem;
-            padding:.7rem 0;font-size:.85rem;color:var(--text-secondary);
-            border-bottom:1px solid var(--border);
-            transition:padding .3s var(--ease);
+            display:flex;align-items:flex-start;gap:.68rem;
+            min-height:48px;
+            padding:.68rem .72rem;
+            border-radius:12px;
+            border:1px solid rgba(255,255,255,.04);
+            background:rgba(255,255,255,.012);
+            color:var(--text-secondary);
+            font-size:.79rem;line-height:1.48;
+            transition:transform .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease);
         }
-        .c-list li:hover{padding-left:.2rem}
-        .c-list li:last-child{border-bottom:none}
+        .c-list li:hover{
+            transform:translateX(3px);
+            border-color:rgba(var(--cmp-rgb),.11);
+            background:rgba(var(--cmp-rgb),.028);
+        }
         .c-icon{
-            width:18px;height:18px;border-radius:50%;
-            display:flex;align-items:center;justify-content:center;
-            font-size:.6rem;flex-shrink:0;font-weight:700;
+            width:21px;height:21px;flex:0 0 21px;
+            display:grid;place-items:center;
+            margin-top:.05rem;
+            border-radius:50%;
+            color:var(--cmp-color);
+            background:rgba(var(--cmp-rgb),.08);
+            border:1px solid rgba(var(--cmp-rgb),.14);
+            font-size:.63rem;font-weight:850;
         }
-        .pro .c-icon{background:rgba(52,211,153,.12);color:var(--emerald)}
-        .avoid .c-icon{background:rgba(251,113,133,.10);color:var(--rose)}
-        .compare-foot{
-            text-align:center;margin:2rem auto 0;
-            color:var(--text-secondary);font-size:.88rem;
-            max-width:640px;line-height:1.7;
+        .compare-promise{
+            position:relative;overflow:hidden;
+            margin:1.05rem auto 0;
+            display:flex;align-items:center;justify-content:center;gap:.7rem;
+            max-width:760px;
+            padding:.9rem 1.1rem;
+            border:1px solid rgba(167,139,250,.10);
+            border-radius:15px;
+            background:linear-gradient(135deg,rgba(167,139,250,.025),rgba(34,211,238,.018));
+            color:var(--text-secondary);
+            font-size:.78rem;line-height:1.55;text-align:center;
+        }
+        .compare-promise strong{color:var(--text)}
+        .compare-promise span{
+            width:30px;height:30px;flex:0 0 30px;
+            display:grid;place-items:center;
+            border-radius:10px;
+            background:rgba(167,139,250,.055);
+            border:1px solid rgba(167,139,250,.12);
         }
 
         /* EVOLUÇÃO / VERSÕES */
@@ -1579,6 +1763,10 @@
         }
 
         @media(max-width:768px){
+            .launcher-stage{min-height:410px}
+            .hero-shortcut{min-width:205px;padding:1.4rem 1.5rem 1.3rem}
+            .hero-icon-shell{width:120px;height:120px}
+            .hero-icon-shell img{width:98px;height:98px}
             .portable-layout{grid-template-columns:1fr}
             .portable-preview{min-height:260px;border-right:none;border-bottom:1px solid var(--border)}
             .bg-orb.orb-2{opacity:.3}
@@ -1700,11 +1888,29 @@
                         </div>
                     </div>
 
-                    <figure class="app-preview">
-                        <img src="Limpeza.png" alt="Tela do Limpador Pro exibindo uma limpeza concluída" width="1365" height="768" fetchpriority="high">
+                    <figure class="app-preview hero-launcher">
+                        <div class="launcher-stage">
+                            <div class="launcher-windowbar" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                                <em>Área de Trabalho</em>
+                            </div>
+
+                            <div class="hero-shortcut">
+                                <div class="hero-icon-shell">
+                                    <img src="LimpadorIcon.png" alt="Ícone do Limpador Pro" width="160" height="160">
+                                </div>
+                                <strong>Limpador Pro</strong>
+                                <small>Executável portátil</small>
+                            </div>
+
+                            <div class="launcher-status">
+                                <span class="launcher-status-dot"></span>
+                                Pronto para executar
+                            </div>
+                        </div>
                         <figcaption class="preview-caption">
-                            <strong>Resultado da limpeza</strong>
-                            <span>Arquivos, pastas, espaço liberado e RAM</span>
+                            <strong>Sem instalação tradicional</strong>
+                            <span>Baixe, execute e use</span>
                         </figcaption>
                     </figure>
                 </div>
@@ -1744,23 +1950,6 @@
                         <div class="screenshot-caption">
                             <h4>Histórico Completo</h4>
                             <p>Acompanhe as limpezas realizadas com data, espaço liberado, quantidade de arquivos e duração da operação.</p>
-                        </div>
-                    </article>
-
-                    <article class="screenshot-card portable-card reveal d3">
-                        <div class="portable-layout">
-                            <div class="portable-preview" aria-label="Atalho do Limpador Pro no Windows">
-                                <div class="desktop-shortcut">
-                                    <img src="LimpadorIcon.png" alt="Ícone do Limpador Pro">
-                                    <span>Limpador Pro</span>
-                                </div>
-                            </div>
-                            <div class="portable-copy">
-                                <span class="portable-kicker">Portátil</span>
-                                <h4>Sem instalação complicada</h4>
-                                <p>Baixe, execute e use. O Limpador Pro foi pensado para ser simples desde o primeiro clique, sem transformar o início em uma sequência de configurações desnecessárias.</p>
-                                <p class="portable-note">Um executável, acesso direto e uma experiência familiar no Windows.</p>
-                            </div>
                         </div>
                     </article>
                 </div>
@@ -1865,43 +2054,56 @@
             <div class="wrap">
                 <div class="sec-head reveal">
                     <span class="sec-label">Por que escolher</span>
-                    <h2 class="sec-title">A diferença está nos detalhes</h2>
-                    <p class="sec-desc">Uma experiência simples por fora, com decisões mais cuidadosas por trás de cada limpeza.</p>
+                    <h2 class="sec-title">Limpa com critério. Preserva por padrão.</h2>
+                    <p class="sec-desc">O Limpador Pro combina praticidade com uma abordagem conservadora: automatiza o que faz sentido e evita transformar dados importantes em alvo da limpeza.</p>
                 </div>
 
                 <div class="compare-grid">
                     <article class="c-card pro reveal d1">
                         <div class="c-head">
-                            <span style="font-size:1.3rem">✅</span>
-                            <h3>Limpador Pro</h3>
+                            <div class="c-head-icon">⚡</div>
+                            <div class="c-head-copy">
+                                <span class="c-kicker">Experiência</span>
+                                <h3>Feito para simplificar</h3>
+                            </div>
                         </div>
+                        <p class="c-summary">Recursos que reduzem etapas e deixam o resultado mais fácil de entender.</p>
+
                         <ul class="c-list">
-                            <li><span class="c-icon">✓</span> Detecta aplicativos reconhecidos antes de limpar caches</li>
-                            <li><span class="c-icon">✓</span> Executável único — sem instalação tradicional</li>
-                            <li><span class="c-icon">✓</span> Solicita administrador automaticamente quando necessário</li>
-                            <li><span class="c-icon">✓</span> Multi-idioma: Português, English e Español</li>
-                            <li><span class="c-icon">✓</span> Histórico e relatório após as limpezas</li>
-                            <li><span class="c-icon">✓</span> Atualizações automáticas pelo próprio aplicativo</li>
+                            <li><span class="c-icon">✓</span> Reconhece aplicativos compatíveis antes de limpar seus caches.</li>
+                            <li><span class="c-icon">✓</span> Executável portátil, sem instalação tradicional.</li>
+                            <li><span class="c-icon">✓</span> Solicita privilégios de administrador quando a rotina precisa.</li>
+                            <li><span class="c-icon">✓</span> Interface em Português, English e Español.</li>
+                            <li><span class="c-icon">✓</span> Histórico e relatório para acompanhar as limpezas realizadas.</li>
+                            <li><span class="c-icon">✓</span> Atualizações automáticas pelo próprio aplicativo.</li>
                         </ul>
                     </article>
 
-                    <article class="c-card avoid reveal d2">
+                    <article class="c-card preserve reveal d2">
                         <div class="c-head">
-                            <span style="font-size:1.3rem">🛡️</span>
-                            <h3>O que ele preserva</h3>
+                            <div class="c-head-icon">🛡️</div>
+                            <div class="c-head-copy">
+                                <span class="c-kicker">Proteção</span>
+                                <h3>O que fica fora do alvo</h3>
+                            </div>
                         </div>
+                        <p class="c-summary">A rotina padrão prioriza dados recriáveis e evita avançar sobre informações pessoais ou situações duvidosas.</p>
+
                         <ul class="c-list">
-                            <li><span class="c-icon">✕</span> Cookies, senhas, favoritos e sessões</li>
-                            <li><span class="c-icon">✕</span> Documentos, fotos e vídeos pessoais</li>
-                            <li><span class="c-icon">✕</span> Arquivos bloqueados ou sem permissão</li>
-                            <li><span class="c-icon">✕</span> Configurações gerais do Windows</li>
-                            <li><span class="c-icon">✕</span> Limpezas sensíveis fora da rotina padrão</li>
-                            <li><span class="c-icon">✕</span> Exclusões forçadas apenas para aumentar o número exibido</li>
+                            <li><span class="c-icon">✓</span> Cookies, senhas, favoritos e sessões permanecem preservados.</li>
+                            <li><span class="c-icon">✓</span> Documentos, fotos e vídeos pessoais não fazem parte do alvo da limpeza.</li>
+                            <li><span class="c-icon">✓</span> Arquivos bloqueados ou sem permissão não são forçados.</li>
+                            <li><span class="c-icon">✓</span> Configurações gerais do Windows permanecem intactas.</li>
+                            <li><span class="c-icon">✓</span> Rotinas consideradas sensíveis ficam fora da limpeza padrão.</li>
+                            <li><span class="c-icon">✓</span> Quando a exclusão não é segura, a prioridade é preservar.</li>
                         </ul>
                     </article>
                 </div>
 
-                <p class="compare-foot">Mais controle para remover dados recriáveis sem transformar arquivos importantes em alvo da limpeza.</p>
+                <div class="compare-promise reveal">
+                    <span>◎</span>
+                    <div><strong>Mais confiança no resultado:</strong> o objetivo não é exibir o maior número possível, e sim limpar áreas suportadas sem tratar seus arquivos pessoais como descartáveis.</div>
+                </div>
             </div>
         </section>
 
