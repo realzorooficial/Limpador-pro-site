@@ -1,6 +1,6 @@
-# Site Real Zoro — GitHub Pages
+# Real Zoro — site multipágina
 
-Estrutura correta:
+Estrutura para GitHub Pages:
 
 ```text
 /
@@ -21,12 +21,10 @@ Estrutura correta:
     └── index.html
 ```
 
-Imagens usadas:
-- `LogoZ.png`: logo oficial Real Zoro.
-- `ZPackLogo.png`: logo oficial ZPack enviada pelo proprietário.
-- `RealOtimizacao.png`: arte mais recente "REAL OTIMIZAÇÃO" enviada pelo proprietário.
-- `LimpadorIcon.png`: ícone do Limpador Pro.
-- `Limpeza.png`: screenshot da tela de limpeza.
-- `Histórico.png`: screenshot da tela de histórico.
-
-Importante: mantenha as pastas exatamente como estão ao subir para o GitHub Pages.
+Ajustes desta versão:
+- CTA principal da home: “Conhecer as soluções”.
+- Logo Real Zoro com animação suave e efeito no card.
+- ZPackLogo.png com fundo transparente.
+- Hero ZPack usa a arte Real Otimização sem ZPack sobreposto.
+- A apresentação seguinte usa apenas a logo ZPack transparente, sem repetir a arte Real Otimização.
+- LimpadorIcon.png atualizado para a versão mais recente enviada.
