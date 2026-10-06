@@ -90,10 +90,10 @@
     },
     {
       "@type": "Question",
-      "name": "A licença permanente inclui futuras atualizações?",
+      "name": "Os planos do Limpador Pro recebem atualizações?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sim. As licenças permanentes incluem as futuras atualizações do Limpador Pro. A Founder Edition também é permanente e adiciona benefícios exclusivos."
+        "text": "Sim. Todos os planos do Limpador Pro recebem atualizações enquanto o acesso estiver ativo. Nos planos mensal e anual, as atualizações são incluídas durante o período da assinatura. As licenças permanentes continuam recebendo as futuras atualizações sem mensalidade ou renovação."
       }
     },
     {
@@ -117,7 +117,7 @@
       "name": "Qual é a diferença entre as otimizações Basic, PRO, Gaming e Anual?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A Basic cobre a otimização básica, suporte e configuração do emulador. A PRO adiciona otimização completa, suporte prioritário, painel da placa de vídeo e sensibilidade. A Gaming acrescenta drivers e oferece reotimizações extras com desconto. A Anual reúne a cobertura mais completa, incluindo configurações personalizadas, acesso a novos recursos, atualizações e suporte premium por um ano."
+        "text": "A Basic inclui otimização básica, suporte e configuração do emulador. A PRO inclui otimização completa, suporte prioritário acima do Basic, configuração do painel da placa de vídeo, sensibilidade e emulador. A Gaming mantém a otimização completa, oferece suporte prioritário acima do PRO e adiciona configuração de drivers. O Anual reúne tudo do Gaming com suporte premium por um ano, configurações personalizadas, acesso a novos recursos, atualizações, reotimizações extras com desconto e possibilidade de até 3x no cartão de crédito."
       }
     },
     {
@@ -533,35 +533,32 @@
             display:grid;
             place-items:center;
             overflow:hidden;
-            border-radius:16px;
-            border:1px solid rgba(255,255,255,.055);
+            border-radius:18px;
+            border:1px solid rgba(255,255,255,.05);
             background:
-                radial-gradient(460px circle at 50% 44%,rgba(34,211,238,.04),transparent 60%),
-                radial-gradient(380px circle at 78% 20%,rgba(167,139,250,.038),transparent 62%),
-                linear-gradient(145deg,#06080c,#020304 72%);
+                radial-gradient(520px circle at 50% 46%,rgba(255,255,255,.025),transparent 58%),
+                linear-gradient(180deg,#08090b 0%,#050608 55%,#030405 100%);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.025),
+                inset 0 -28px 80px rgba(0,0,0,.22);
         }
         .launcher-stage::before{
             content:'';
-            position:absolute;inset:0;
-            background:
-                linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),
-                linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);
-            background-size:46px 46px;
-            mask-image:radial-gradient(circle at 50% 44%,#000 0 32%,transparent 78%);
-            -webkit-mask-image:radial-gradient(circle at 50% 44%,#000 0 32%,transparent 78%);
-            opacity:.42;
+            position:absolute;
+            inset:9%;
+            border-radius:32px;
+            background:radial-gradient(ellipse at center,rgba(255,255,255,.018),transparent 68%);
+            filter:blur(8px);
+            opacity:.75;
+            pointer-events:none;
         }
         .launcher-stage::after{
             content:'';
             position:absolute;
-            width:320px;height:320px;
-            left:50%;top:50%;
-            transform:translate(-50%,-50%);
-            border-radius:50%;
-            border:1px solid rgba(34,211,238,.04);
-            box-shadow:
-                0 0 0 48px rgba(167,139,250,.015),
-                0 0 90px rgba(34,211,238,.03);
+            left:16%;right:16%;bottom:12%;
+            height:1px;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+            opacity:.7;
             pointer-events:none;
         }
         .launcher-windowbar{
@@ -571,16 +568,24 @@
             position:relative;z-index:2;
             display:flex;flex-direction:column;align-items:center;
             margin-top:0;
-            padding:1.65rem 1.9rem 1.35rem;
+            padding:1.55rem 1.8rem 1.25rem;
             min-width:230px;
-            border-radius:26px;
-            border:1px solid rgba(255,255,255,.075);
+            border-radius:24px;
+            border:1px solid rgba(255,255,255,.065);
             background:
-                linear-gradient(145deg,rgba(255,255,255,.032),rgba(255,255,255,.01));
+                linear-gradient(180deg,rgba(255,255,255,.022),rgba(255,255,255,.008));
             box-shadow:
-                0 28px 65px rgba(0,0,0,.42),
-                inset 0 1px 0 rgba(255,255,255,.04);
-            backdrop-filter:blur(12px);
+                0 24px 58px rgba(0,0,0,.34),
+                inset 0 1px 0 rgba(255,255,255,.025);
+            backdrop-filter:blur(10px);
+            transition:transform .45s var(--ease),border-color .35s var(--ease),box-shadow .45s var(--ease);
+        }
+        .hero-shortcut:hover{
+            transform:translateY(-5px);
+            border-color:rgba(255,255,255,.11);
+            box-shadow:
+                0 30px 70px rgba(0,0,0,.42),
+                inset 0 1px 0 rgba(255,255,255,.035);
         }
         .hero-icon-shell{
             width:148px;height:148px;
@@ -2254,137 +2259,230 @@
 
         /* OTIMIZAÇÕES */
         .sec-optimization{
+            position:relative;
+            overflow:hidden;
             background:
-                radial-gradient(760px 430px at 15% 42%,rgba(251,113,133,.022),transparent 72%),
-                radial-gradient(760px 430px at 85% 46%,rgba(251,191,36,.022),transparent 72%);
+                radial-gradient(760px 420px at 6% 26%,rgba(96,165,250,.028),transparent 72%),
+                radial-gradient(760px 420px at 94% 32%,rgba(167,139,250,.028),transparent 72%),
+                linear-gradient(180deg,transparent,rgba(255,255,255,.006),transparent);
+        }
+        .sec-optimization::before{
+            content:'';
+            position:absolute;inset:0;pointer-events:none;
+            background:
+                linear-gradient(120deg,transparent 0 35%,rgba(255,255,255,.012) 50%,transparent 65%);
+            opacity:.45;
         }
         .optimization-intro{
-            max-width:760px;margin:-2rem auto 2rem;
-            display:flex;align-items:center;justify-content:center;gap:.55rem;
-            padding:.72rem 1rem;border-radius:14px;
-            border:1px solid rgba(96,165,250,.10);
-            background:rgba(96,165,250,.025);
-            color:var(--text-secondary);font-size:.75rem;line-height:1.5;text-align:center;
+            position:relative;z-index:1;
+            max-width:830px;margin:-2rem auto 2rem;
+            display:flex;align-items:center;justify-content:center;gap:.62rem;
+            padding:.82rem 1rem;border-radius:15px;
+            border:1px solid rgba(96,165,250,.11);
+            background:linear-gradient(135deg,rgba(96,165,250,.03),rgba(167,139,250,.018));
+            color:var(--text-secondary);font-size:.76rem;line-height:1.55;text-align:center;
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
         }
-        .optimization-intro strong{color:var(--blue)}
+        .optimization-intro strong{color:#b9d7ff}
         .optimization-grid{
-            display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.85rem;
+            position:relative;z-index:1;
+            display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;
             align-items:stretch;
         }
         .optimization-card{
-            --opt:#a7b0c4;--opt-rgb:167,176,196;
+            --opt:#aab2c0;--opt-rgb:170,178,192;
             position:relative;overflow:hidden;isolation:isolate;
             display:flex;flex-direction:column;
-            padding:1.2rem 1.15rem;
-            min-height:520px;
-            border-radius:22px;
-            border:1px solid rgba(var(--opt-rgb),.15);
+            padding:1.3rem 1.2rem 1.2rem;
+            min-height:540px;
+            border-radius:24px;
+            border:1px solid rgba(var(--opt-rgb),.14);
             background:
-                radial-gradient(380px circle at 50% 0,rgba(var(--opt-rgb),.07),transparent 60%),
-                linear-gradient(160deg,rgba(var(--opt-rgb),.025),rgba(255,255,255,.008) 45%,rgba(0,0,0,.12));
-            box-shadow:0 22px 54px rgba(0,0,0,.20);
-            transition:transform .45s var(--ease),border-color .35s var(--ease),box-shadow .45s var(--ease);
+                radial-gradient(420px circle at 50% -15%,rgba(var(--opt-rgb),.10),transparent 58%),
+                linear-gradient(165deg,rgba(255,255,255,.02),rgba(255,255,255,.007) 42%,rgba(0,0,0,.16));
+            box-shadow:
+                0 24px 58px rgba(0,0,0,.22),
+                inset 0 1px 0 rgba(255,255,255,.025);
+            transition:transform .5s var(--ease),border-color .4s var(--ease),box-shadow .5s var(--ease);
         }
+        .optimization-card.basic{--opt:#aab2c0;--opt-rgb:170,178,192}
         .optimization-card.pro{--opt:#fb7185;--opt-rgb:251,113,133}
         .optimization-card.gaming{--opt:#34d399;--opt-rgb:52,211,153}
         .optimization-card.annual{--opt:#fbbf24;--opt-rgb:251,191,36}
-        .optimization-card.annual{
-            border-color:rgba(251,191,36,.28);
-            box-shadow:0 24px 60px rgba(0,0,0,.25),0 0 38px rgba(251,191,36,.05);
-        }
         .optimization-card::before{
-            content:'';position:absolute;left:10%;right:10%;top:0;height:2px;
-            background:linear-gradient(90deg,transparent,var(--opt),transparent);opacity:.72;
+            content:'';
+            position:absolute;left:9%;right:9%;top:0;height:2px;
+            background:linear-gradient(90deg,transparent,var(--opt),transparent);
+            opacity:.78;
+            box-shadow:0 0 18px rgba(var(--opt-rgb),.18);
+        }
+        .optimization-card::after{
+            content:'';
+            position:absolute;inset:-60% -35%;
+            background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.045) 50%,transparent 58%);
+            transform:translateX(-35%) rotate(7deg);
+            opacity:0;
+            transition:transform .75s var(--ease),opacity .35s var(--ease);
+            pointer-events:none;
         }
         .optimization-card:hover{
-            transform:translateY(-7px);
-            border-color:rgba(var(--opt-rgb),.30);
-            box-shadow:0 30px 66px rgba(0,0,0,.32),0 0 34px rgba(var(--opt-rgb),.055);
+            transform:translateY(-8px);
+            border-color:rgba(var(--opt-rgb),.28);
+            box-shadow:
+                0 34px 76px rgba(0,0,0,.34),
+                0 0 38px rgba(var(--opt-rgb),.055),
+                inset 0 1px 0 rgba(255,255,255,.03);
+        }
+        .optimization-card:hover::after{
+            transform:translateX(35%) rotate(7deg);
+            opacity:.8;
+        }
+        .optimization-card.annual{
+            border-color:rgba(251,191,36,.30);
+            box-shadow:
+                0 28px 70px rgba(0,0,0,.30),
+                0 0 46px rgba(251,191,36,.055),
+                inset 0 1px 0 rgba(255,255,255,.035);
+        }
+        .optimization-top{
+            display:flex;align-items:flex-start;justify-content:space-between;gap:.65rem;
+            margin-bottom:.75rem;
+        }
+        .optimization-tier{
+            min-width:0;
         }
         .optimization-choice{
             display:inline-flex;align-items:center;gap:.35rem;
-            width:max-content;margin-bottom:.65rem;
-            padding:.28rem .55rem;border-radius:999px;
+            width:max-content;margin-bottom:.52rem;
+            padding:.27rem .56rem;border-radius:999px;
             color:var(--opt);background:rgba(var(--opt-rgb),.065);
             border:1px solid rgba(var(--opt-rgb),.15);
-            font-size:.55rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+            font-size:.54rem;font-weight:900;letter-spacing:.085em;text-transform:uppercase;
+        }
+        .optimization-level{
+            flex:0 0 auto;
+            padding:.32rem .52rem;border-radius:10px;
+            color:var(--text-muted);background:rgba(255,255,255,.014);
+            border:1px solid rgba(255,255,255,.045);
+            font-size:.54rem;font-weight:800;letter-spacing:.055em;text-transform:uppercase;
+        }
+        .optimization-card.annual .optimization-level{
+            color:#ffe59b;border-color:rgba(251,191,36,.14);background:rgba(251,191,36,.045);
         }
         .optimization-card h3{
             font-family:'Space Grotesk',sans-serif;
-            font-size:1.15rem;letter-spacing:-.025em;
-            margin-bottom:.1rem;
+            font-size:1.22rem;letter-spacing:-.028em;
+            margin-bottom:.12rem;
         }
         .optimization-duration{color:var(--text-muted);font-size:.67rem;margin-bottom:.75rem}
         .optimization-price{
-            display:flex;align-items:flex-end;gap:.34rem;margin-bottom:.15rem;
+            display:flex;align-items:flex-end;gap:.34rem;margin-bottom:.18rem;
         }
         .optimization-price strong{
             color:var(--opt);
             font-family:'Space Grotesk',sans-serif;
-            font-size:1.75rem;line-height:1;letter-spacing:-.04em;
+            font-size:1.88rem;line-height:1;letter-spacing:-.045em;
+            text-shadow:0 0 22px rgba(var(--opt-rgb),.10);
         }
         .optimization-price span{color:var(--text-muted);font-size:.64rem;padding-bottom:.12rem}
         .optimization-equivalent{
-            min-height:22px;color:var(--text-secondary);font-size:.68rem;margin-bottom:.9rem;
+            min-height:22px;color:var(--text-secondary);font-size:.68rem;margin-bottom:.95rem;
         }
         .optimization-card hr{
-            border:0;border-top:1px solid rgba(255,255,255,.055);margin:0 0 .85rem;
+            border:0;border-top:1px solid rgba(255,255,255,.055);margin:0 0 .9rem;
         }
         .optimization-card h4{
-            font-size:.68rem;margin:0 0 .48rem;color:var(--text);
-            letter-spacing:.02em;
+            display:flex;align-items:center;gap:.4rem;
+            font-size:.66rem;margin:0 0 .5rem;color:var(--text);
+            letter-spacing:.075em;text-transform:uppercase;
+        }
+        .optimization-card h4::before{
+            content:'';
+            width:5px;height:5px;border-radius:50%;
+            background:var(--opt);box-shadow:0 0 8px rgba(var(--opt-rgb),.32);
         }
         .optimization-list{
-            list-style:none;display:grid;gap:.38rem;margin:0 0 .8rem;
+            list-style:none;display:grid;gap:.46rem;margin:0 0 .85rem;
         }
         .optimization-list li{
-            position:relative;padding-left:1rem;
+            position:relative;padding:.47rem .55rem .47rem 1.55rem;
+            border-radius:10px;
+            border:1px solid rgba(255,255,255,.035);
+            background:rgba(255,255,255,.009);
             color:var(--text-secondary);font-size:.68rem;line-height:1.42;
+            transition:transform .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease);
         }
         .optimization-list li::before{
-            content:'✓';position:absolute;left:0;top:0;color:var(--opt);font-weight:900;
+            content:'✓';position:absolute;left:.55rem;top:.44rem;
+            color:var(--opt);font-weight:900;
+        }
+        .optimization-list li:hover{
+            transform:translateX(2px);
+            border-color:rgba(var(--opt-rgb),.10);
+            background:rgba(var(--opt-rgb),.022);
+        }
+        .optimization-support{
+            margin:.1rem 0 .8rem;
+            padding:.62rem .72rem;
+            border-radius:11px;
+            border:1px solid rgba(var(--opt-rgb),.10);
+            background:rgba(var(--opt-rgb),.025);
+        }
+        .optimization-support small{
+            display:block;margin-bottom:.14rem;
+            color:var(--opt);font-size:.54rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+        }
+        .optimization-support strong{
+            display:block;color:var(--text);font-size:.67rem;line-height:1.42;
         }
         .optimization-note{
             margin-top:auto;
-            padding:.7rem .75rem;border-radius:11px;
-            color:var(--text-muted);font-size:.62rem;line-height:1.48;
+            padding:.72rem .78rem;border-radius:12px;
+            color:var(--text-muted);font-size:.62rem;line-height:1.5;
             border:1px solid rgba(var(--opt-rgb),.09);
-            background:rgba(var(--opt-rgb),.025);
+            background:linear-gradient(135deg,rgba(var(--opt-rgb),.025),rgba(255,255,255,.006));
         }
         .optimization-card .btn-main{
-            margin-top:.75rem;width:100%;padding:.78rem .75rem;
+            margin-top:.78rem;width:100%;padding:.82rem .75rem;
             font-size:.74rem;
         }
         .optimization-card.annual .btn-main{
-            background:linear-gradient(135deg,#fff5bd,#f5c955);
+            background:linear-gradient(135deg,#fff3ad,#f6c847);
         }
         .optimization-founder{
-            margin-top:1.2rem;
-            padding:1rem 1.05rem;border-radius:17px;
-            border:1px solid rgba(243,201,105,.13);
-            background:linear-gradient(135deg,rgba(243,201,105,.038),rgba(255,255,255,.008));
+            position:relative;z-index:1;
+            margin-top:1.25rem;
+            padding:1rem 1.08rem;border-radius:18px;
+            border:1px solid rgba(243,201,105,.14);
+            background:
+                radial-gradient(500px circle at 0 0,rgba(243,201,105,.055),transparent 66%),
+                linear-gradient(135deg,rgba(243,201,105,.034),rgba(255,255,255,.006));
             display:flex;align-items:center;justify-content:space-between;gap:1rem;
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
         }
-        .optimization-founder strong{display:block;color:#ffe4a0;font-size:.8rem;margin-bottom:.18rem}
-        .optimization-founder p{margin:0;color:var(--text-muted);font-size:.68rem;line-height:1.5}
+        .optimization-founder strong{display:block;color:#ffe4a0;font-size:.82rem;margin-bottom:.18rem}
+        .optimization-founder p{margin:0;color:var(--text-muted);font-size:.69rem;line-height:1.5}
         .optimization-founder a{
             flex:0 0 auto;text-decoration:none;
-            padding:.55rem .85rem;border-radius:999px;
+            padding:.57rem .88rem;border-radius:999px;
             color:#171005;background:linear-gradient(135deg,#ffe9a7,#f6c94f);
             font-size:.65rem;font-weight:850;
         }
-
         .service-terms{
-            margin-top:1.2rem;
-            display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;
+            position:relative;z-index:1;
+            margin-top:1.25rem;
+            display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;
         }
         .service-term{
-            padding:1rem 1.05rem;border-radius:15px;
+            position:relative;overflow:hidden;
+            padding:1.05rem 1.08rem;border-radius:16px;
             border:1px solid var(--border);
-            background:rgba(255,255,255,.009);
+            background:linear-gradient(145deg,rgba(255,255,255,.012),rgba(255,255,255,.005));
+            transition:transform .35s var(--ease),border-color .3s var(--ease);
         }
+        .service-term:hover{transform:translateY(-3px);border-color:var(--border-hover)}
         .service-term-head{
-            display:flex;align-items:center;gap:.65rem;margin-bottom:.45rem;
+            display:flex;align-items:center;gap:.65rem;margin-bottom:.48rem;
         }
         .service-term-icon{
             width:34px;height:34px;display:grid;place-items:center;flex:0 0 34px;
@@ -2392,9 +2490,8 @@
             background:rgba(255,255,255,.02);font-size:.9rem;
         }
         .service-term h4{font-size:.75rem;letter-spacing:.045em;text-transform:uppercase}
-        .service-term p{margin:0;color:var(--text-secondary);font-size:.68rem;line-height:1.55}
+        .service-term p{margin:0;color:var(--text-secondary);font-size:.68rem;line-height:1.58}
         .service-term strong{color:var(--text)}
-
         /* FAQ */
         .sec-faq{
             background:
@@ -2685,6 +2782,7 @@
     
         @media(max-width:980px){
             .optimization-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+            .optimization-card{min-height:auto}
             .trust-grid{grid-template-columns:1fr}
             .release-status{grid-template-columns:1fr}
         }
@@ -3262,40 +3360,60 @@
             <div class="wrap">
                 <div class="sec-head reveal">
                     <span class="sec-label">Serviços de otimização</span>
-                    <h2 class="sec-title">Escolha o nível de otimização que combina com seu uso</h2>
-                    <p class="sec-desc">Basic, PRO, Gaming e Anual são serviços separados da licença do Limpador Pro. Cada plano possui um período de suporte e um conjunto próprio de ajustes.</p>
+                    <h2 class="sec-title">Quatro níveis de serviço. Uma progressão clara.</h2>
+                    <p class="sec-desc">Cada plano aumenta o nível de otimização, suporte e personalização. Os serviços são separados da licença do Limpador Pro e o atendimento de compra continua pelo Discord.</p>
                 </div>
 
                 <div class="optimization-intro reveal">
-                    <span>ℹ️</span>
-                    <div><strong>Compra assistida pelo Discord.</strong> O checkout direto ainda não está disponível no site. Founders recebem preços especiais em todos os planos abaixo.</div>
+                    <span>✦</span>
+                    <div><strong>Escolha pelo nível de necessidade.</strong> Basic para o essencial, PRO para uma otimização completa, Gaming para um atendimento mais avançado e Anual para a cobertura mais completa durante 1 ano.</div>
                 </div>
 
                 <div class="optimization-grid">
                     <article class="optimization-card basic reveal d1">
-                        <span class="optimization-choice">1 mês</span>
-                        <h3>Basic</h3>
-                        <p class="optimization-duration">O essencial para começar</p>
+                        <div class="optimization-top">
+                            <div class="optimization-tier">
+                                <span class="optimization-choice">1 mês</span>
+                                <h3>Basic</h3>
+                                <p class="optimization-duration">O essencial para começar</p>
+                            </div>
+                            <span class="optimization-level">Essencial</span>
+                        </div>
+
                         <div class="optimization-price"><strong>R$ 14,90</strong></div>
                         <p class="optimization-equivalent">Pagamento único</p>
                         <hr>
+
                         <h4>Inclui</h4>
                         <ul class="optimization-list">
                             <li>Otimização básica</li>
-                            <li>Suporte básico para dúvidas e ajustes simples</li>
+                            <li>Suporte</li>
                             <li>Configuração do emulador</li>
                         </ul>
-                        <div class="optimization-note">Sem reotimização gratuita. Não inclui otimização completa, drivers, painel da placa de vídeo, sensibilidade, configurações personalizadas, novos recursos ou atualizações.</div>
-                        <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Contratar pelo Discord</a>
+
+                        <div class="optimization-support">
+                            <small>Nível de suporte</small>
+                            <strong>Suporte padrão do serviço Basic</strong>
+                        </div>
+
+                        <div class="optimization-note">Ideal para quem busca os ajustes essenciais sem precisar dos recursos avançados dos planos superiores.</div>
+                        <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Contratar Basic</a>
                     </article>
 
                     <article class="optimization-card pro reveal d2">
-                        <span class="optimization-choice">3 meses</span>
-                        <h3>PRO</h3>
-                        <p class="optimization-duration">Mais ajustes e suporte prioritário</p>
+                        <div class="optimization-top">
+                            <div class="optimization-tier">
+                                <span class="optimization-choice">3 meses</span>
+                                <h3>PRO</h3>
+                                <p class="optimization-duration">Otimização completa + suporte prioritário</p>
+                            </div>
+                            <span class="optimization-level">Avançado</span>
+                        </div>
+
                         <div class="optimization-price"><strong>R$ 34,90</strong></div>
                         <p class="optimization-equivalent">aprox. R$ 11,63/mês</p>
                         <hr>
+
                         <h4>Inclui</h4>
                         <ul class="optimization-list">
                             <li>Otimização completa</li>
@@ -3304,58 +3422,92 @@
                             <li>Configuração de sensibilidade</li>
                             <li>Configuração do emulador</li>
                         </ul>
-                        <div class="optimization-note">Sem reotimização gratuita. Não inclui configuração de drivers, configurações personalizadas, acesso a novos recursos ou atualizações.</div>
-                        <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Contratar pelo Discord</a>
+
+                        <div class="optimization-support">
+                            <small>Nível de suporte</small>
+                            <strong>Prioridade acima do suporte oferecido no Basic</strong>
+                        </div>
+
+                        <div class="optimization-note">Indicado para quem quer uma otimização mais completa, com ajustes de vídeo, sensibilidade e emulador.</div>
+                        <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Contratar PRO</a>
                     </article>
 
                     <article class="optimization-card gaming reveal d3">
-                        <span class="optimization-choice">6 meses</span>
-                        <h3>Gaming</h3>
-                        <p class="optimization-duration">Pacote avançado para jogos e emuladores</p>
+                        <div class="optimization-top">
+                            <div class="optimization-tier">
+                                <span class="optimization-choice">6 meses</span>
+                                <h3>Gaming</h3>
+                                <p class="optimization-duration">Atendimento avançado para jogos e emuladores</p>
+                            </div>
+                            <span class="optimization-level">Performance</span>
+                        </div>
+
                         <div class="optimization-price"><strong>R$ 59,90</strong></div>
                         <p class="optimization-equivalent">aprox. R$ 9,98/mês</p>
                         <hr>
+
                         <h4>Inclui</h4>
                         <ul class="optimization-list">
                             <li>Otimização completa</li>
-                            <li>Suporte prioritário + ajustes avançados</li>
-                            <li>Configuração de drivers</li>
-                            <li>Configuração de sensibilidade</li>
-                            <li>Configuração do emulador</li>
+                            <li>Suporte prioritário</li>
                             <li>Configuração do painel da placa de vídeo</li>
+                            <li>Configuração de drivers</li>
+                            <li>Configuração do emulador</li>
+                            <li>Configuração de sensibilidade</li>
                         </ul>
-                        <div class="optimization-note">Reotimizações extras com desconto. Não inclui configurações personalizadas, acesso a novos recursos ou atualizações. Possibilidade de até 2x no cartão conforme atendimento.</div>
-                        <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Contratar pelo Discord</a>
+
+                        <div class="optimization-support">
+                            <small>Nível de suporte</small>
+                            <strong>Prioridade acima do suporte oferecido no PRO</strong>
+                        </div>
+
+                        <div class="optimization-note">Plano voltado a quem deseja um nível maior de acompanhamento e ajustes relacionados a desempenho, drivers, vídeo e emulador.</div>
+                        <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Contratar Gaming</a>
                     </article>
 
                     <article class="optimization-card annual reveal d4">
-                        <span class="optimization-choice">★ Escolha inteligente · 1 ano</span>
-                        <h3>Anual</h3>
-                        <p class="optimization-duration">Cobertura mais completa</p>
+                        <div class="optimization-top">
+                            <div class="optimization-tier">
+                                <span class="optimization-choice">★ Escolha inteligente · 1 ano</span>
+                                <h3>Anual</h3>
+                                <p class="optimization-duration">Cobertura premium por 1 ano</p>
+                            </div>
+                            <span class="optimization-level">Mais completo</span>
+                        </div>
+
                         <div class="optimization-price"><strong>R$ 99,90</strong><span>/ano</span></div>
                         <p class="optimization-equivalent">aprox. R$ 8,33/mês</p>
                         <hr>
-                        <h4>Inclui</h4>
+
+                        <h4>Inclui tudo do Gaming +</h4>
                         <ul class="optimization-list">
                             <li>Otimização completa</li>
+                            <li>Configuração do painel da placa de vídeo</li>
                             <li>Configuração de drivers</li>
                             <li>Configuração do emulador</li>
                             <li>Configuração de sensibilidade</li>
-                            <li>Configuração do painel da placa de vídeo</li>
                             <li>Configurações personalizadas</li>
                             <li>Acesso a novos recursos</li>
                             <li>Atualizações</li>
                             <li>Suporte premium por 1 ano</li>
+                            <li>Reotimizações extras com desconto</li>
+                            <li>Até 3x no cartão de crédito</li>
                         </ul>
-                        <div class="optimization-note">Reotimizações extras com desconto e possibilidade de até 3x no cartão conforme atendimento.</div>
-                        <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Contratar pelo Discord</a>
+
+                        <div class="optimization-support">
+                            <small>Nível de suporte</small>
+                            <strong>Suporte premium, acima do nível oferecido no Gaming, durante 1 ano</strong>
+                        </div>
+
+                        <div class="optimization-note">É o plano com maior cobertura, pensado para quem quer acompanhamento prolongado, recursos adicionais e condições especiais durante todo o período.</div>
+                        <a href="https://discord.gg/urYvqz3s69" target="_blank" rel="noopener noreferrer" class="btn-main">Contratar Anual</a>
                     </article>
                 </div>
 
                 <div class="optimization-founder reveal">
                     <div>
                         <strong>Founder Edition também reduz o preço das otimizações</strong>
-                        <p>Basic R$ 12,90 · PRO R$ 29,90 · Gaming R$ 49,90 · Anual R$ 84,90 para quem possui a Founder Edition.</p>
+                        <p>Basic <b>R$ 12,90</b> · PRO <b>R$ 29,90</b> · Gaming <b>R$ 49,90</b> · Anual <b>R$ 84,90</b> para quem possui a Founder Edition.</p>
                     </div>
                     <a href="#preco">Ver Founder</a>
                 </div>
@@ -3367,7 +3519,7 @@
                     </article>
                     <article class="service-term reveal d2">
                         <div class="service-term-head"><span class="service-term-icon">✓</span><h4>Garantia de desempenho</h4></div>
-                        <p>O serviço inclui otimização e ajustes técnicos com foco em melhorar o desempenho do sistema e/ou emulador conforme o plano contratado. Se não houver melhora significativa, pode ser feita uma nova análise e ajustes adicionais dentro do período de suporte ativo.</p>
+                        <p>O serviço inclui otimização e ajustes técnicos com foco na melhoria de desempenho do sistema e/ou emulador, conforme o plano contratado. Caso não haja melhora significativa, pode ser feita uma nova análise técnica e possíveis ajustes adicionais dentro do período de suporte ativo.</p>
                     </article>
                     <article class="service-term reveal d3">
                         <div class="service-term-head"><span class="service-term-icon">↻</span><h4>Reajustes e suporte</h4></div>
@@ -3625,8 +3777,8 @@
                     </details>
 
                     <details class="faq-item reveal">
-                        <summary>A licença permanente inclui futuras atualizações?</summary>
-                        <div class="faq-answer">Sim. As licenças permanentes incluem as futuras atualizações do Limpador Pro. A Founder Edition também é permanente e adiciona benefícios exclusivos.</div>
+                        <summary>Os planos do Limpador Pro recebem atualizações?</summary>
+                        <div class="faq-answer">Sim. <strong>Todos os planos do Limpador Pro recebem atualizações enquanto o acesso estiver ativo.</strong> Nos planos mensal e anual, as atualizações são incluídas durante o período da assinatura. As licenças permanentes continuam recebendo as futuras atualizações sem mensalidade ou renovação.</div>
                     </details>
 
                     <details class="faq-item reveal">
@@ -3641,7 +3793,7 @@
 
                     <details class="faq-item reveal">
                         <summary>Qual é a diferença entre Basic, PRO, Gaming e Anual?</summary>
-                        <div class="faq-answer">A <strong>Basic</strong> cobre a otimização básica, suporte e emulador. A <strong>PRO</strong> adiciona otimização completa, suporte prioritário, painel da placa de vídeo e sensibilidade. A <strong>Gaming</strong> acrescenta drivers e ajustes avançados, além de reotimizações extras com desconto. A <strong>Anual</strong> reúne a cobertura mais completa, com configurações personalizadas, novos recursos, atualizações e suporte premium por 1 ano.</div>
+                        <div class="faq-answer">A <strong>Basic</strong> inclui otimização básica, suporte e configuração do emulador. A <strong>PRO</strong> inclui otimização completa, suporte prioritário acima do Basic, painel da placa de vídeo, sensibilidade e emulador. A <strong>Gaming</strong> mantém a otimização completa e sobe o nível de prioridade do suporte acima do PRO, adicionando também configuração de drivers. O <strong>Anual</strong> reúne tudo do Gaming com suporte premium por 1 ano, configurações personalizadas, acesso a novos recursos, atualizações, reotimizações extras com desconto e possibilidade de até 3x no cartão de crédito.</div>
                     </details>
 
                     <details class="faq-item reveal">
