@@ -1322,3 +1322,21 @@ body.page-zpack{
 @media(prefers-reduced-motion:reduce){
     .bg-orb,.bg-beam{animation:none!important}
 }
+
+
+/* v8 — changelog atual e leitura detalhada */
+.release-state.previous{--state:var(--blue);--state-rgb:var(--blue-rgb)}
+.changelog-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.changelog-grid .current-release{grid-column:1/-1;--ver:var(--amber);--ver-rgb:var(--amber-rgb);padding:2rem}
+.current-release .version-summary{max-width:940px}
+.version-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem;margin-top:.2rem}
+.version-detail-group{padding:1rem 1.05rem;border-radius:15px;border:1px solid rgba(var(--ver-rgb),.11);background:rgba(255,255,255,.012)}
+.version-detail-group h5{margin:0 0 .45rem;color:var(--ver);font-family:'Space Grotesk',sans-serif;font-size:.79rem;letter-spacing:.025em}
+.version-detail-group .version-list li{font-size:.74rem;padding-top:.42rem;padding-bottom:.42rem}
+.version-detail-wide{grid-column:1/-1}
+@media(max-width:768px){
+  .changelog-grid{grid-template-columns:1fr}
+  .changelog-grid .current-release{grid-column:auto;padding:1.5rem}
+  .version-detail-grid{grid-template-columns:1fr}
+  .version-detail-wide{grid-column:auto}
+}
