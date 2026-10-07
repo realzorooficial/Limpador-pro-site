@@ -29,3 +29,9 @@ Ajustes desta versão:
 - Seção de confiança com o novo texto de suporte e “Apenas um objetivo”.
 - Frase descritiva removida do rodapé.
 - Bloco “Quatro níveis de atendimento” reposicionado para não sobrepor o painel visual do ZPack.
+
+
+## Ajustes v4
+- Planos ZPack com tipografia maior e mais legível.
+- Card Anual corrigido para evitar sobreposição entre os selos.
+- Benefício Founder ampliado com preços antigos/novos, limite de 50 licenças e preço normal do Permanente Individual.
